@@ -9,10 +9,10 @@
 #include <string>
 #include "Utils.hpp"
 
-// This defines a default folder name for all the files created by AirLib so they
+// This defines a default folder name for all the files created by ColosseumLib so they
 // are all gathered nicely in one place in the user's documents folder.
 #ifndef ProductFolderName
-#define ProductFolderName "AirSim"
+#define ProductFolderName "Colosseum"
 #endif
 
 namespace mavlink_utils

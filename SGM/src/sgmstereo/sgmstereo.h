@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 // by Sudipta Sinha
-// adapted for AirSim by Matthias Mueller
+// adapted for Colosseum by Matthias Mueller
 
 #ifndef sgm_stereo_h
 #define sgm_stereo_h

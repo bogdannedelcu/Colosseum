@@ -1,9 +1,9 @@
-# Python client example to get Lidar data from a drone, although this script works for any AirSim-supported vehicle
+# Python client example to get Lidar data from a drone, although this script works for any Colosseum-supported vehicle
 # This script is for Lidar sensors using 'VehicleInertialFrame' as DataFrame under settings.json
 # Sample settings.json used for this script:
 '''
 {
-    "SeeDocsAt": "https://github.com/Microsoft/AirSim/blob/main/docs/settings_json.md",
+    "SeeDocsAt": "https://github.com/CodexLabsLLC/Colosseum/blob/main/docs/settings_json.md",
     "SettingsVersion": 1.2,
 
     "SimMode": "Multirotor",
@@ -51,15 +51,15 @@
 }
 '''
 import setup_path 
-import airsim
+import colosseum
 import numpy as np
 
 class LidarTest:
 
     def __init__(self):
 
-        # connect to the AirSim simulator
-        self.client = airsim.VehicleClient()
+        # connect to the Colosseum simulator
+        self.client = colosseum.VehicleClient()
         self.client.confirmConnection()
         print('Connected!\n')
 
@@ -84,7 +84,7 @@ class LidarTest:
                     f.close()
                 existing_data_cleared = True
         except KeyboardInterrupt:
-            airsim.wait_key('Press any key to stop running this script')
+            colosseum.wait_key('Press any key to stop running this script')
             print("Done!\n")
 
 # main

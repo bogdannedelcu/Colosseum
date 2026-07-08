@@ -14,19 +14,19 @@ make -j$(nproc)
 
 cd ..
 
-mkdir -p AirLib/lib/x64/$folder_name
-mkdir -p AirLib/deps/rpclib/lib
-mkdir -p AirLib/deps/MavLinkCom/lib
-cp $build_dir/output/lib/libAirLib.a AirLib/lib
-cp $build_dir/output/lib/libMavLinkCom.a AirLib/deps/MavLinkCom/lib
-cp $build_dir/output/lib/librpc.a AirLib/deps/rpclib/lib/librpc.a
+mkdir -p ColosseumLib/lib/x64/$folder_name
+mkdir -p ColosseumLib/deps/rpclib/lib
+mkdir -p ColosseumLib/deps/MavLinkCom/lib
+cp $build_dir/output/lib/libColosseumLib.a ColosseumLib/lib
+cp $build_dir/output/lib/libMavLinkCom.a ColosseumLib/deps/MavLinkCom/lib
+cp $build_dir/output/lib/librpc.a ColosseumLib/deps/rpclib/lib/librpc.a
 
-# Update AirLib/lib, AirLib/deps, Plugins folders with new binaries
-rsync -a --delete build/output/lib/ AirLib/lib/x64/$folder_name
-rsync -a --delete external/rpclib/$RPC_VERSION_FOLDER/include AirLib/deps/rpclib
-rsync -a --delete MavLinkCom/include AirLib/deps/MavLinkCom
-rsync -a --delete AirLib Unreal/Plugins/AirSim/Source
-rm -rf Unreal/Plugins/AirSim/Source/AirLib/src
+# Update ColosseumLib/lib, ColosseumLib/deps, Plugins folders with new binaries
+rsync -a --delete build/output/lib/ ColosseumLib/lib/x64/$folder_name
+rsync -a --delete external/rpclib/$RPC_VERSION_FOLDER/include ColosseumLib/deps/rpclib
+rsync -a --delete MavLinkCom/include ColosseumLib/deps/MavLinkCom
+rsync -a --delete ColosseumLib Unreal/Plugins/Colosseum/Source
+rm -rf Unreal/Plugins/Colosseum/Source/ColosseumLib/src
 
 # Update all environment projects 
 for d in ~/Documents/Unreal\ Projects/*; do
@@ -43,8 +43,8 @@ for d in ~/Documents/Unreal\ Projects/*; do
     # Ensure Plugins directory exists
     mkdir -p "$d/Plugins"
 
-    # Sync AirSim plugin into Plugins directory
-    rsync -a --delete Unreal/Plugins/AirSim/ "$d/Plugins/AirSim/"
+    # Sync Colosseum plugin into Plugins directory
+    rsync -a --delete Unreal/Plugins/Colosseum/ "$d/Plugins/Colosseum/"
 done
 
 echo ""

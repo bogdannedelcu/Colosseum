@@ -4,7 +4,7 @@ import time
 import sys
 import os
 import random
-from airsim import *
+from colosseum import *
 
 def radiance(absoluteTemperature, emissivity, dx=0.01, response=None):
     """
@@ -121,7 +121,7 @@ def set_segmentation_ids(segIdDict, tempEmissivityNew, client):
             numpy array containing object names and corresponding simulated
             thermal digital count
         client
-            connection to AirSim (e.g., client = MultirotorClient() for UAV)
+            connection to Colosseum (e.g., client = MultirotorClient() for UAV)
 
     author::
         Elizabeth Bondi
@@ -149,7 +149,7 @@ def set_segmentation_ids(segIdDict, tempEmissivityNew, client):
 
 if __name__ == '__main__':
 
-    #Connect to AirSim, UAV mode.
+    #Connect to Colosseum, UAV mode.
     client = MultirotorClient()
     client.confirmConnection()
     
@@ -208,5 +208,5 @@ if __name__ == '__main__':
     tempEmissivityNew = get_new_temp_emiss_from_radiance(tempEmissivity, 
                                                          response)
 
-    #Set IDs in AirSim environment.
+    #Set IDs in Colosseum environment.
     set_segmentation_ids(segIdDict, tempEmissivityNew, client)

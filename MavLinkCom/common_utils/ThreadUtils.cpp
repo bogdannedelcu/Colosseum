@@ -47,7 +47,7 @@ static SetThreadDescriptionFunction setThreadDescriptionFunction = nullptr;
 bool CurrentThread::setThreadName(const std::string& name)
 {
 #ifdef _WIN32
-    // unfortunately this is only available on Windows 10, and AirSim is not limited to that.
+    // unfortunately this is only available on Windows 10, and Colosseum is not limited to that.
     if (setThreadDescriptionFunction == nullptr) {
         HINSTANCE hGetProcIDDLL = LoadLibrary(L"Kernel32");
         FARPROC func = GetProcAddress(hGetProcIDDLL, "SetThreadDescription");

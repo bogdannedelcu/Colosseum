@@ -25,14 +25,14 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="airsim\client.py" />
-    <Compile Include="airsim\types.py">
+    <Compile Include="colosseum\client.py" />
+    <Compile Include="colosseum\types.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="airsim\utils.py">
+    <Compile Include="colosseum\utils.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="airsim\__init__.py">
+    <Compile Include="colosseum\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="car\multi_agent_car.py">
@@ -73,7 +73,7 @@
     <Compile Include="multirotor\navigate.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="airsim\pfm.py" />
+    <Compile Include="colosseum\pfm.py" />
     <Compile Include="car\car_collision.py" />
     <Compile Include="car\car_monitor.py" />
     <Compile Include="car\car_stress_test.py" />
@@ -104,7 +104,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="airsim\" />
+    <Folder Include="colosseum\" />
     <Folder Include="car\" />
     <Folder Include="computer_vision\" />
     <Folder Include="multirotor\" />

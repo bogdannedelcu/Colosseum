@@ -105,7 +105,7 @@ nav:
       - "MavLink MoCap": 'mavlinkcom_mocap.md'
     - "ArduPilot":
       - "ArduPilot SITL Setup": "https://ardupilot.org/dev/docs/building-the-code.html"
-      - "AirSim & ArduPilot": "https://ardupilot.org/dev/docs/sitl-with-AirSim.html"
+      - "Colosseum & ArduPilot": "https://ardupilot.org/dev/docs/sitl-with-Colosseum.html"
   - "Upgrading":
     - "Upgrading Unreal": 'unreal_upgrade.md'
     - "Upgrading APIs": 'upgrade_apis.md'

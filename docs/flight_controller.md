@@ -14,7 +14,7 @@ In "software-in-loop" simulation (SITL or SIL) mode the firmware runs in your co
 
 ## What Flight Controllers are Supported?
 
-Colosseum has built-in flight controller called [simple_flight](simple_flight.md) and it is used by default. You don't need to do anything to use or configure it. Colosseum also supports [PX4](px4_setup.md) & [ArduPilot](https://ardupilot.org/dev/docs/sitl-with-airsim.html) as external flight controllers for advanced users.
+Colosseum has built-in flight controller called [simple_flight](simple_flight.md) and it is used by default. You don't need to do anything to use or configure it. Colosseum also supports [PX4](px4_setup.md) & [ArduPilot](https://ardupilot.org/dev/docs/sitl-with-colosseum.html) as external flight controllers for advanced users.
 
 ## Using Colosseum Without Flight Controller
 

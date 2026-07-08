@@ -5,23 +5,23 @@ call :setESC
 
 CALL :printHeader, "Removing folders"
 call :removeFolder, "external"
-call :removeFolder, "AirLib\deps"
-call :removeFolder, "AirLib\temp"
-call :removeFolder, "AirLib\lib"
+call :removeFolder, "ColosseumLib\deps"
+call :removeFolder, "ColosseumLib\temp"
+call :removeFolder, "ColosseumLib\lib"
 ECHO(   
 
 CALL :printHeader, "Cleaning visual studio solutions: Configuration = Debug"
-msbuild /p:Platform=x64 /p:Configuration=Debug AirSim.sln /t:Clean
+msbuild /p:Platform=x64 /p:Configuration=Debug Colosseum.sln /t:Clean
 if ERRORLEVEL 1 goto :buildfailed
 ECHO(   
 
 CALL :printHeader, "Cleaning visual studio solutions: Configuration = Release"
-msbuild /p:Platform=x64 /p:Configuration=Release AirSim.sln /t:Clean
+msbuild /p:Platform=x64 /p:Configuration=Release Colosseum.sln /t:Clean
 if ERRORLEVEL 1 goto :buildfailed
 ECHO(   
 
 CALL :printHeader, "Cleaning visual studio solutions: Configuration = RelWithDebInfo"
-msbuild /p:Platform=x64 /p:Configuration=RelWithDebInfo AirSim.sln /t:Clean
+msbuild /p:Platform=x64 /p:Configuration=RelWithDebInfo Colosseum.sln /t:Clean
 if ERRORLEVEL 1 goto :buildfailed
 ECHO( 
 

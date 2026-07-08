@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 project(GazeboDrone)
 
-set(AIRSIM_ROOT ..)
+set(COLOSSEUM_ROOT ..)
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 11)
@@ -12,9 +12,9 @@ find_package(gazebo REQUIRED)
 
 include_directories(
     ${GAZEBO_INCLUDE_DIRS}
-    ${AIRSIM_ROOT}/AirLib/deps/eigen3
-    ${AIRSIM_ROOT}/AirLib/deps/rpclib/include
-    ${AIRSIM_ROOT}/AirLib/include
+    ${COLOSSEUM_ROOT}/ColosseumLib/deps/eigen3
+    ${COLOSSEUM_ROOT}/ColosseumLib/deps/rpclib/include
+    ${COLOSSEUM_ROOT}/ColosseumLib/include
 )
 
 link_directories(
@@ -30,7 +30,7 @@ target_link_libraries(
     ${PROJECT_NAME} 
     ${GAZEBO_LIBRARIES}
     pthread
-    AirLib
+    ColosseumLib
     rpc
 )
 

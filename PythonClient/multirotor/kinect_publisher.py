@@ -3,7 +3,7 @@ from sensor_msgs.msg import Image,CameraInfo
 from tf2_msgs.msg import TFMessage
 from geometry_msgs.msg import TransformStamped
 from cv_bridge import CvBridge
-import airsim
+import colosseum
 import cv2
 import numpy as np
 
@@ -181,11 +181,11 @@ class KinectPublisher:
 
 
 if __name__ == "__main__":
-    client = airsim.MultirotorClient()
+    client = colosseum.MultirotorClient()
     client.confirmConnection()
     client.enableApiControl(True)
     client.armDisarm(True)
-    rospy.init_node('airsim_publisher', anonymous=True)
+    rospy.init_node('colosseum_publisher', anonymous=True)
     publisher_d = rospy.Publisher('/camera/depth_registered/image_raw', Image, queue_size=1)
     publisher_rgb = rospy.Publisher('/camera/rgb/image_rect_color', Image, queue_size=1)
     publisher_info = rospy.Publisher('/camera/rgb/camera_info', CameraInfo, queue_size=1)
@@ -194,8 +194,8 @@ if __name__ == "__main__":
     pub = KinectPublisher()
 
     while not rospy.is_shutdown():
-        responses = client.simGetImages([airsim.ImageRequest(0, airsim.ImageType.DepthPlanar, True, False),
-                                         airsim.ImageRequest(0, airsim.ImageType.Scene, False, False)])
+        responses = client.simGetImages([colosseum.ImageRequest(0, colosseum.ImageType.DepthPlanar, True, False),
+                                         colosseum.ImageRequest(0, colosseum.ImageType.Scene, False, False)])
         img_depth = pub.getDepthImage(responses[0])
         img_rgb = pub.getRGBImage(responses[1])
 

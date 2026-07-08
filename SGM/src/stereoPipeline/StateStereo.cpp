@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 // by Sudipta Sinha
-// adapted for AirSim by Matthias Mueller
+// adapted for Colosseum by Matthias Mueller
 
 #include "StateStereo.h"
 #include "sgmstereo.h"
@@ -61,7 +61,7 @@ void CStateStereo::CleanUp()
     }
 }
 
-void CStateStereo::ProcessFrameAirSim(int frameCounter, float& dtime, const std::vector<uint8_t>& left_image, const std::vector<uint8_t>& right_image)
+void CStateStereo::ProcessFrameColosseum(int frameCounter, float& dtime, const std::vector<uint8_t>& left_image, const std::vector<uint8_t>& right_image)
 {
     unsigned char *iL, *iR;
 

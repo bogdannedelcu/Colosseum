@@ -1,12 +1,12 @@
 # In settings.json first activate computer vision mode: 
-# https://github.com/Microsoft/AirSim/blob/main/docs/image_apis.md#computer-vision-mode
+# https://github.com/CodexLabsLLC/Colosseum/blob/main/docs/image_apis.md#computer-vision-mode
 
 import setup_path 
-import airsim
+import colosseum
 
 import pprint
 
-client = airsim.VehicleClient()
+client = colosseum.VehicleClient()
 client.confirmConnection()
 
 # objects can be named in two ways:
@@ -41,18 +41,18 @@ print("Non-Existent - Position: %s, Orientation: %s" % (pprint.pformat(pose3.pos
 #------------------------------------ Set new pose ------------------------------------------------
 
 # here we move with teleport enabled so collisions are ignored
-pose1.position = pose1.position + airsim.Vector3r(-2, -2, -2)
+pose1.position = pose1.position + colosseum.Vector3r(-2, -2, -2)
 success = client.simSetObjectPose("OrangeBall", pose1, True);
-airsim.wait_key("OrangeBall moved. Success: %i" % (success))
+colosseum.wait_key("OrangeBall moved. Success: %i" % (success))
 
 # here we move with teleport enabled so collisions are not ignored
-pose2.position = pose2.position + airsim.Vector3r(3, 3, -2)
+pose2.position = pose2.position + colosseum.Vector3r(3, 3, -2)
 success = client.simSetObjectPose("PulsingCone", pose2, False);
-airsim.wait_key("PulsingCone moved. Success: %i" % (success))
+colosseum.wait_key("PulsingCone moved. Success: %i" % (success))
 
 # move non-existent object
 success = client.simSetObjectPose("Non-Existent", pose2); # should return nan pose
-airsim.wait_key("Non-Existent moved. Success: %i" % (success))
+colosseum.wait_key("Non-Existent moved. Success: %i" % (success))
 
 #------------------------------------ Get new pose ------------------------------------------------
 

@@ -1,16 +1,16 @@
 import setup_path 
-import airsim
+import colosseum
 import cv2
 import numpy as np 
 import pprint
 
-# connect to the AirSim simulator
-client = airsim.VehicleClient()
+# connect to the Colosseum simulator
+client = colosseum.VehicleClient()
 client.confirmConnection()
 
 # set camera name and image type to request images and detections
 camera_name = "0"
-image_type = airsim.ImageType.Scene
+image_type = colosseum.ImageType.Scene
 
 # set detection radius in [cm]
 client.simSetDetectionFilterRadius(camera_name, image_type, 200 * 100) 
@@ -22,7 +22,7 @@ while True:
     rawImage = client.simGetImage(camera_name, image_type)
     if not rawImage:
         continue
-    png = cv2.imdecode(airsim.string_to_uint8_array(rawImage), cv2.IMREAD_UNCHANGED)
+    png = cv2.imdecode(colosseum.string_to_uint8_array(rawImage), cv2.IMREAD_UNCHANGED)
     cylinders = client.simGetDetections(camera_name, image_type)
     if cylinders:
         for cylinder in cylinders:
@@ -33,7 +33,7 @@ while True:
             cv2.putText(png, cylinder.name, (int(cylinder.box2D.min.x_val),int(cylinder.box2D.min.y_val - 10)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (36,255,12))
 
     
-    cv2.imshow("AirSim", png)
+    cv2.imshow("Colosseum", png)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
     elif cv2.waitKey(1) & 0xFF == ord('c'):

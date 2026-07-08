@@ -1,11 +1,11 @@
 import setup_path 
-import airsim
+import colosseum
 
 # this script moves the drone to a location, then rests it thousands of time
 # purpose of this script is to stress test reset API
 
-# connect to the AirSim simulator 
-client = airsim.MultirotorClient()
+# connect to the Colosseum simulator 
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)

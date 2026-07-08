@@ -1,20 +1,20 @@
 variables:
-  container_linux: airsimci.azurecr.io/ue4p25p1/ubuntu18:debugeditor_fulldebugoff
+  container_linux: colosseumci.azurecr.io/ue4p25p1/ubuntu18:debugeditor_fulldebugoff
   ue4_root_linux: /home/ue4/ue-4.25.1-linux-debugeditor
-  container_win: airsimci.azurecr.io/ue4p27p2/win1809:pipe
+  container_win: colosseumci.azurecr.io/ue4p27p2/win1809:pipe
   ue4_root_win: C:\ue-4.27.2-win
 
 stages:
-  - stage: AirSimCI
+  - stage: ColosseumCI
     jobs:
       - job: Ubuntu_1804
         pool:
-          name: 'AirSim'
+          name: 'Colosseum'
           demands:
             - Spec -equals Ubuntu_18.04
         container:
           image: $(container_linux)
-          endpoint: airsimci_acr_connection
+          endpoint: colosseumci_acr_connection
         variables:
           ue4_root: $(ue4_root_linux)
         workspace:
@@ -26,16 +26,16 @@ stages:
               ./setup.sh
             displayName: Install system dependencies
 
-          # Build AirLib
+          # Build ColosseumLib
           - script: |
               ./build.sh
-            displayName: Build AirLib
+            displayName: Build ColosseumLib
 
           # Build UE Blocks project
           - script: |
               ./update_from_git.sh
             workingDirectory: Unreal/Environments/BlocksV2
-            displayName: Copy AirLib to Blocks (update_from_git.sh)
+            displayName: Copy ColosseumLib to Blocks (update_from_git.sh)
             
           # Build Blocks
           - script: |
@@ -73,12 +73,12 @@ stages:
 
       - job: Windows_VS2019
         pool:
-          name: 'AirSim'
+          name: 'Colosseum'
           demands:
             - Spec -equals WinServer2019_VS2019_Datacenter
         container:
           image: $(container_win)
-          endpoint: airsimci_acr_connection
+          endpoint: colosseumci_acr_connection
         variables:
           ue4_root: $(ue4_root_win)
         workspace:
@@ -87,17 +87,17 @@ stages:
         steps:
           - checkout: self
 
-          # Build AirLib
+          # Build ColosseumLib
           - script: |
               call "C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
               call .\build.cmd
-            displayName: Build AirLib
+            displayName: Build ColosseumLib
 
           - script: |
               call "C:\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
               call .\update_from_git_ci.bat
             workingDirectory: Unreal/Environments/BlocksV2
-            displayName: Copy AirLib to Blocks (update_from_git_ci.bat)
+            displayName: Copy ColosseumLib to Blocks (update_from_git_ci.bat)
 
           # Build Blocks
           - script: |

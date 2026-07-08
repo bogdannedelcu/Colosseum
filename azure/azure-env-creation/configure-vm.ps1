@@ -1,8 +1,8 @@
-$airSimInstallPath = "C:\AirSim\"
-$airSimBinaryZipUrl =  "https://github.com/microsoft/AirSim/releases/download/v1.3.1-windows/Blocks.zip"
-$airSimBinaryZipFilename = "Blocks.zip"
-$airSimBinaryPath = $airSimInstallPath + "blocks\blocks\binaries\win64\blocks.exe"
-$airSimBinaryName = "Blocks"
+$colosseumInstallPath = "C:\Colosseum\"
+$colosseumBinaryZipUrl =  "https://github.com/CodexLabsLLC/Colosseum/releases/download/v1.3.1-windows/Blocks.zip"
+$colosseumBinaryZipFilename = "Blocks.zip"
+$colosseumBinaryPath = $colosseumInstallPath + "blocks\blocks\binaries\win64\blocks.exe"
+$colosseumBinaryName = "Blocks"
 
 $webClient = new-object System.Net.WebClient
 
@@ -25,13 +25,13 @@ choco install vcredist-all
 choco install directx
 
 #Create new folder & set as default directory
-New-Item -ItemType directory -Path $airSimInstallPath
-cd $airSimInstallPath
+New-Item -ItemType directory -Path $colosseumInstallPath
+cd $colosseumInstallPath
 
-# Get AirSim
-$webClient.DownloadFile($airSimBinaryZipUrl, $airSimInstallPath + $airSimBinaryZipFilename)
-# Unzip AirSim
-Expand-Archive $airSimBinaryZipFilename
+# Get Colosseum
+$webClient.DownloadFile($colosseumBinaryZipUrl, $colosseumInstallPath + $colosseumBinaryZipFilename)
+# Unzip Colosseum
+Expand-Archive $colosseumBinaryZipFilename
 
-# Firewall rule for AirSim
-New-NetFirewallRule -DisplayName $airSimBinaryName -Direction Inbound -Program $airSimBinaryPath -Action Allow
+# Firewall rule for Colosseum
+New-NetFirewallRule -DisplayName $colosseumBinaryName -Direction Inbound -Program $colosseumBinaryPath -Action Allow

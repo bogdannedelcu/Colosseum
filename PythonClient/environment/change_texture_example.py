@@ -1,6 +1,6 @@
-import airsim
+import colosseum
 
-c = airsim.MultirotorClient()
+c = colosseum.MultirotorClient()
 c.confirmConnection()
 
 c.simSetObjectMaterialFromTexture("OrangeBall", "sample_texture.jpg")

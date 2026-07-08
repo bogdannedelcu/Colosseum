@@ -1,13 +1,13 @@
 import setup_path 
-import airsim
+import colosseum
 
 import time
 
-# connect to the AirSim simulator 
-client = airsim.CarClient()
+# connect to the Colosseum simulator 
+client = colosseum.CarClient()
 client.confirmConnection()
 client.enableApiControl(True)
-car_controls = airsim.CarControls()
+car_controls = colosseum.CarControls()
 
 for idx in range(3000):
     # get state of the car

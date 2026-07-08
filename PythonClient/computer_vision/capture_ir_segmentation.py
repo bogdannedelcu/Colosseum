@@ -5,7 +5,7 @@ import sys
 import os
 import random
 import glob
-from airsim import *
+from colosseum import *
 
 def rotation_matrix_from_angles(pry):
     pitch = pry[0]
@@ -94,13 +94,13 @@ def get_image(x, y, z, pitch, roll, yaw, client):
         yaw
             angle (in radians)
         client
-            connection to AirSim (e.g., client = MultirotorClient() for UAV)
+            connection to Colosseum (e.g., client = MultirotorClient() for UAV)
 
     returns::
         position
-            AirSim position vector (access values with x_val, y_val, z_val)
+            Colosseum position vector (access values with x_val, y_val, z_val)
         angle
-            AirSim quaternion ("angles")
+            Colosseum quaternion ("angles")
         im
             segmentation or IR image, depending upon palette in use (3 bands)
         imScene
@@ -154,9 +154,9 @@ def main(client,
 
     inputs::
         client
-            connection to AirSim (e.g., client = MultirotorClient() for UAV)
+            connection to Colosseum (e.g., client = MultirotorClient() for UAV)
         objectList
-            list of tag names within the AirSim environment, corresponding to 
+            list of tag names within the Colosseum environment, corresponding to 
             objects to follow (add tags by clicking on object, going to 
             Details, Actor, and Tags, then add component)
         pitch
@@ -185,7 +185,7 @@ def main(client,
 
         #Capture images for a certain amount of time in seconds (half hour now)
         while elapsedTime < 1800:
-            #Capture image - pose.position x_val access may change w/ AirSim
+            #Capture image - pose.position x_val access may change w/ Colosseum
             #version (pose.position.x_val new, pose.position[b'x_val'] old)
             vector, angle, ir, scene = get_image(pose.position.x_val, 
                                                  pose.position.y_val, 
@@ -220,7 +220,7 @@ def main(client,
 
 if __name__ == '__main__':
     
-    #Connect to AirSim, UAV mode.
+    #Connect to Colosseum, UAV mode.
     client = MultirotorClient()
     client.confirmConnection()
 

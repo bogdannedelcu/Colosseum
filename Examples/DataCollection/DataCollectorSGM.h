@@ -50,7 +50,7 @@ public:
 
     int generate(int num_samples)
     {
-        msr::airlib::MultirotorRpcLibClient client;
+        colosseum::MultirotorRpcLibClient client;
         client.confirmConnection();
         client.reset();
 
@@ -64,7 +64,7 @@ public:
         w = response_init.at(0).width;
         h = response_init.at(0).height;
 
-        msr::airlib::ClockBase* clock = msr::airlib::ClockFactory::get();
+        colosseum::ClockBase* clock = colosseum::ClockFactory::get();
         RandomPointPoseGeneratorNoRoll pose_generator(static_cast<int>(clock->nowNanos()));
         std::fstream file_list(FileSystem::combine(storage_dir_, "files_list.txt"),
                                std::ios::out | std::ios::in | std::ios_base::app);
@@ -126,14 +126,14 @@ public:
 private:
     typedef common_utils::FileSystem FileSystem;
     typedef common_utils::Utils Utils;
-    typedef msr::airlib::VectorMath VectorMath;
+    typedef colosseum::VectorMath VectorMath;
     typedef common_utils::RandomGeneratorF RandomGeneratorF;
-    typedef msr::airlib::Vector3r Vector3r;
-    typedef msr::airlib::Quaternionr Quaternionr;
-    typedef msr::airlib::Pose Pose;
-    typedef msr::airlib::ImageCaptureBase::ImageRequest ImageRequest;
-    typedef msr::airlib::ImageCaptureBase::ImageResponse ImageResponse;
-    typedef msr::airlib::ImageCaptureBase::ImageType ImageType;
+    typedef colosseum::Vector3r Vector3r;
+    typedef colosseum::Quaternionr Quaternionr;
+    typedef colosseum::Pose Pose;
+    typedef colosseum::ImageCaptureBase::ImageRequest ImageRequest;
+    typedef colosseum::ImageCaptureBase::ImageResponse ImageResponse;
+    typedef colosseum::ImageCaptureBase::ImageType ImageType;
 
     std::string storage_dir_;
     bool spawn_ue4 = false;
@@ -148,7 +148,7 @@ private:
     struct ImagesResult
     {
         std::vector<ImageResponse> response;
-        msr::airlib::TTimeDelta render_time;
+        colosseum::TTimeDelta render_time;
         std::string storage_dir_;
         std::fstream* file_list;
         int sample;
@@ -174,7 +174,7 @@ private:
     void processImages(ImagesResult* result)
     {
 
-        msr::airlib::ClockBase* clock = msr::airlib::ClockFactory::get();
+        colosseum::ClockBase* clock = colosseum::ClockFactory::get();
 
         auto process_time = clock->nowNanos();
 
@@ -210,7 +210,7 @@ private:
         }
 
         //Get SGM disparity and confidence
-        p_state->ProcessFrameAirSim(result->sample, dtime, left_img, right_img);
+        p_state->ProcessFrameColosseum(result->sample, dtime, left_img, right_img);
 
         //Get adjust SGM disparity and compute depth
         for (int idx = 0; idx < (h * w); idx++) {

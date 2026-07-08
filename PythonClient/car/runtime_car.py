@@ -1,17 +1,17 @@
 import setup_path
-import airsim
+import colosseum
 import time
 import sys
 import threading
 
 
 def runSingleCar(id: int):
-    client = airsim.CarClient()
+    client = colosseum.CarClient()
     client.confirmConnection()
 
     vehicle_name = f"Car_{id}"
-    pose = airsim.Pose(airsim.Vector3r(0, 7*id, 0),
-                       airsim.Quaternionr(0, 0, 0, 0))
+    pose = colosseum.Pose(colosseum.Vector3r(0, 7*id, 0),
+                       colosseum.Quaternionr(0, 0, 0, 0))
 
     print(f"Creating {vehicle_name}")
     success = client.simAddVehicle(vehicle_name, "Physxcar", pose)
@@ -27,7 +27,7 @@ def runSingleCar(id: int):
     print(f"Driving {vehicle_name} for a few secs...")
     client.enableApiControl(True, vehicle_name)
 
-    car_controls = airsim.CarControls()
+    car_controls = colosseum.CarControls()
 
     # go forward
     car_controls.throttle = 0.5

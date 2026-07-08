@@ -10,7 +10,7 @@ about: Create a report to help us improve
 
 ## Bug report 
 <!-- If any section does not apply, replace its contents with "N/A". -->
-- AirSim Version/#commit:
+- Colosseum Version/#commit:
 - UE/Unity version:
 - autopilot version:
 - OS Version:

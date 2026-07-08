@@ -12,19 +12,19 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-ins
 
 RUN python3 -m pip install --upgrade pip && \
     pip3 install setuptools wheel && \
-    pip3 install airsim
+    pip3 install colosseum
 
-RUN adduser --force-badname --disabled-password --gecos '' --shell /bin/bash airsim_user && \
+RUN adduser --force-badname --disabled-password --gecos '' --shell /bin/bash colosseum_user && \
 	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-	adduser airsim_user sudo && \
-	adduser airsim_user audio && \
-	adduser airsim_user video
+	adduser colosseum_user sudo && \
+	adduser colosseum_user audio && \
+	adduser colosseum_user video
 
-USER airsim_user
-WORKDIR /home/airsim_user
+USER colosseum_user
+WORKDIR /home/colosseum_user
 
-RUN mkdir -p /home/airsim_user/Documents/AirSim
-COPY settings.json /home/airsim_user/Documents/AirSim
-#ADD Documents /home/airsim_user/Documents
+RUN mkdir -p /home/colosseum_user/Documents/Colosseum
+COPY settings.json /home/colosseum_user/Documents/Colosseum
+#ADD Documents /home/colosseum_user/Documents
 
-RUN sudo chown -R airsim_user /home/airsim_user
+RUN sudo chown -R colosseum_user /home/colosseum_user

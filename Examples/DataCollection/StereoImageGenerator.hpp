@@ -30,10 +30,10 @@ public:
 
     int generate(int num_samples)
     {
-        msr::airlib::MultirotorRpcLibClient client;
+        colosseum::MultirotorRpcLibClient client;
         client.confirmConnection();
 
-        msr::airlib::ClockBase* clock = msr::airlib::ClockFactory::get();
+        colosseum::ClockBase* clock = colosseum::ClockFactory::get();
         RandomPointPoseGenerator pose_generator(static_cast<int>(clock->nowNanos()));
         std::fstream file_list(FileSystem::combine(storage_dir_, "files_list.txt"),
                                std::ios::out | std::ios::in | std::ios_base::app);
@@ -103,14 +103,14 @@ public:
 private:
     typedef common_utils::FileSystem FileSystem;
     typedef common_utils::Utils Utils;
-    typedef msr::airlib::VectorMath VectorMath;
+    typedef colosseum::VectorMath VectorMath;
     typedef common_utils::RandomGeneratorF RandomGeneratorF;
-    typedef msr::airlib::Vector3r Vector3r;
-    typedef msr::airlib::Quaternionr Quaternionr;
-    typedef msr::airlib::Pose Pose;
-    typedef msr::airlib::ImageCaptureBase::ImageRequest ImageRequest;
-    typedef msr::airlib::ImageCaptureBase::ImageResponse ImageResponse;
-    typedef msr::airlib::ImageCaptureBase::ImageType ImageType;
+    typedef colosseum::Vector3r Vector3r;
+    typedef colosseum::Quaternionr Quaternionr;
+    typedef colosseum::Pose Pose;
+    typedef colosseum::ImageCaptureBase::ImageRequest ImageRequest;
+    typedef colosseum::ImageCaptureBase::ImageResponse ImageResponse;
+    typedef colosseum::ImageCaptureBase::ImageType ImageType;
 
     std::string storage_dir_;
     bool spawn_ue4 = false;
@@ -119,7 +119,7 @@ private:
     struct ImagesResult
     {
         std::vector<ImageResponse> response;
-        msr::airlib::TTimeDelta render_time;
+        colosseum::TTimeDelta render_time;
         std::string storage_dir_;
         std::fstream* file_list;
         int sample;
@@ -145,7 +145,7 @@ private:
     static void processImages(common_utils::ProsumerQueue<ImagesResult>* results)
     {
         while (!results->getIsDone()) {
-            msr::airlib::ClockBase* clock = msr::airlib::ClockFactory::get();
+            colosseum::ClockBase* clock = colosseum::ClockFactory::get();
 
             ImagesResult result;
             if (!results->tryPop(result)) {

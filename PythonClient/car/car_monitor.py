@@ -1,13 +1,13 @@
 import setup_path 
-import airsim
+import colosseum
 
 import cv2 #conda install opencv
 import time
 
-# connect to the AirSim simulator 
-client = airsim.CarClient()
+# connect to the Colosseum simulator 
+client = colosseum.CarClient()
 client.confirmConnection()
-car_controls = airsim.CarControls()
+car_controls = colosseum.CarControls()
 
 start = time.time()
 

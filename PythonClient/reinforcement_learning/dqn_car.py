@@ -9,12 +9,12 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.callbacks import EvalCallback
 
-# Create a DummyVecEnv for main airsim gym env
+# Create a DummyVecEnv for main colosseum gym env
 env = DummyVecEnv(
     [
         lambda: Monitor(
             gym.make(
-                "airgym:airsim-car-sample-v0",
+                "airgym:colosseum-car-sample-v0",
                 ip_address="127.0.0.1",
                 image_shape=(84, 84, 1),
             )
@@ -60,8 +60,8 @@ kwargs["callback"] = callbacks
 
 # Train for a certain number of timesteps
 model.learn(
-    total_timesteps=5e5, tb_log_name="dqn_airsim_car_run_" + str(time.time()), **kwargs
+    total_timesteps=5e5, tb_log_name="dqn_colosseum_car_run_" + str(time.time()), **kwargs
 )
 
 # Save policy weights
-model.save("dqn_airsim_car_policy")
+model.save("dqn_colosseum_car_policy")

@@ -9,7 +9,7 @@ set -x
 
 ./clean.sh
 
-rsync -a  --exclude 'temp' --delete ../../Plugins/AirSim Plugins/
-rsync -a  --exclude 'temp' --delete ../../../AirLib Plugins/AirSim/Source/
+rsync -a  --exclude 'temp' --delete ../../Plugins/Colosseum Plugins/
+rsync -a  --exclude 'temp' --delete ../../../ColosseumLib Plugins/Colosseum/Source/
 
 popd >/dev/null

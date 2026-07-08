@@ -4,25 +4,25 @@ setlocal
 set ROOT_DIR=%~dp0
 
 REM should rebuild?
-set RebuildAirSim=%1
+set RebuildColosseum=%1
 REM root folder containing all Unreal projects you want to build
 set UnrealProjsPath=%2
 REM Output folder where the builds would be stored
 set OutputPath=%3
-REM folder containing AirSim repo
-set AirSimPath=%4
+REM folder containing Colosseum repo
+set ColosseumPath=%4
 REM path for UE toolset
 set ToolPath=%5
 
 REM set defaults if ars are not supplied
 if "%UnrealProjsPath%"=="" set "UnrealProjsPath=D:\vso\msresearch\Theseus"
-if "%AirSimPath%"=="" set "AirSimPath=C:\GitHubSrc\AirSim"
+if "%ColosseumPath%"=="" set "ColosseumPath=C:\GitHubSrc\Colosseum"
 if "%OutputPath%"=="" set "OutputPath=%ROOT_DIR%build"
-if "%RebuildAirSim%"=="" set "RebuildAirSim=true"
+if "%RebuildColosseum%"=="" set "RebuildColosseum=true"
 
-REM re-build airsim
-if "%RebuildAirSim%"=="true" (
-    cd /D "%AirSimPath%"
+REM re-build colosseum
+if "%RebuildColosseum%"=="true" (
+    cd /D "%ColosseumPath%"
     CALL clean
     CALL build
     if ERRORLEVEL 1 goto :failed
@@ -33,7 +33,7 @@ IF NOT EXIST "%OutputPath%" mkdir "%OutputPath%"
 
 call:doOneProject "TalkingHeads"
 call:doOneProject "ZhangJiaJie"
-call:doOneProject "AirSimEnvNH"
+call:doOneProject "ColosseumEnvNH"
 call:doOneProject "SimpleMaze"
 call:doOneProject "LandscapeMountains"
 call:doOneProject "Africa_001" "Africa"
@@ -55,9 +55,9 @@ if "%~2"=="" (
 )
 if ERRORLEVEL 1 goto :failed
 
-robocopy "%AirSimPath%\Unreal\Environments\BlocksV2" . *.bat  /njh /njs /ndl /np
+robocopy "%ColosseumPath%\Unreal\Environments\BlocksV2" . *.bat  /njh /njs /ndl /np
 
-CALL update_from_git.bat "%AirSimPath%"
+CALL update_from_git.bat "%ColosseumPath%"
 if ERRORLEVEL 1 goto :failed
 
 CALL package.bat "%OutputPath%" "%ToolPath%" %~3

@@ -156,10 +156,10 @@ fi
 
 # Download high-polycount SUV model
 if $downloadHighPolySuv; then
-    if [ ! -d "Unreal/Plugins/AirSim/Content/VehicleAdv" ]; then
-        mkdir -p "Unreal/Plugins/AirSim/Content/VehicleAdv"
+    if [ ! -d "Unreal/Plugins/Colosseum/Content/VehicleAdv" ]; then
+        mkdir -p "Unreal/Plugins/Colosseum/Content/VehicleAdv"
     fi
-    if [ ! -d "Unreal/Plugins/AirSim/Content/VehicleAdv/SUV/v1.2.0" ]; then
+    if [ ! -d "Unreal/Plugins/Colosseum/Content/VehicleAdv/SUV/v1.2.0" ]; then
             echo "*********************************************************************************************"
             echo "Downloading high-poly car assets.... The download is ~37MB and can take some time."
             echo "To install without this assets, re-run setup.sh with the argument --no-full-poly-car"
@@ -171,10 +171,10 @@ if $downloadHighPolySuv; then
             mkdir -p "suv_download_tmp"
             cd suv_download_tmp
             wget  https://github.com/CodexLabsLLC/Colosseum/releases/download/v2.0.0-beta.0/car_assets.zip
-            if [ -d "../Unreal/Plugins/AirSim/Content/VehicleAdv/SUV" ]; then
-                rm -rf "../Unreal/Plugins/AirSim/Content/VehicleAdv/SUV"
+            if [ -d "../Unreal/Plugins/Colosseum/Content/VehicleAdv/SUV" ]; then
+                rm -rf "../Unreal/Plugins/Colosseum/Content/VehicleAdv/SUV"
             fi
-            unzip -q car_assets.zip -d ../Unreal/Plugins/AirSim/Content/VehicleAdv
+            unzip -q car_assets.zip -d ../Unreal/Plugins/Colosseum/Content/VehicleAdv
             cd ..
             rm -rf "suv_download_tmp"
     fi
@@ -184,12 +184,12 @@ fi
 
 echo "Installing Eigen library..."
 
-if [ ! -d "AirLib/deps/eigen3" ]; then
+if [ ! -d "ColosseumLib/deps/eigen3" ]; then
     echo "Downloading Eigen..."
     wget -O eigen3.zip https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.zip
     unzip -q eigen3.zip -d temp_eigen
-    mkdir -p AirLib/deps/eigen3
-    mv temp_eigen/eigen*/Eigen AirLib/deps/eigen3
+    mkdir -p ColosseumLib/deps/eigen3
+    mv temp_eigen/eigen*/Eigen ColosseumLib/deps/eigen3
     rm -rf temp_eigen
     rm eigen3.zip
 else
@@ -201,5 +201,5 @@ popd >/dev/null
 set +x
 echo ""
 echo "************************************"
-echo "AirSim setup completed successfully!"
+echo "Colosseum setup completed successfully!"
 echo "************************************"

@@ -24,7 +24,7 @@ There is no `Epic Games Launcher` for Linux which means that if you need to crea
 
     !!!note
 
-        If the Colosseum installation is fresh, i.e, hasn't been built before, make sure that you run `build.cmd` from the root directory once before copying `Unreal\Plugins` folder so that `AirLib` files are also included. If you have made some changes in the Blocks environment, make sure to run `update_to_git.bat` from `Unreal\Environments\BlocksV2` to update the files in `Unreal\Plugins`.
+        If the Colosseum installation is fresh, i.e, hasn't been built before, make sure that you run `build.cmd` from the root directory once before copying `Unreal\Plugins` folder so that `ColosseumLib` files are also included. If you have made some changes in the Blocks environment, make sure to run `update_to_git.bat` from `Unreal\Environments\BlocksV2` to update the files in `Unreal\Plugins`.
 
 6. Edit the `YourCustomProject.uproject` so that it looks like this
 
@@ -40,7 +40,7 @@ There is no `Epic Games Launcher` for Linux which means that if you need to crea
     			"Type": "Runtime",
     			"LoadingPhase": "Default",
     			"AdditionalDependencies": [
-    				"AirSim"
+    				"Colosseum"
     			]
     		}
     	],
@@ -50,7 +50,7 @@ There is no `Epic Games Launcher` for Linux which means that if you need to crea
     	],
     	"Plugins": [
     		{
-    			"Name": "AirSim",
+    			"Name": "Colosseum",
     			"Enabled": true
     		}
     	]
@@ -60,7 +60,7 @@ There is no `Epic Games Launcher` for Linux which means that if you need to crea
 7. Edit the `Config\DefaultGame.ini` to add the following line at the end:
 
     ```
-    +MapsToCook=(FilePath="/AirSim/AirSimAssets")
+    +MapsToCook=(FilePath="/Colosseum/ColosseumAssets")
     ```
     
     Doing this forces Unreal to include all necessary Colosseum content in packaged builds of your project.
@@ -125,7 +125,7 @@ Copy the `Unreal\Plugins` folder from the build you did in the above section int
 as we showed in the `YourCustomProject.uproject` above.
 ```json
 "AdditionalDependencies": [
-    "AirSim"
+    "Colosseum"
 ]
 ```
 
@@ -133,7 +133,7 @@ and the `Plugins` section to the top level object:
 ```json
 "Plugins": [
     {
-        "Name": "AirSim",
+        "Name": "Colosseum",
         "Enabled": true
     }
 ]

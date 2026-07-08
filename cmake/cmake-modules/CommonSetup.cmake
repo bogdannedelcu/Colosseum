@@ -1,4 +1,4 @@
-# Common setup instructions shared by all AirSim CMakeLists.
+# Common setup instructions shared by all Colosseum CMakeLists.
 
 macro(CommonTargetLink)
     target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
@@ -6,12 +6,12 @@ macro(CommonTargetLink)
 endmacro(CommonTargetLink)
 
 macro(IncludeEigen)
-    include_directories(${AIRSIM_ROOT}/AirLib/deps/eigen3)
+    include_directories(${COLOSSEUM_ROOT}/ColosseumLib/deps/eigen3)
 endmacro(IncludeEigen)
 
 macro(AddExecutableSource)
     set(PROJECT_CPP ${PROJECT_NAME}_sources)
-    file(GLOB_RECURSE PROJECT_CPP "${AIRSIM_ROOT}/${PROJECT_NAME}/*.cpp")
+    file(GLOB_RECURSE PROJECT_CPP "${COLOSSEUM_ROOT}/${PROJECT_NAME}/*.cpp")
     add_executable(${PROJECT_NAME} ${PROJECT_CPP})
 endmacro(AddExecutableSource)
 
@@ -25,7 +25,7 @@ endmacro(SetupConsoleBuild)
 
 macro(CommonSetup)
     find_package(Threads REQUIRED)
-    find_path(AIRSIM_ROOT NAMES AirSim.sln PATHS ".." "../.." "../../.." "../../../.." "../../../../.." "../../../../../.." REQUIRED)
+    find_path(COLOSSEUM_ROOT NAMES Colosseum.sln PATHS ".." "../.." "../../.." "../../../.." "../../../../.." "../../../../../.." REQUIRED)
 
     #setup output paths
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output/lib)
@@ -34,7 +34,7 @@ macro(CommonSetup)
 
     #setup include and lib for rpclib which will be referenced by other projects
     set(RPCLIB_VERSION_FOLDER rpclib-2.3.0)
-    set(RPC_LIB_INCLUDES " ${AIRSIM_ROOT}/external/rpclib/${RPCLIB_VERSION_FOLDER}/include")
+    set(RPC_LIB_INCLUDES " ${COLOSSEUM_ROOT}/external/rpclib/${RPCLIB_VERSION_FOLDER}/include")
     #name of .a file with lib prefix
     set(RPC_LIB rpc)
 

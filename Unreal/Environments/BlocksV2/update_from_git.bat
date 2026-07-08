@@ -3,23 +3,23 @@ REM //---------- set up variable ----------
 setlocal
 set ROOT_DIR=%~dp0
 
-set AirSimPath=%1
+set ColosseumPath=%1
 
 REM default path works for Blocks environment
-if "%AirSimPath%"=="" set "AirSimPath=..\..\.."
+if "%ColosseumPath%"=="" set "ColosseumPath=..\..\.."
 
-IF NOT EXIST "%AirSimPath%" (
-	echo "AirSimPath %AirSimPath% was not found"
+IF NOT EXIST "%ColosseumPath%" (
+	echo "ColosseumPath %ColosseumPath% was not found"
 	goto :failed
 )
 
-echo Using AirSimPath = %AirSimPath%
+echo Using ColosseumPath = %ColosseumPath%
 
-robocopy /MIR "%AirSimPath%\Unreal\Plugins\AirSim" Plugins\AirSim /XD temp *. /njh /njs /ndl /np
-robocopy /MIR "%AirSimPath%\AirLib" Plugins\AirSim\Source\AirLib /XD temp *. /njh /njs /ndl /np
-robocopy  /njh /njs /ndl /np "%AirSimPath%\Unreal\Environments\BlocksV2" "." *.bat 
-robocopy  /njh /njs /ndl /np "%AirSimPath%\Unreal\Environments\BlocksV2" "." *.sh  
-rem robocopy /njh /njs /ndl /np "%AirSimPath%" "." *.gitignore
+robocopy /MIR "%ColosseumPath%\Unreal\Plugins\Colosseum" Plugins\Colosseum /XD temp *. /njh /njs /ndl /np
+robocopy /MIR "%ColosseumPath%\ColosseumLib" Plugins\Colosseum\Source\ColosseumLib /XD temp *. /njh /njs /ndl /np
+robocopy  /njh /njs /ndl /np "%ColosseumPath%\Unreal\Environments\BlocksV2" "." *.bat 
+robocopy  /njh /njs /ndl /np "%ColosseumPath%\Unreal\Environments\BlocksV2" "." *.sh  
+rem robocopy /njh /njs /ndl /np "%ColosseumPath%" "." *.gitignore
 
 cmd /c clean.bat
 cmd /c GenerateProjectFiles.bat

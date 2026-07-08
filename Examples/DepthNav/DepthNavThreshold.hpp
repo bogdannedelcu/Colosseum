@@ -2,9 +2,7 @@
 
 #include "DepthNav.hpp"
 
-namespace msr
-{
-namespace airlib
+namespace colosseum
 {
 
     class DepthNavThreshold : public DepthNav
@@ -113,5 +111,4 @@ namespace airlib
             }
         }
     };
-}
 }

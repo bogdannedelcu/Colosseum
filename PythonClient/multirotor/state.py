@@ -1,5 +1,5 @@
 import setup_path
-import airsim
+import colosseum
 import pprint
 
 def print_state():
@@ -9,7 +9,7 @@ def print_state():
     return state
 
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 state = print_state()
 
 if state.ready:

@@ -1,4 +1,4 @@
-# Welcome to Colosseum, a successor of [AirSim](https://github.com/microsoft/AirSim)
+# Welcome to Colosseum, a successor of [Colosseum](https://github.com/CodexLabsLLC/Colosseum)
   
 ## Build Status
 [![Ubuntu Build](https://github.com/CodexLabsLLC/Colosseum/actions/workflows/test_ubuntu.yml/badge.svg)](https://github.com/CodexLabsLLC/Colosseum/actions/workflows/test_ubuntu.yml)
@@ -39,7 +39,7 @@ Below are the list of officially supported Operating Systems, with full Unreal E
   
 Colosseum is a simulator for robotic, autonomous systems, built on [Unreal Engine](https://www.unrealengine.com/) (we now also have an experimental [Unity](https://unity3d.com/) release). It is open-source, cross platform, and supports software-in-the-loop simulation with popular flight controllers such as PX4 & ArduPilot and hardware-in-loop with PX4 for physically and visually realistic simulations. It is developed as an Unreal plugin that can simply be dropped into any Unreal environment. Similarly, we have an experimental release for a Unity plugin.
   
-This is a fork of the AirSim repository, which Microsoft decided to shutdown in July of 2022. This fork serves as a waypoint to building a new and better simulation platform.
+This is a fork of the Colosseum repository, which Microsoft decided to shutdown in July of 2022. This fork serves as a waypoint to building a new and better simulation platform.
   
 ## Docs
 Please find the docs [here](https://codexlabsllc.github.io/Colosseum/)

@@ -34,9 +34,9 @@ Python script [detection.py](https://github.com/CodexLabsLLC/Colosseum/blob/main
 A minimal example using API with Blocks environment to detect Cylinder objects:
 ```python
 camera_name = "0"
-image_type = airsim.ImageType.Scene
+image_type = colosseum.ImageType.Scene
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 
 client.simSetDetectionFilterRadius(camera_name, image_type, 80 * 100) # in [cm]

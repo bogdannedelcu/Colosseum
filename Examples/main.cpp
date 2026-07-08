@@ -30,7 +30,7 @@ int runStandAloneSensors(int argc, const char* argv[])
     std::cout << "Period is " << period << "sec" << std::endl;
     std::cout << "Total duration is " << total_duration << "sec" << std::endl;
 
-    using namespace msr::airlib;
+    using namespace colosseum;
 
     //60 acres park:
     //GeoPoint testLocation(47.7037051477, -122.1415384809, 9.93f);
@@ -53,7 +53,7 @@ int runStandAloneSensors(int argc, const char* argv[])
 
 int runStandAlonePhysics(int argc, const char* argv[])
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
 
     StandAlonePhysics::testCollision();
 
@@ -84,7 +84,7 @@ void runStereoImageGenerator(const int argc, const char* argv[])
 
 void runGaussianMarkovTest()
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
 
     GaussianMarkovTest test;
     test.run();
@@ -92,7 +92,7 @@ void runGaussianMarkovTest()
 
 void runDepthNavGT()
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
 
     typedef ImageCaptureBase::ImageRequest ImageRequest;
     typedef ImageCaptureBase::ImageType ImageType;
@@ -124,7 +124,7 @@ void runDepthNavGT()
 
 void runDepthNavSGM()
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
 
     typedef ImageCaptureBase::ImageRequest ImageRequest;
     typedef ImageCaptureBase::ImageType ImageType;

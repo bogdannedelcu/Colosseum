@@ -17,7 +17,7 @@ STRICT_MODE_ON
 
 void runSingleClient(const uint16_t port, const int ordinal)
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
 
     constexpr char host[] = "localhost";
     float timeout_s = 60;
@@ -120,7 +120,7 @@ void runSingleClient(const uint16_t port, const int ordinal)
 
 int main(const int argc, char* argv[])
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
 
     uint16_t rpc_port = 41451;
     int num_platforms = 1;

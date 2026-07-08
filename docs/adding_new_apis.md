@@ -12,7 +12,7 @@ Before adding the wrapper code to call and handle the API, it needs to be implem
 
 The main implementation is done in [MultirotorBaseApi.cpp](https://github.com/CodexLabsLLC/Colosseum/pull/3169/files#diff-29ac01a05077b6e8e1f09221a113f779c952a80dc8823725eb451a9fc5d7de5f), where most of the multirotor APIs are implemented.
 
-In some cases, additional structures might be needed for storing data, [`getRotorStates` API](https://github.com/CodexLabsLLC/Colosseum/pull/3242) is a good example for this, here the `RotorStates` struct is defined in 2 places for conversion from RPC to internal code. It also requires modifications in AirLib as well as Unreal/Plugins for the implementation.
+In some cases, additional structures might be needed for storing data, [`getRotorStates` API](https://github.com/CodexLabsLLC/Colosseum/pull/3242) is a good example for this, here the `RotorStates` struct is defined in 2 places for conversion from RPC to internal code. It also requires modifications in ColosseumLib as well as Unreal/Plugins for the implementation.
 
 ### Environment-related APIs
 
@@ -32,19 +32,19 @@ The APIs use [msgpack-rpc protocol](https://github.com/msgpack-rpc/msgpack-rpc) 
 
 To add the RPC code to call the new API, follow the steps below. Follow the implementation of other APIs defined in the files.
 
-1. Add an RPC handler in the server which calls your implemented method in [RpcLibServerBase.cpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/AirLib/src/api/RpcLibServerBase.cpp). Vehicle-specific APIs are in their respective vehicle subfolder.
+1. Add an RPC handler in the server which calls your implemented method in [RpcLibServerBase.cpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/ColosseumLib/src/api/RpcLibServerBase.cpp). Vehicle-specific APIs are in their respective vehicle subfolder.
 
-2. Add the C++ client API method in [RpcClientBase.cpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/AirLib/src/api/RpcLibClientBase.cpp)
+2. Add the C++ client API method in [RpcClientBase.cpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/ColosseumLib/src/api/RpcLibClientBase.cpp)
 
-3. Add the Python client API method in [client.py](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/airsim/client.py). If needed, add or modify a structure definition in [types.py](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/airsim/types.py)
+3. Add the Python client API method in [client.py](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/colosseum/client.py). If needed, add or modify a structure definition in [types.py](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/colosseum/types.py)
 
 ## Testing
 
-Testing is required to ensure that the API is working as expected. For this, as expected, you'll have to use the source-built Colosseum and Blocks environment. Apart from this, if using the Python APIs, you'll have to use the `airsim` package from source rather than the PyPI package. Below are 2 ways described to go about using the package from source -
+Testing is required to ensure that the API is working as expected. For this, as expected, you'll have to use the source-built Colosseum and Blocks environment. Apart from this, if using the Python APIs, you'll have to use the `colosseum` package from source rather than the PyPI package. Below are 2 ways described to go about using the package from source -
 
-1. Use [setup_path.py](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/multirotor/setup_path.py). It will setup the path such that the local airsim module is used instead of the pip installed package. This is the method used in many of the scripts since the user doesn't need to do anything other than run the script.
+1. Use [setup_path.py](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/multirotor/setup_path.py). It will setup the path such that the local colosseum module is used instead of the pip installed package. This is the method used in many of the scripts since the user doesn't need to do anything other than run the script.
     Place your example script in one of the folders inside `PythonClient` like `multirotor`, `car`, etc. You can also create one to keep things separate, and copy the `setup_path.py` file from another folder.
-    Add `import setup_path` before `import airsim` in your files. Now the latest main API (or any branch currently checked out) will be used.
+    Add `import setup_path` before `import colosseum` in your files. Now the latest main API (or any branch currently checked out) will be used.
 
 2. Use a [local project pip install](https://pip.pypa.io/en/stable/cli/pip_install/#local-project-installs). Regular install would create a copy of the current source and use it, whereas Editable install (`pip install -e .` from inside the `PythonClient` folder) would change the package whenever the Python API files are changed. Editable install has the benefit when working on several branches or API is not finalized.
 

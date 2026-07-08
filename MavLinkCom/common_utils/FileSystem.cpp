@@ -1,8 +1,8 @@
 // in header only mode, control library is not available
-#ifndef AIRLIB_HEADER_ONLY
+#ifndef COLOSSEUM_HEADER_ONLY
 //if using Unreal Build system then include precompiled header file first
-#ifdef AIRLIB_PCH
-#include "AirSim.h"
+#ifdef COLOSSEUM_PCH
+#include "Colosseum.h"
 #endif
 
 #include "FileSystem.hpp"

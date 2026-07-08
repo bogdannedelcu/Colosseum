@@ -1,4 +1,4 @@
-import airsim
+import colosseum
 import time
 
 '''
@@ -39,7 +39,7 @@ Car2 is placed in front of Car 1
 
 '''
 
-client = airsim.CarClient()
+client = colosseum.CarClient()
 client.confirmConnection()
 
 while True:

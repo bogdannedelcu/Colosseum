@@ -1,11 +1,11 @@
 import setup_path 
-import airsim
-from airsim import Vector3r, Quaternionr, Pose
-from airsim.utils import to_quaternion
+import colosseum
+from colosseum import Vector3r, Quaternionr, Pose
+from colosseum.utils import to_quaternion
 import numpy as np
 import time
 
-client = airsim.VehicleClient()
+client = colosseum.VehicleClient()
 client.confirmConnection()
 
 # plot red arrows for 30 seconds
@@ -40,7 +40,7 @@ client.simPlotLineStrip(points = [Vector3r(x,y,-5) for x, y in zip(np.linspace(0
 client.simPlotLineList(points = [Vector3r(x,y,-7) for x, y in zip(np.linspace(0,-10,10), np.linspace(0,-20,10))], color_rgba=[1.0, 0.0, 0.0, 1.0], thickness = 5, duration = 30.0, is_persistent = False)
 
 # plot transforms 
-client.simPlotStrings(strings = ["Microsoft AirSim" for i in range(5)], positions = [Vector3r(x,y,-1) for x, y in zip(np.linspace(0,5,5), np.linspace(0,0,5))], 
+client.simPlotStrings(strings = ["Microsoft Colosseum" for i in range(5)], positions = [Vector3r(x,y,-1) for x, y in zip(np.linspace(0,5,5), np.linspace(0,0,5))], 
                         scale = 1, color_rgba=[1.0, 1.0, 1.0, 1.0], duration = 1200.0)
 
 # client.simPlotTransforms(poses = [Pose(position_val=Vector3r(x,y,0), orientation_val=to_quaternion(pitch=0.0, roll=0.0, yaw=yaw)) for x, y, yaw in zip(np.linspace(0,10,10), np.linspace(0,0,10), np.linspace(0,np.pi,10))], 

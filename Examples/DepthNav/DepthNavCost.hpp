@@ -2,9 +2,7 @@
 
 #include "DepthNav.hpp"
 
-namespace msr
-{
-namespace airlib
+namespace colosseum
 {
 
     class DepthNavCost : public DepthNav
@@ -115,5 +113,4 @@ namespace airlib
             return (counter / depth_sum) * (2 ^ count_min_depth) * dist_to_goal;
         }
     };
-}
 }

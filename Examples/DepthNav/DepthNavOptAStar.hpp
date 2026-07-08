@@ -5,9 +5,7 @@
 #include "common/common_utils/bitmap_image.hpp"
 #include "common/common_utils/ColorUtils.hpp"
 
-namespace msr
-{
-namespace airlib
+namespace colosseum
 {
 
     class DepthNavOptAStar
@@ -264,5 +262,4 @@ namespace airlib
         bool generate_debug_info_ = true;
         unsigned int iteration_index_;
     };
-}
 }

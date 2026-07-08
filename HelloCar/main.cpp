@@ -15,14 +15,14 @@ STRICT_MODE_ON
 
 int main()
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
 
     std::cout << "Make sure settings.json has \"SimMode\"=\"Car\" at root. Press Enter to continue." << std::endl;
     std::cin.get();
 
     // This assumes you are running DroneServer already on the same machine.
     // DroneServer must be running first.
-    msr::airlib::CarRpcLibClient client;
+    colosseum::CarRpcLibClient client;
     typedef ImageCaptureBase::ImageRequest ImageRequest;
     typedef ImageCaptureBase::ImageResponse ImageResponse;
     typedef ImageCaptureBase::ImageType ImageType;

@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-#ifndef air_SimpleShell_hpp
-#define air_SimpleShell_hpp
+#ifndef colosseum_SimpleShell_hpp
+#define colosseum_SimpleShell_hpp
 
 #include "common/common_utils/StrictMode.hpp"
 STRICT_MODE_OFF
@@ -27,9 +27,7 @@ STRICT_MODE_ON
 #include "common/common_utils/Utils.hpp"
 #include "common/ClockBase.hpp"
 
-namespace msr
-{
-namespace airlib
+namespace colosseum
 {
 
     template <class ExecContext>
@@ -607,5 +605,4 @@ namespace airlib
         }
     };
 }
-} //namespace
 #endif

@@ -7,10 +7,10 @@ class RandomPointPoseGenerator
 public:
 private:
     typedef common_utils::RandomGeneratorGaussianF RandomGeneratorGaussianF;
-    typedef msr::airlib::Vector3r Vector3r;
-    typedef msr::airlib::Quaternionr Quaternionr;
+    typedef colosseum::Vector3r Vector3r;
+    typedef colosseum::Quaternionr Quaternionr;
     typedef common_utils::Utils Utils;
-    typedef msr::airlib::VectorMath VectorMath;
+    typedef colosseum::VectorMath VectorMath;
 
 public:
     Vector3r position;

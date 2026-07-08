@@ -62,7 +62,7 @@
 
 ## Other
 
-* [Packaging Colosseum](#packaging-a-binary-including-the-airsim-plugin)
+* [Packaging Colosseum](#packaging-a-binary-including-the-colosseum-plugin)
 
 ---
 

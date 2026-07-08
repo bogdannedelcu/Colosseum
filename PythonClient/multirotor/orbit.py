@@ -1,5 +1,5 @@
 import setup_path 
-import airsim
+import colosseum
 import os
 import sys
 import math
@@ -44,7 +44,7 @@ class OrbitNavigator:
         cx *= self.radius
         cy *= self.radius
 
-        self.client = airsim.MultirotorClient()
+        self.client = colosseum.MultirotorClient()
         self.client.confirmConnection()
         self.client.enableApiControl(True)
 
@@ -71,10 +71,10 @@ class OrbitNavigator:
         print("arming the drone...")
         self.client.armDisarm(True)
         
-        # AirSim uses NED coordinates so negative axis is up.
+        # Colosseum uses NED coordinates so negative axis is up.
         start = self.client.getMultirotorState().kinematics_estimated.position
         landed = self.client.getMultirotorState().landed_state
-        if not self.takeoff and landed == airsim.LandedState.Landed: 
+        if not self.takeoff and landed == colosseum.LandedState.Landed: 
             self.takeoff = True
             print("taking off...")
             self.client.takeoffAsync().join()
@@ -133,7 +133,7 @@ class OrbitNavigator:
                 print("completed {} orbits".format(count))
             
             self.camera_heading = camera_heading
-            self.client.moveByVelocityZAsync(vx, vy, z, 1, airsim.DrivetrainType.MaxDegreeOfFreedom, airsim.YawMode(False, camera_heading))
+            self.client.moveByVelocityZAsync(vx, vy, z, 1, colosseum.DrivetrainType.MaxDegreeOfFreedom, colosseum.YawMode(False, camera_heading))
 
 
         self.client.moveToPositionAsync(start.x_val, start.y_val, z, 2).join()
@@ -211,13 +211,13 @@ class OrbitNavigator:
     def take_snapshot(self):
         # first hold our current position so drone doesn't try and keep flying while we take the picture.
         pos = self.client.getMultirotorState().kinematics_estimated.position
-        self.client.moveToPositionAsync(pos.x_val, pos.y_val, self.z, 0.5, 10, airsim.DrivetrainType.MaxDegreeOfFreedom, 
-            airsim.YawMode(False, self.camera_heading)).join()
-        responses = self.client.simGetImages([airsim.ImageRequest(1, airsim.ImageType.Scene)]) #scene vision image in png format
+        self.client.moveToPositionAsync(pos.x_val, pos.y_val, self.z, 0.5, 10, colosseum.DrivetrainType.MaxDegreeOfFreedom, 
+            colosseum.YawMode(False, self.camera_heading)).join()
+        responses = self.client.simGetImages([colosseum.ImageRequest(1, colosseum.ImageType.Scene)]) #scene vision image in png format
         response = responses[0]
         filename = "photo_" + str(self.snapshot_index)
         self.snapshot_index += 1
-        airsim.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)        
+        colosseum.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)        
         print("Saved snapshot: {}".format(filename))
         self.start_time = time.time()  # cause smooth ramp up to happen again after photo is taken.
 

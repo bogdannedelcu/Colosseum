@@ -1,15 +1,15 @@
 import setup_path
-import airsim
+import colosseum
 import numpy as np
 import math
 import time
 
 import gym
 from gym import spaces
-from airgym.envs.airsim_env import AirSimEnv
+from airgym.envs.colosseum_env import ColosseumEnv
 
 
-class AirSimCarEnv(AirSimEnv):
+class ColosseumCarEnv(ColosseumEnv):
     def __init__(self, ip_address, image_shape):
         super().__init__(image_shape)
 
@@ -24,14 +24,14 @@ class AirSimCarEnv(AirSimEnv):
             "collision": False,
         }
 
-        self.car = airsim.CarClient(ip=ip_address)
+        self.car = colosseum.CarClient(ip=ip_address)
         self.action_space = spaces.Discrete(6)
 
-        self.image_request = airsim.ImageRequest(
-            "0", airsim.ImageType.DepthPerspective, True, False
+        self.image_request = colosseum.ImageRequest(
+            "0", colosseum.ImageType.DepthPerspective, True, False
         )
 
-        self.car_controls = airsim.CarControls()
+        self.car_controls = colosseum.CarControls()
         self.car_state = None
 
     def _setup_car(self):

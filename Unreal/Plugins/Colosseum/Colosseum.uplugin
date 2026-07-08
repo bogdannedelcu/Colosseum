@@ -1,0 +1,30 @@
+{
+  "FileVersion" : 3,
+  "Version" : "1.8.1",
+  "VersionName": "1.8.1",
+  "FriendlyName": "Colosseum",
+  "Description": "Colosseum - Autonomous Aerial Vehicles Simulator Plugin",
+  "Category" : "Science",
+  "CreatedBy": "Codex Labs, LLC",
+  "CreatedByURL": "https://github.com/CodexLabsLLC/Colosseum",
+  "DocsURL" : "https://github.com/CodexLabsLLC/Colosseum/blob/main/README.md",
+  "MarketplaceURL" : "",
+  "SupportURL" : "https://github.com/CodexLabsLLC/Colosseum/issues",
+  "EnabledByDefault" : true,
+  "CanContainContent": true,
+  "IsBetaVersion" : true,
+  "Installed": true,
+  "Modules": [
+    {
+      "Name": "Colosseum",
+      "Type": "Runtime",
+      "LoadingPhase": "PreDefault"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "ChaosVehiclesPlugin",
+      "Enabled": true
+    }
+  ]
+}

@@ -26,7 +26,7 @@ pip3 install rosdep rosinstall rospkg catkin-pkg
 sudo rosdep init
 rosdep update
 
-# AirSim ROS Wrapper dependencies
+# Colosseum ROS Wrapper dependencies
 
 # Only needed for CI due to base install
 sudo apt-get install -y ros-$ROS_DISTRO-vision-opencv ros-$ROS_DISTRO-image-transport libyaml-cpp-dev

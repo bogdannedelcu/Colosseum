@@ -1,0 +1,6 @@
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ColosseumTargetPlatformVersion>$([System.String]::Copy('$(WindowsSDKVersion)').Replace('\',''))</ColosseumTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>$(ColosseumTargetPlatformVersion)</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+</Project>

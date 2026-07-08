@@ -21,16 +21,16 @@ python hello_car.py
 If you are using Visual Studio 2019 then just open Colosseum.sln, set PythonClient as startup project and choose `car\hello_car.py` as your startup script.
 
 ### Installing Colosseum Package
-You can also install `airsim` package simply by,
+You can also install `colosseum` package simply by,
 
 ```
-pip install airsim
+pip install colosseum
 ```
 
 You can find source code and samples for this package in `PythonClient` folder in your repo.
 
 **Notes**
-1. You may notice a file `setup_path.py` in our example folders. This file has simple code to detect if `airsim` package is available in parent folder and in that case we use that instead of pip installed package so you always use latest code.
+1. You may notice a file `setup_path.py` in our example folders. This file has simple code to detect if `colosseum` package is available in parent folder and in that case we use that instead of pip installed package so you always use latest code.
 2. Colosseum is still under heavy development which means you might frequently need to update the package to use new APIs.
 
 ## C++ Users
@@ -41,14 +41,14 @@ Here's how to use Colosseum APIs using Python to control simulated car (see also
 
 ```python
 # ready to run example: PythonClient/car/hello_car.py
-import airsim
+import colosseum
 import time
 
 # connect to the Colosseum simulator
-client = airsim.CarClient()
+client = colosseum.CarClient()
 client.confirmConnection()
 client.enableApiControl(True)
-car_controls = airsim.CarControls()
+car_controls = colosseum.CarControls()
 
 while True:
     # get state of the car
@@ -65,18 +65,18 @@ while True:
 
     # get camera images from the car
     responses = client.simGetImages([
-        airsim.ImageRequest(0, airsim.ImageType.DepthVis),
-        airsim.ImageRequest(1, airsim.ImageType.DepthPlanar, True)])
+        colosseum.ImageRequest(0, colosseum.ImageType.DepthVis),
+        colosseum.ImageRequest(1, colosseum.ImageType.DepthPlanar, True)])
     print('Retrieved images: %d', len(responses))
 
     # do something with images
     for response in responses:
         if response.pixels_as_float:
             print("Type %d, size %d" % (response.image_type, len(response.image_data_float)))
-            airsim.write_pfm('py1.pfm', airsim.get_pfm_array(response))
+            colosseum.write_pfm('py1.pfm', colosseum.get_pfm_array(response))
         else:
             print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
-            airsim.write_file('py1.png', response.image_data_uint8)
+            colosseum.write_file('py1.png', response.image_data_uint8)
 
 ```
 
@@ -85,11 +85,11 @@ Here's how to use Colosseum APIs using Python to control simulated quadrotor (se
 
 ```python
 # ready to run example: PythonClient/multirotor/hello_drone.py
-import airsim
+import colosseum
 import os
 
 # connect to the Colosseum simulator
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)
@@ -100,18 +100,18 @@ client.moveToPositionAsync(-10, 10, -10, 5).join()
 
 # take images
 responses = client.simGetImages([
-    airsim.ImageRequest("0", airsim.ImageType.DepthVis),
-    airsim.ImageRequest("1", airsim.ImageType.DepthPlanar, True)])
+    colosseum.ImageRequest("0", colosseum.ImageType.DepthVis),
+    colosseum.ImageRequest("1", colosseum.ImageType.DepthPlanar, True)])
 print('Retrieved images: %d', len(responses))
 
 # do something with the images
 for response in responses:
     if response.pixels_as_float:
         print("Type %d, size %d" % (response.image_type, len(response.image_data_float)))
-        airsim.write_pfm(os.path.normpath('/temp/py1.pfm'), airsim.get_pfm_array(response))
+        colosseum.write_pfm(os.path.normpath('/temp/py1.pfm'), colosseum.get_pfm_array(response))
     else:
         print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
-        airsim.write_file(os.path.normpath('/temp/py1.png'), response.image_data_uint8)
+        colosseum.write_file(os.path.normpath('/temp/py1.png'), response.image_data_uint8)
 ```
 
 ## Common APIs
@@ -164,7 +164,7 @@ simEnableWeather(True)
 Various weather effects can be enabled by using `simSetWeatherParameter` method which takes `WeatherParameter`, for example,
 
 ```
-client.simSetWeatherParameter(airsim.WeatherParameter.Rain, 0.25);
+client.simSetWeatherParameter(colosseum.WeatherParameter.Rain, 0.25);
 ```
 The second parameter value is from 0 to 1. The first parameter provides following options:
 
@@ -206,7 +206,7 @@ E.g. To set 20m/s wind in North (forward) direction -
 
 ```python
 # Set wind to (20,0,0) in NED (forward direction)
-wind = airsim.Vector3r(20, 0, 0)
+wind = colosseum.Vector3r(20, 0, 0)
 client.simSetWind(wind)
 ```
 
@@ -268,14 +268,14 @@ If you start another command then it automatically cancels the previous task and
 All *Async* method returns `concurrent.futures.Future` in Python (`std::future` in C++). Please note that these future classes currently do not allow to check status or cancel the task; they only allow to wait for task to complete. Colosseum does provide API `cancelLastTask`, however.
 
 #### drivetrain
-There are two modes you can fly vehicle: `drivetrain` parameter is set to `airsim.DrivetrainType.ForwardOnly` or `airsim.DrivetrainType.MaxDegreeOfFreedom`. When you specify ForwardOnly, you are saying that vehicle's front should always point in the direction of travel. So if you want drone to take left turn then it would first rotate so front points to left. This mode is useful when you have only front camera and you are operating vehicle using FPV view. This is more or less like travelling in car where you always have front view. The MaxDegreeOfFreedom means you don't care where the front points to. So when you take left turn, you just start going left like crab. Quadrotors can go in any direction regardless of where front points to. The MaxDegreeOfFreedom enables this mode.
+There are two modes you can fly vehicle: `drivetrain` parameter is set to `colosseum.DrivetrainType.ForwardOnly` or `colosseum.DrivetrainType.MaxDegreeOfFreedom`. When you specify ForwardOnly, you are saying that vehicle's front should always point in the direction of travel. So if you want drone to take left turn then it would first rotate so front points to left. This mode is useful when you have only front camera and you are operating vehicle using FPV view. This is more or less like travelling in car where you always have front view. The MaxDegreeOfFreedom means you don't care where the front points to. So when you take left turn, you just start going left like crab. Quadrotors can go in any direction regardless of where front points to. The MaxDegreeOfFreedom enables this mode.
 
 #### yaw_mode
 `yaw_mode` is a struct `YawMode` with two fields, `yaw_or_rate` and `is_rate`. If `is_rate` field is True then `yaw_or_rate` field is interpreted as angular velocity in degrees/sec which means you want vehicle to rotate continuously around its axis at that angular velocity while moving. If `is_rate` is False then `yaw_or_rate` is interpreted as angle in degrees which means you want vehicle to rotate to specific angle (i.e. yaw) and keep that angle while moving.
 
 You can probably see that when `yaw_mode.is_rate == true`, the `drivetrain` parameter shouldn't be set to `ForwardOnly` because you are contradicting by saying that keep front pointing ahead but also rotate continuously. However if you have `yaw_mode.is_rate = false` in `ForwardOnly` mode then you can do some funky stuff. For example, you can have drone do circles and have yaw_or_rate set to 90 so camera is always pointed to center ("super cool selfie mode"). In `MaxDegreeofFreedom` also you can get some funky stuff by setting `yaw_mode.is_rate = true` and say `yaw_mode.yaw_or_rate = 20`. This will cause drone to go in its path while rotating which may allow to do 360 scanning.
 
-In most cases, you just don't want yaw to change which you can do by setting yaw rate of 0. The shorthand for this is `airsim.YawMode.Zero()` (or in C++: `YawMode::Zero()`).
+In most cases, you just don't want yaw to change which you can do by setting yaw rate of 0. The shorthand for this is `colosseum.YawMode.Zero()` (or in C++: `YawMode::Zero()`).
 
 #### lookahead and adaptive_lookahead
 When you ask vehicle to follow a path, Colosseum uses "carrot following" algorithm. This algorithm operates by looking ahead on path and adjusting its velocity vector. The parameters for this algorithm is specified by `lookahead` and `adaptive_lookahead`. For most of the time you want algorithm to auto-decide the values by simply setting `lookahead = -1` and `adaptive_lookahead = 0`.
@@ -285,7 +285,7 @@ We want to be able to run *same code* that runs in simulation as on real vehicle
 
 Generally speaking, APIs therefore shouldn't allow you to do something that cannot be done on real vehicle (for example, getting the ground truth). But, of course, simulator has much more information and it would be useful in applications that may not care about running things on real vehicle. For this reason, we clearly delineate between sim-only APIs by attaching `sim` prefix, for example, `simGetGroundTruthKinematics`. This way you can avoid using these simulation-only APIs if you care about running your code on real vehicles.
 
-The AirLib is self-contained library that you can put on an offboard computing module such as the Gigabyte barebone Mini PC. This module then can talk to the flight controllers such as PX4 using exact same code and flight controller protocol. The code you write for testing in the simulator remains unchanged. See [AirLib on custom drones](custom_drone.md).
+The ColosseumLib is self-contained library that you can put on an offboard computing module such as the Gigabyte barebone Mini PC. This module then can talk to the flight controllers such as PX4 using exact same code and flight controller protocol. The code you write for testing in the simulator remains unchanged. See [ColosseumLib on custom drones](custom_drone.md).
 
 ## Adding New APIs to Colosseum
 

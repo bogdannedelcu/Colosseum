@@ -1,13 +1,13 @@
 import setup_path 
-import airsim
+import colosseum
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)
 
 landed = client.getMultirotorState().landed_state
-if landed == airsim.LandedState.Landed:
+if landed == colosseum.LandedState.Landed:
     print("already landed...")
 else:
     print("landing...")

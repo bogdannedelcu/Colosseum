@@ -20,7 +20,7 @@ IF NOT EXIST %RepoRoot% (
 for %%x in (
 1919Presentation
 Africa
-AirSimEnvNH
+ColosseumEnvNH
 AncientRome
 ApartmentInterior
 B99

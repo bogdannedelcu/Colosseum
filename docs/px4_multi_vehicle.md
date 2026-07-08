@@ -81,17 +81,17 @@ Here is how you would do so:
     mkdir -p Scripts
     cd Scripts
     wget https://github.com/CodexLabsLLC/Colosseum/raw/main/PX4Scripts/sitl_kill.sh
-    wget https://github.com/CodexLabsLLC/Colosseum/raw/main/PX4Scripts/run_airsim_sitl.sh
+    wget https://github.com/CodexLabsLLC/Colosseum/raw/main/PX4Scripts/run_colosseum_sitl.sh
     ```
-    **Note** the shell scripts expect the `Scripts` and `Firmware` directories to be within the same parent directory. Also, you may need to make the scripts executable by running `chmod +x sitl_kill.sh` and `chmod +x run_airsim_sitl.sh`.
+    **Note** the shell scripts expect the `Scripts` and `Firmware` directories to be within the same parent directory. Also, you may need to make the scripts executable by running `chmod +x sitl_kill.sh` and `chmod +x run_colosseum_sitl.sh`.
 2. Run the `sitl_kill.sh` script to kill all active PX4 SITL instances 
     ```
     ./sitl_kill.sh
     ```
     
-3. Run the `run_airsim_sitl.sh` script while specifying which instance you would like to run in the current terminal window (the first instance would be numbered 0)
+3. Run the `run_colosseum_sitl.sh` script while specifying which instance you would like to run in the current terminal window (the first instance would be numbered 0)
     ```
-    ./run_airsim_sitl.sh 0 # first instance = 0
+    ./run_colosseum_sitl.sh 0 # first instance = 0
     ```
     
     You should see the PX4 instance starting and waiting for Colosseum's connection as it would with a single instance.
@@ -112,7 +112,7 @@ Here is how you would do so:
     ```
     cd PX4
     cd Scripts
-    ./run_airsim_sitl.sh 1  # ,2,3,4,..,etc
+    ./run_colosseum_sitl.sh 1  # ,2,3,4,..,etc
     ```
 
 5. Repeat step 4 for as many instances as you would like to start

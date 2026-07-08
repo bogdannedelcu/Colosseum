@@ -40,8 +40,8 @@ UE 4.24 uses Vulkan drivers by default, but they can consume more GPU memory. If
 You can also limit the maximum FPS using the `simRunConsoleCommand()` API as follows-
 
 ```python
->>> import airsim
->>> client = airsim.VehicleClient()
+>>> import colosseum
+>>> client = colosseum.VehicleClient()
 >>> client.confirmConnection()
 Connected!
 Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)

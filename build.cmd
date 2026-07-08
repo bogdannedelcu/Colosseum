@@ -14,7 +14,7 @@ if "%VisualStudioVersion%" == "" (
     goto :buildfailed_nomsg
 )
 if "%VisualStudioVersion%" lss "17.0" (
-    call :printError, "Hello there! We just upgraded AirSim to Unreal Engine 4.27 and Visual Studio 2022. Here are few easy steps for upgrade so everything is new and shiny:  https://github.com/Microsoft/AirSim/blob/main/docs/unreal_upgrade.md"
+    call :printError, "Hello there! We just upgraded Colosseum to Unreal Engine 4.27 and Visual Studio 2022. Here are few easy steps for upgrade so everything is new and shiny:  https://github.com/CodexLabsLLC/Colosseum/blob/main/docs/unreal_upgrade.md"
     goto :buildfailed_nomsg
 )
 ECHO(
@@ -147,11 +147,11 @@ if ERRORLEVEL 1 goto :buildfailed
 chdir /d %ROOT_DIR% 
 ECHO(   
 
-REM //---------- copy rpclib binaries and include folder inside AirLib folder ----------
-CALL :printHeader, "Copy rpclib lib and include files to AirLib folder structure"
-set RPCLIB_TARGET_LIB=AirLib\deps\rpclib\lib\x64
+REM //---------- copy rpclib binaries and include folder inside ColosseumLib folder ----------
+CALL :printHeader, "Copy rpclib lib and include files to ColosseumLib folder structure"
+set RPCLIB_TARGET_LIB=ColosseumLib\deps\rpclib\lib\x64
 if NOT exist %RPCLIB_TARGET_LIB% mkdir %RPCLIB_TARGET_LIB%
-set RPCLIB_TARGET_INCLUDE=AirLib\deps\rpclib\include
+set RPCLIB_TARGET_INCLUDE=ColosseumLib\deps\rpclib\include
 if NOT exist %RPCLIB_TARGET_INCLUDE% mkdir %RPCLIB_TARGET_INCLUDE%
 robocopy /MIR external\rpclib\%RPC_VERSION_FOLDER%\include %RPCLIB_TARGET_INCLUDE%
 
@@ -172,8 +172,8 @@ ECHO(
 REM //---------- get High PolyCount SUV Car Model ------------
 CALL :printHeader, "Configure High Polycount SUV car model"
 
-IF NOT EXIST Unreal\Plugins\AirSim\Content\VehicleAdv mkdir Unreal\Plugins\AirSim\Content\VehicleAdv
-IF NOT EXIST Unreal\Plugins\AirSim\Content\VehicleAdv\SUV\v1.2.0 (
+IF NOT EXIST Unreal\Plugins\Colosseum\Content\VehicleAdv mkdir Unreal\Plugins\Colosseum\Content\VehicleAdv
+IF NOT EXIST Unreal\Plugins\Colosseum\Content\VehicleAdv\SUV\v1.2.0 (
     IF NOT DEFINED noFullPolyCar (
         REM //leave some blank lines because %powershell% shows download banner at top of console
         ECHO(   
@@ -184,80 +184,80 @@ IF NOT EXIST Unreal\Plugins\AirSim\Content\VehicleAdv\SUV\v1.2.0 (
         IF EXIST suv_download_tmp rmdir suv_download_tmp /q /s
         mkdir suv_download_tmp
         @echo on
-        REM %powershell% -command "& { Start-BitsTransfer -Source https://github.com/Microsoft/AirSim/releases/download/v1.2.0/car_assets.zip -Destination suv_download_tmp\car_assets.zip }"
-        REM %powershell% -command "& { (New-Object System.Net.WebClient).DownloadFile('https://github.com/Microsoft/AirSim/releases/download/v1.2.0/car_assets.zip', 'suv_download_tmp\car_assets.zip') }"
+        REM %powershell% -command "& { Start-BitsTransfer -Source https://github.com/CodexLabsLLC/Colosseum/releases/download/v1.2.0/car_assets.zip -Destination suv_download_tmp\car_assets.zip }"
+        REM %powershell% -command "& { (New-Object System.Net.WebClient).DownloadFile('https://github.com/CodexLabsLLC/Colosseum/releases/download/v1.2.0/car_assets.zip', 'suv_download_tmp\car_assets.zip') }"
         if "%PWSHV7%" == "" (
             %powershell% -command "& { [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iwr https://github.com/CodexLabsLLC/Colosseum/releases/download/v2.0.0-beta.0/car_assets.zip -OutFile suv_download_tmp\car_assets.zip }"
         ) else (
             %powershell% -command "iwr https://github.com/CodexLabsLLC/Colosseum/releases/download/v2.0.0-beta.0/car_assets.zip -OutFile suv_download_tmp\car_assets.zip"
         )
         @echo off
-        rmdir /S /Q Unreal\Plugins\AirSim\Content\VehicleAdv\SUV
-        %powershell% -command "Expand-Archive -Path suv_download_tmp\car_assets.zip -DestinationPath Unreal\Plugins\AirSim\Content\VehicleAdv"
+        rmdir /S /Q Unreal\Plugins\Colosseum\Content\VehicleAdv\SUV
+        %powershell% -command "Expand-Archive -Path suv_download_tmp\car_assets.zip -DestinationPath Unreal\Plugins\Colosseum\Content\VehicleAdv"
         rmdir suv_download_tmp /q /s
         
         REM //Don't fail the build if the high-poly car is unable to be downloaded
         REM //Instead, just notify users that the gokart will be used.
-        IF NOT EXIST Unreal\Plugins\AirSim\Content\VehicleAdv\SUV ECHO Unable to download high-polycount SUV. Your AirSim build will use the default vehicle.
+        IF NOT EXIST Unreal\Plugins\Colosseum\Content\VehicleAdv\SUV ECHO Unable to download high-polycount SUV. Your Colosseum build will use the default vehicle.
     ) else (
         ECHO Not downloading high-poly car asset. The default unreal vehicle will be used.
     )
 )
 ECHO(
 
-REM //---------- setup Eigen dependency for AirLib ----------
-CALL :printHeader, "Setup Eigen dependency for AirLib "
-IF NOT EXIST AirLib\deps mkdir AirLib\deps
+REM //---------- setup Eigen dependency for ColosseumLib ----------
+CALL :printHeader, "Setup Eigen dependency for ColosseumLib "
+IF NOT EXIST ColosseumLib\deps mkdir ColosseumLib\deps
 IF NOT EXIST ExternalRepositories\Colosseum_Eigen\Eigen (
     ECHO Submodule ExternalRepositories\Colosseum_Eigen not properly initialized. Try running 'git submodule update --init'
     goto :buildfailed 
 )
-IF NOT EXIST AirLib\deps\eigen3 (
-    mkdir AirLib\deps\eigen3
-    robocopy /MIR ExternalRepositories\Colosseum_Eigen\Eigen AirLib\deps\eigen3\Eigen
+IF NOT EXIST ColosseumLib\deps\eigen3 (
+    mkdir ColosseumLib\deps\eigen3
+    robocopy /MIR ExternalRepositories\Colosseum_Eigen\Eigen ColosseumLib\deps\eigen3\Eigen
 )
 
-IF NOT EXIST AirLib\deps\eigen3 goto :buildfailed
+IF NOT EXIST ColosseumLib\deps\eigen3 goto :buildfailed
 ECHO(
 
-REM //---------- now we have all dependencies to compile AirSim.sln which will also compile MavLinkCom ----------
+REM //---------- now we have all dependencies to compile Colosseum.sln which will also compile MavLinkCom ----------
 if %buildMode% == "" (
-    CALL :printHeader, "Building AirSim.sln Configuration = Debug"
-    msbuild -maxcpucount:12 /p:Platform=x64 /p:Configuration=Debug AirSim.sln
+    CALL :printHeader, "Building Colosseum.sln Configuration = Debug"
+    msbuild -maxcpucount:12 /p:Platform=x64 /p:Configuration=Debug Colosseum.sln
     ECHO(   
     if ERRORLEVEL 1 goto :buildfailed
 
-    CALL :printHeader, "Building AirSim.sln Configuration = Release"
-    msbuild -maxcpucount:12 /p:Platform=x64 /p:Configuration=Release AirSim.sln 
+    CALL :printHeader, "Building Colosseum.sln Configuration = Release"
+    msbuild -maxcpucount:12 /p:Platform=x64 /p:Configuration=Release Colosseum.sln 
     ECHO(   
     if ERRORLEVEL 1 goto :buildfailed
 
-    CALL :printHeader, "Building AirSim.sln Configuration = RelWithDebInfo"
-    msbuild -maxcpucount:12 /p:Platform=x64 /p:Configuration=RelWithDebInfo AirSim.sln 
+    CALL :printHeader, "Building Colosseum.sln Configuration = RelWithDebInfo"
+    msbuild -maxcpucount:12 /p:Platform=x64 /p:Configuration=RelWithDebInfo Colosseum.sln 
     ECHO(   
     if ERRORLEVEL 1 goto :buildfailed
 ) else (
-    CALL :printHeader, "Building AirSim.sln Configuration = %buildMode%"
-    msbuild -maxcpucount:12 /p:Platform=x64 /p:Configuration=%buildMode% AirSim.sln
+    CALL :printHeader, "Building Colosseum.sln Configuration = %buildMode%"
+    msbuild -maxcpucount:12 /p:Platform=x64 /p:Configuration=%buildMode% Colosseum.sln
     ECHO(   
     if ERRORLEVEL 1 goto :buildfailed
 )
 
 REM //---------- copy binaries and include for MavLinkCom in deps ----------
-CALL :printHeader, "Copy MavLinkCom lib and include files into AirLib folder structure"
-set MAVLINK_TARGET_LIB=AirLib\deps\MavLinkCom\lib
+CALL :printHeader, "Copy MavLinkCom lib and include files into ColosseumLib folder structure"
+set MAVLINK_TARGET_LIB=ColosseumLib\deps\MavLinkCom\lib
 if NOT exist %MAVLINK_TARGET_LIB% mkdir %MAVLINK_TARGET_LIB%
-set MAVLINK_TARGET_INCLUDE=AirLib\deps\MavLinkCom\include
+set MAVLINK_TARGET_INCLUDE=ColosseumLib\deps\MavLinkCom\include
 if NOT exist %MAVLINK_TARGET_INCLUDE% mkdir %MAVLINK_TARGET_INCLUDE%
 robocopy /MIR MavLinkCom\include %MAVLINK_TARGET_INCLUDE%
 robocopy /MIR MavLinkCom\lib %MAVLINK_TARGET_LIB%
 ECHO(
 
 REM //---------- all our output goes to Unreal/Plugin folder ----------
-CALL :printHeader, "Copy Airlib files into Unreal environment and plugin folder structure"
-if NOT exist Unreal\Plugins\AirSim\Source\AirLib mkdir Unreal\Plugins\AirSim\Source\AirLib
-robocopy /MIR AirLib Unreal\Plugins\AirSim\Source\AirLib  /XD temp *. /njh /njs /ndl /np
-copy /y AirSim.props Unreal\Plugins\AirSim\Source\AirLib
+CALL :printHeader, "Copy ColosseumLib files into Unreal environment and plugin folder structure"
+if NOT exist Unreal\Plugins\Colosseum\Source\ColosseumLib mkdir Unreal\Plugins\Colosseum\Source\ColosseumLib
+robocopy /MIR ColosseumLib Unreal\Plugins\Colosseum\Source\ColosseumLib  /XD temp *. /njh /njs /ndl /np
+copy /y Colosseum.props Unreal\Plugins\Colosseum\Source\ColosseumLib
 ECHO( 
 
 REM //---------- update all environments ----------

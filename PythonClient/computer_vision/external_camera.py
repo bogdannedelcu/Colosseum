@@ -1,5 +1,5 @@
 import setup_path
-import airsim
+import colosseum
 import os
 import tempfile
 
@@ -25,10 +25,10 @@ CAM_NAME = "fixed1"
 IS_EXTERNAL_CAM = True
 
 
-client = airsim.VehicleClient()
+client = colosseum.VehicleClient()
 client.confirmConnection()
 
-tmp_dir = os.path.join(tempfile.gettempdir(), "airsim_cv_mode")
+tmp_dir = os.path.join(tempfile.gettempdir(), "colosseum_cv_mode")
 print ("Saving images to %s" % tmp_dir)
 try:
     os.makedirs(tmp_dir)
@@ -43,13 +43,13 @@ cam_info = client.simGetCameraInfo(CAM_NAME, external=IS_EXTERNAL_CAM)
 print(cam_info)
 
 # Test Image APIs
-airsim.wait_key('Press any key to get images')
+colosseum.wait_key('Press any key to get images')
 
-requests = [airsim.ImageRequest(CAM_NAME, airsim.ImageType.Scene),
-            airsim.ImageRequest(CAM_NAME, airsim.ImageType.DepthPlanar),
-            airsim.ImageRequest(CAM_NAME, airsim.ImageType.DepthVis),
-            airsim.ImageRequest(CAM_NAME, airsim.ImageType.Segmentation),
-            airsim.ImageRequest(CAM_NAME, airsim.ImageType.SurfaceNormals)]
+requests = [colosseum.ImageRequest(CAM_NAME, colosseum.ImageType.Scene),
+            colosseum.ImageRequest(CAM_NAME, colosseum.ImageType.DepthPlanar),
+            colosseum.ImageRequest(CAM_NAME, colosseum.ImageType.DepthVis),
+            colosseum.ImageRequest(CAM_NAME, colosseum.ImageType.Segmentation),
+            colosseum.ImageRequest(CAM_NAME, colosseum.ImageType.SurfaceNormals)]
 
 def save_images(responses, prefix = ""):
     for i, response in enumerate(responses):
@@ -57,10 +57,10 @@ def save_images(responses, prefix = ""):
 
         if response.pixels_as_float:
             print(f"Type {response.image_type}, size {len(response.image_data_float)}, pos {response.camera_position}")
-            airsim.write_pfm(os.path.normpath(filename + '.pfm'), airsim.get_pfm_array(response))
+            colosseum.write_pfm(os.path.normpath(filename + '.pfm'), colosseum.get_pfm_array(response))
         else:
             print(f"Type {response.image_type}, size {len(response.image_data_uint8)}, pos {response.camera_position}")
-            airsim.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)
+            colosseum.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)
 
 
 responses = client.simGetImages(requests, external=IS_EXTERNAL_CAM)
@@ -68,7 +68,7 @@ save_images(responses, "old_fov")
 
 
 # Test FoV API
-airsim.wait_key('Press any key to change FoV and get images')
+colosseum.wait_key('Press any key to change FoV and get images')
 
 client.simSetCameraFov(CAM_NAME, 120, external=IS_EXTERNAL_CAM)
 
@@ -80,7 +80,7 @@ print(f"Old FOV: {cam_info.fov}, New FOV: {new_cam_info.fov}")
 
 
 # Test Pose APIs
-new_pose = airsim.Pose(airsim.Vector3r(-10, -5, -5), airsim.to_quaternion(0.1, 0, 0.1))
+new_pose = colosseum.Pose(colosseum.Vector3r(-10, -5, -5), colosseum.to_quaternion(0.1, 0, 0.1))
 client.simSetCameraPose(CAM_NAME, new_pose, external=IS_EXTERNAL_CAM)
 
 responses = client.simGetImages(requests, external=IS_EXTERNAL_CAM)

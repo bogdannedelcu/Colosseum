@@ -1,4 +1,4 @@
-import airsim
+import colosseum
 import time
 
 def RunConsoleCmd(client, cmd):
@@ -21,7 +21,7 @@ def RunCmdList(client):
     RunConsoleCmd(client, 'stat fps')
 
 def main():
-    client = airsim.client.MultirotorClient()
+    client = colosseum.client.MultirotorClient()
     client.confirmConnection()
     RunCmdList(client)
 

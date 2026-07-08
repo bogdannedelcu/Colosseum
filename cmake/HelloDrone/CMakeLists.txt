@@ -11,15 +11,15 @@ SetupConsoleBuild()
 
 ## Specify additional locations of header files
 include_directories(
-  ${AIRSIM_ROOT}/HelloDrone
-  ${AIRSIM_ROOT}/AirLib/include
+  ${COLOSSEUM_ROOT}/HelloDrone
+  ${COLOSSEUM_ROOT}/ColosseumLib/include
   ${RPC_LIB_INCLUDES}
-  ${AIRSIM_ROOT}/MavLinkCom/include
-  ${AIRSIM_ROOT}/MavLinkCom/common_utils
+  ${COLOSSEUM_ROOT}/MavLinkCom/include
+  ${COLOSSEUM_ROOT}/MavLinkCom/common_utils
 )
 
 AddExecutableSource()
 			
 CommonTargetLink()
-target_link_libraries(${PROJECT_NAME} AirLib)
+target_link_libraries(${PROJECT_NAME} ColosseumLib)
 target_link_libraries(${PROJECT_NAME} ${RPC_LIB})

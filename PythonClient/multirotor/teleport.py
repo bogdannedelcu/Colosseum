@@ -1,8 +1,8 @@
 import setup_path 
-import airsim
+import colosseum
 import time
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 
 pose = client.simGetVehiclePose()

@@ -9,13 +9,13 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
             "AdditionalDependencies": [
-                "AirSim"
+                "Colosseum"
             ]
 		}
 	],
 	"Plugins": [
 		{
-            "Name": "AirSim",
+            "Name": "Colosseum",
             "Enabled": true
         },
 		{

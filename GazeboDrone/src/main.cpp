@@ -37,9 +37,9 @@ STRICT_MODE_ON
 constexpr int NWIDTH = 7;
 static constexpr int MESSAGE_THROTTLE = 100;
 
-using namespace msr::airlib;
+using namespace colosseum;
 
-msr::airlib::MultirotorRpcLibClient client;
+colosseum::MultirotorRpcLibClient client;
 
 void cbLocalPose(ConstPosesStampedPtr& msg)
 {
@@ -68,8 +68,8 @@ void cbLocalPose(ConstPosesStampedPtr& msg)
             std::cout << std::endl;
         }
         if (i == 0) {
-            msr::airlib::Vector3r p(x, -y, -z);
-            msr::airlib::Quaternionr o(ow, ox, -oy, -oz);
+            colosseum::Vector3r p(x, -y, -z);
+            colosseum::Quaternionr o(ow, ox, -oy, -oz);
 
             client.simSetVehiclePose(Pose(p, o), true);
         }

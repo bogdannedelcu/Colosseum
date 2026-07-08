@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 // by Sudipta Sinha
-// adapted for AirSim by Matthias Mueller
+// adapted for Colosseum by Matthias Mueller
 
 #pragma once
 
@@ -31,7 +31,7 @@ struct SGMOptions
     SGMOptions()
     {
         inputDir = "";
-        outputDir = "C:/Github/AirSimSGM/SGM/output";
+        outputDir = "C:/Github/ColosseumSGM/SGM/output";
         sgmConfidenceThreshold = 16;
         maxImageDimensionWidth = -1;
         minDisparity = 0;

@@ -14,8 +14,8 @@
 * [What do the colors mean in the Segmentation View?](#what-do-the-colors-mean-in-the-segmentation-view)
 * [Unreal 4.xx doesn't look as good as 4.yy](#unreal-4xx-doesnt-look-as-good-as-4yy)
 * [Can I use an XBox controller to fly?](#can-i-use-an-xbox-controller-to-fly)
-* [Can I build a hexacopter with Colosseum?](#can-i-build-a-hexacopter-with-airsim)
-* [How do I use Colosseum with multiple vehicles?](#how-do-i-use-airsim-with-multiple-vehicles)
+* [Can I build a hexacopter with Colosseum?](#can-i-build-a-hexacopter-with-colosseum)
+* [How do I use Colosseum with multiple vehicles?](#how-do-i-use-colosseum-with-multiple-vehicles)
 * [What computer do you need?](#what-computer-do-you-need)
 * [How do I report issues?](#how-do-i-report-issues)
 
@@ -99,7 +99,7 @@
 
 ###### Can I build a hexacopter with Colosseum?
 
->See [how to build a hexacopter](https://github.com/CodexLabsLLC/airsim/wiki/hexacopter).
+>See [how to build a hexacopter](https://github.com/CodexLabsLLC/colosseum/wiki/hexacopter).
 
 <!-- ======================================================================= -->
 
@@ -135,7 +135,7 @@
 
 >If you are using PX4 then try to [capture log from MavLink or PX4](px4_logging.md).
 
->File an issue through [GitHub Issues](https://github.com/CodexLabsLLC/airsim/issues).
+>File an issue through [GitHub Issues](https://github.com/CodexLabsLLC/colosseum/issues).
 
 <!-- ======================================================================= -->
 ## Others
@@ -147,4 +147,4 @@
 * [Remote Control FAQ](remote_control.md#faq)
 * [Unreal Blocks Environment FAQ](unreal_blocks.md#faq)
 * [Unreal Custom Environment FAQ](unreal_custenv.md#faq)
-* [Packaging Colosseum](build_faq.md#packaging-a-binary-including-the-airsim-plugin)
+* [Packaging Colosseum](build_faq.md#packaging-a-binary-including-the-colosseum-plugin)

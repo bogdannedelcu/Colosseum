@@ -1,5 +1,5 @@
 import setup_path 
-import airsim
+import colosseum
 
 import sys
 import time
@@ -11,7 +11,7 @@ class SurveyNavigator:
         self.stripewidth = args.stripewidth
         self.altitude = args.altitude
         self.velocity = args.speed
-        self.client = airsim.MultirotorClient()
+        self.client = colosseum.MultirotorClient()
         self.client.confirmConnection()
         self.client.enableApiControl(True)
 
@@ -20,16 +20,16 @@ class SurveyNavigator:
         self.client.armDisarm(True)
 
         landed = self.client.getMultirotorState().landed_state
-        if landed == airsim.LandedState.Landed:
+        if landed == colosseum.LandedState.Landed:
             print("taking off...")
             self.client.takeoffAsync().join()
 
         landed = self.client.getMultirotorState().landed_state
-        if landed == airsim.LandedState.Landed:
+        if landed == colosseum.LandedState.Landed:
             print("takeoff failed - check Unreal message log for details")
             return
         
-        # AirSim uses NED coordinates so negative axis is up.
+        # Colosseum uses NED coordinates so negative axis is up.
         x = -self.boxsize
         z = -self.altitude
 
@@ -51,23 +51,23 @@ class SurveyNavigator:
         distance = 0
         while x < self.boxsize:
             distance += self.boxsize 
-            path.append(airsim.Vector3r(x, self.boxsize, z))
+            path.append(colosseum.Vector3r(x, self.boxsize, z))
             x += self.stripewidth            
             distance += self.stripewidth 
-            path.append(airsim.Vector3r(x, self.boxsize, z))
+            path.append(colosseum.Vector3r(x, self.boxsize, z))
             distance += self.boxsize 
-            path.append(airsim.Vector3r(x, -self.boxsize, z)) 
+            path.append(colosseum.Vector3r(x, -self.boxsize, z)) 
             x += self.stripewidth  
             distance += self.stripewidth 
-            path.append(airsim.Vector3r(x, -self.boxsize, z))
+            path.append(colosseum.Vector3r(x, -self.boxsize, z))
             distance += self.boxsize 
         
         print("starting survey, estimated distance is " + str(distance))
         trip_time = distance / self.velocity
         print("estimated survey time is " + str(trip_time))
         try:
-            result = self.client.moveOnPathAsync(path, self.velocity, trip_time, airsim.DrivetrainType.ForwardOnly, 
-                airsim.YawMode(False,0), self.velocity + (self.velocity/2), 1).join()
+            result = self.client.moveOnPathAsync(path, self.velocity, trip_time, colosseum.DrivetrainType.ForwardOnly, 
+                colosseum.YawMode(False,0), self.velocity + (self.velocity/2), 1).join()
         except:
             errorType, value, traceback = sys.exc_info()
             print("moveOnPath threw exception: " + str(value))

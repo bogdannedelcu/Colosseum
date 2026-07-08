@@ -2,7 +2,7 @@
 # 
 
 import setup_path 
-import airsim
+import colosseum
 
 import sys
 import math
@@ -16,11 +16,11 @@ class TimeOfDayTest:
 
     def __init__(self):
 
-        # connect to the AirSim simulator
-        self.client = airsim.CarClient()
+        # connect to the Colosseum simulator
+        self.client = colosseum.CarClient()
         self.client.confirmConnection()
         self.client.enableApiControl(True)
-        self.car_controls = airsim.CarControls()
+        self.car_controls = colosseum.CarControls()
 
     def execute(self):
 
@@ -49,15 +49,15 @@ class TimeOfDayTest:
 
     def setTimeOfDay(self, enabled, time_of_day):
             if (enabled):
-                airsim.wait_key('Press any key to change time of day to [{}]'.format(time_of_day))
+                colosseum.wait_key('Press any key to change time of day to [{}]'.format(time_of_day))
                 self.client.simSetTimeOfDay(enabled, time_of_day)
             else:
-                airsim.wait_key('Press any key to change time of day to default time')
+                colosseum.wait_key('Press any key to change time of day to default time')
                 self.client.simSetTimeOfDay(enabled)
 
     def stop(self):
 
-        airsim.wait_key('Press any key to reset to original state')
+        colosseum.wait_key('Press any key to reset to original state')
 
         self.client.reset()
 

@@ -10,7 +10,7 @@ class StandAlonePhysics
 public:
     static void testCollision()
     {
-        using namespace msr::airlib;
+        using namespace colosseum;
 
         std::shared_ptr<SteppableClock> clock = std::make_shared<SteppableClock>();
         ClockFactory::get(clock);
@@ -19,7 +19,7 @@ public:
         auto initial_kinematics = Kinematics::State::zero();
         initial_kinematics.pose = Pose::zero();
         initial_kinematics.pose.position.z() = -1;
-        msr::airlib::Environment::State initial_environment;
+        colosseum::Environment::State initial_environment;
         initial_environment.position = initial_kinematics.pose.position;
         Environment environment(initial_environment);
         Kinematics kinematics(initial_kinematics);

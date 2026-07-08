@@ -16,9 +16,9 @@ STRICT_MODE_ON
 
 int main()
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
 
-    msr::airlib::MultirotorRpcLibClient client;
+    colosseum::MultirotorRpcLibClient client;
     typedef ImageCaptureBase::ImageRequest ImageRequest;
     typedef ImageCaptureBase::ImageResponse ImageResponse;
     typedef ImageCaptureBase::ImageType ImageType;

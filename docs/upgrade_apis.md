@@ -13,22 +13,22 @@ from ColosseumClient import *
 use this:
 
 ```python
-import airsim
+import colosseum
 ```
 
 Above assumes you have installed Colosseum module using, 
 ```
-pip install --user airsim
+pip install --user colosseum
 ```
 
 If you are running you code from PythonClient folder in repo then you can also do this:
 
 ```python
 import setup_path 
-import airsim
+import colosseum
 ```
 
-Here setup_path.py should exist in your folder and it will set the path of `airsim` package in `PythonClient` repo folder. All examples in PythonClient folder uses this method.
+Here setup_path.py should exist in your folder and it will set the path of `colosseum` package in `PythonClient` repo folder. All examples in PythonClient folder uses this method.
 
 ## Using Colosseum Classes
 As we have everything now in package, you will need to use explicit namespace for Colosseum classes like shown below.
@@ -42,12 +42,12 @@ client1 = CarClient()
 use this:
 
 ```python
-client1 = airsim.CarClient()
+client1 = colosseum.CarClient()
 ```
 
 ## Colosseum Types
 
-We have moved all types in `airsim` namespace.
+We have moved all types in `colosseum` namespace.
 
 Instead of,
 
@@ -60,9 +60,9 @@ d = DrivetrainType.MaxDegreeOfFreedom
 use this:
 
 ```python
-image_type = airsim.ImageType.DepthVis
+image_type = colosseum.ImageType.DepthVis
 
-d = airsim.DrivetrainType.MaxDegreeOfFreedom
+d = colosseum.DrivetrainType.MaxDegreeOfFreedom
 ```
 
 ## Getting Images
@@ -78,11 +78,11 @@ responses = client.simGetImages([ImageRequest(0, ColosseumImageType.DepthVis)])
 use this:
 
 ```python
-responses = client.simGetImages([airsim.ImageRequest("0", airsim.ImageType.DepthVis)])
+responses = client.simGetImages([colosseum.ImageRequest("0", colosseum.ImageType.DepthVis)])
 ```
 
 ## Utility Methods
-In earlier version, we provided several utility methods as part of `ColosseumClientBase`. These methods are now moved to `airsim` namespace for more pythonic interface.
+In earlier version, we provided several utility methods as part of `ColosseumClientBase`. These methods are now moved to `colosseum` namespace for more pythonic interface.
 
 Instead of,
 
@@ -95,9 +95,9 @@ ColosseumClientBase.wait_key('Press any key')
 use this:
 
 ```python
-airsim.write_png(my_path, img_rgba)
+colosseum.write_png(my_path, img_rgba)
 
-airsim.wait_key('Press any key')
+colosseum.wait_key('Press any key')
 ```
 
 ## Camera Names

@@ -1,21 +1,21 @@
 # Code Structure
 
-## AirLib
+## ColosseumLib
 
-Majority of the code is located in AirLib. This is a self-contained library that you should be able to compile with any C++11 compiler.
+Majority of the code is located in ColosseumLib. This is a self-contained library that you should be able to compile with any C++11 compiler.
 
-AirLib consists of the following components:
+ColosseumLib consists of the following components:
 
-1. [*Physics engine:*](https://github.com/CodexLabsLLC/Colosseum/tree/main/AirLib/include/physics) This is header-only physics engine. It is designed to be fast and extensible to implement different vehicles.
-2. [*Sensor models:*](https://github.com/CodexLabsLLC/Colosseum/tree/main/AirLib/include/sensors) This is header-only models for Barometer, IMU, GPS and Magnetometer.
-3. [*Vehicle models:*](https://github.com/CodexLabsLLC/Colosseum/tree/main/AirLib/include/vehiclesr) This is header-only models for vehicle configurations and models. Currently we have implemented model for a MultiRotor and a configuration for PX4 QuadRotor in the X config. There are several different Multirotor models defined in MultiRotorParams.hpp including a hexacopter as well.
-4. [*API-related files:*](https://github.com/CodexLabsLLC/Colosseum/tree/main/AirLib/include/api) This part of AirLib provides abstract base class for our APIs and concrete implementation for specific vehicle platforms such as MavLink. It also has classes for the RPC client and server.
+1. [*Physics engine:*](https://github.com/CodexLabsLLC/Colosseum/tree/main/ColosseumLib/include/physics) This is header-only physics engine. It is designed to be fast and extensible to implement different vehicles.
+2. [*Sensor models:*](https://github.com/CodexLabsLLC/Colosseum/tree/main/ColosseumLib/include/sensors) This is header-only models for Barometer, IMU, GPS and Magnetometer.
+3. [*Vehicle models:*](https://github.com/CodexLabsLLC/Colosseum/tree/main/ColosseumLib/include/vehiclesr) This is header-only models for vehicle configurations and models. Currently we have implemented model for a MultiRotor and a configuration for PX4 QuadRotor in the X config. There are several different Multirotor models defined in MultiRotorParams.hpp including a hexacopter as well.
+4. [*API-related files:*](https://github.com/CodexLabsLLC/Colosseum/tree/main/ColosseumLib/include/api) This part of ColosseumLib provides abstract base class for our APIs and concrete implementation for specific vehicle platforms such as MavLink. It also has classes for the RPC client and server.
 
-Apart from these, all common utilities are defined in [`common/`](https://github.com/CodexLabsLLC/Colosseum/tree/main/AirLib/include/common) subfolder. One important file here is [ColosseumSettings.hpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/AirLib/include/common/ColosseumSettings.hpp) which should be modified if any new fields are to be added in `settings.json`.
+Apart from these, all common utilities are defined in [`common/`](https://github.com/CodexLabsLLC/Colosseum/tree/main/ColosseumLib/include/common) subfolder. One important file here is [ColosseumSettings.hpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/ColosseumLib/include/common/ColosseumSettings.hpp) which should be modified if any new fields are to be added in `settings.json`.
 
-Colosseum supports different firmwares for Multirotor such as its own SimpleFlight, PX4 and ArduPilot, files for communicating with each firmware are placed in their respective subfolders in [`multirotor/firmwares`](https://github.com/CodexLabsLLC/Colosseum/tree/main/AirLib/include/vehicles/multirotor/firmwares).
+Colosseum supports different firmwares for Multirotor such as its own SimpleFlight, PX4 and ArduPilot, files for communicating with each firmware are placed in their respective subfolders in [`multirotor/firmwares`](https://github.com/CodexLabsLLC/Colosseum/tree/main/ColosseumLib/include/vehicles/multirotor/firmwares).
 
-The vehicle-specific APIs are defined in the `api/` subfolder, along-with required structs. The [`AirLib/src/`](https://github.com/CodexLabsLLC/Colosseum/tree/main/AirLib/src) contains .cpp files with implementations of various mehtods defined in the .hpp files. For e.g. [MultirotorApiBase.cpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/AirLib/src/vehicles/multirotor/api/MultirotorApiBase.cpp) contains the base implementation of the multirotor APIs, which can also be overridden in the specific firmware files if required.
+The vehicle-specific APIs are defined in the `api/` subfolder, along-with required structs. The [`ColosseumLib/src/`](https://github.com/CodexLabsLLC/Colosseum/tree/main/ColosseumLib/src) contains .cpp files with implementations of various mehtods defined in the .hpp files. For e.g. [MultirotorApiBase.cpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/ColosseumLib/src/vehicles/multirotor/api/MultirotorApiBase.cpp) contains the base implementation of the multirotor APIs, which can also be overridden in the specific firmware files if required.
 
 ## Unreal/Plugins/Colosseum
 
@@ -26,7 +26,7 @@ This is the only portion of project which is dependent on Unreal engine. We have
 3. [UnrealSensors](https://github.com/CodexLabsLLC/Colosseum/tree/main/Unreal/Plugins/Colosseum/Source/UnrealSensors): Contains implementation of Distance and Lidar sensors.
 4. *WorldSimApi*: Implements most of the environment and vehicle-agnostic APIs
 
-Apart from these, [`PIPCamera`](https://github.com/CodexLabsLLC/Colosseum/blob/main/Unreal/Plugins/Colosseum/Source/PIPCamera.cpp) contains the camera initialization, and [`UnrealImageCapture`](https://github.com/CodexLabsLLC/Colosseum/blob/main/Unreal/Plugins/Colosseum/Source/UnrealImageCapture.cpp) & [`RenderRequest`](https://github.com/CodexLabsLLC/Colosseum/blob/main/Unreal/Plugins/Colosseum/Source/RenderRequest.cpp) the image rendering code. [`AirBlueprintLib`](https://github.com/CodexLabsLLC/Colosseum/blob/main/Unreal/Plugins/Colosseum/Source/AirBlueprintLib.cpp) has a lot of utility and wrapper methods used to interface with the UE4 engine.
+Apart from these, [`PIPCamera`](https://github.com/CodexLabsLLC/Colosseum/blob/main/Unreal/Plugins/Colosseum/Source/PIPCamera.cpp) contains the camera initialization, and [`UnrealImageCapture`](https://github.com/CodexLabsLLC/Colosseum/blob/main/Unreal/Plugins/Colosseum/Source/UnrealImageCapture.cpp) & [`RenderRequest`](https://github.com/CodexLabsLLC/Colosseum/blob/main/Unreal/Plugins/Colosseum/Source/RenderRequest.cpp) the image rendering code. [`ColosseumBlueprintLib`](https://github.com/CodexLabsLLC/Colosseum/blob/main/Unreal/Plugins/Colosseum/Source/ColosseumBlueprintLib.cpp) has a lot of utility and wrapper methods used to interface with the UE4 engine.
 
 ## MavLinkCom
 
@@ -50,4 +50,4 @@ See [Contribution Guidelines](CONTRIBUTING.md)
 
 The following picture illustrates how Colosseum is loaded and invoked by the Unreal Game Engine:
 
-![ColosseumConstruction](images/airsim_startup.png)
+![ColosseumConstruction](images/colosseum_startup.png)

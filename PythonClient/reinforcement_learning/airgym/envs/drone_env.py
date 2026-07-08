@@ -1,5 +1,5 @@
 import setup_path
-import airsim
+import colosseum
 import numpy as np
 import math
 import time
@@ -7,10 +7,10 @@ from argparse import ArgumentParser
 
 import gym
 from gym import spaces
-from airgym.envs.airsim_env import AirSimEnv
+from airgym.envs.colosseum_env import ColosseumEnv
 
 
-class AirSimDroneEnv(AirSimEnv):
+class ColosseumDroneEnv(ColosseumEnv):
     def __init__(self, ip_address, step_length, image_shape):
         super().__init__(image_shape)
         self.step_length = step_length
@@ -22,12 +22,12 @@ class AirSimDroneEnv(AirSimEnv):
             "prev_position": np.zeros(3),
         }
 
-        self.drone = airsim.MultirotorClient(ip=ip_address)
+        self.drone = colosseum.MultirotorClient(ip=ip_address)
         self.action_space = spaces.Discrete(7)
         self._setup_flight()
 
-        self.image_request = airsim.ImageRequest(
-            3, airsim.ImageType.DepthPerspective, True, False
+        self.image_request = colosseum.ImageRequest(
+            3, colosseum.ImageType.DepthPerspective, True, False
         )
 
     def __del__(self):

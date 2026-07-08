@@ -1,8 +1,8 @@
 # In settings.json first activate computer vision mode:
-# https://github.com/Microsoft/AirSim/blob/main/docs/image_apis.md#computer-vision-mode
+# https://github.com/CodexLabsLLC/Colosseum/blob/main/docs/image_apis.md#computer-vision-mode
 
 import setup_path
-import airsim
+import colosseum
 
 # requires Python 3.5.3 :: Anaconda 4.4.0
 # pip install opencv-python
@@ -19,12 +19,12 @@ for arg in sys.argv[1:]:
   cameraType = arg.lower()
 
 cameraTypeMap = {
- "depth": airsim.ImageType.DepthVis,
- "segmentation": airsim.ImageType.Segmentation,
- "seg": airsim.ImageType.Segmentation,
- "scene": airsim.ImageType.Scene,
- "disparity": airsim.ImageType.DisparityNormalized,
- "normals": airsim.ImageType.SurfaceNormals
+ "depth": colosseum.ImageType.DepthVis,
+ "segmentation": colosseum.ImageType.Segmentation,
+ "seg": colosseum.ImageType.Segmentation,
+ "scene": colosseum.ImageType.Scene,
+ "disparity": colosseum.ImageType.DisparityNormalized,
+ "normals": colosseum.ImageType.SurfaceNormals
 }
 
 if (cameraType not in cameraTypeMap):
@@ -33,7 +33,7 @@ if (cameraType not in cameraTypeMap):
 
 print (cameraTypeMap[cameraType])
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 
 print("Connected: now while this script is running, you can open another")
 print("console and run a script that flies the drone and this script will")
@@ -55,10 +55,10 @@ while True:
     # because this method returns std::vector<uint8>, msgpack decides to encode it as a string unfortunately.
     rawImage = client.simGetImage("0", cameraTypeMap[cameraType])
     if (rawImage == None):
-        print("Camera is not returning image, please check airsim for error messages")
+        print("Camera is not returning image, please check colosseum for error messages")
         sys.exit(0)
     else:
-        png = cv2.imdecode(airsim.string_to_uint8_array(rawImage), cv2.IMREAD_UNCHANGED)
+        png = cv2.imdecode(colosseum.string_to_uint8_array(rawImage), cv2.IMREAD_UNCHANGED)
         cv2.putText(png,'FPS ' + str(fps),textOrg, fontFace, fontScale,(255,0,255),thickness)
         cv2.imshow("Depth", png)
 

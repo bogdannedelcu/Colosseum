@@ -1,6 +1,6 @@
 # use open cv to create point cloud from depth image.
 import setup_path 
-import airsim
+import colosseum
 
 import cv2
 import time
@@ -41,13 +41,13 @@ def savePointCloud(image, fileName):
 for arg in sys.argv[1:]:
   cloud.txt = arg
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 
 while True:
-    rawImage = client.simGetImage("0", airsim.ImageType.DepthPerspective)
+    rawImage = client.simGetImage("0", colosseum.ImageType.DepthPerspective)
     if (rawImage is None):
-        print("Camera is not returning image, please check airsim for error messages")
-        airsim.wait_key("Press any key to exit")
+        print("Camera is not returning image, please check colosseum for error messages")
+        colosseum.wait_key("Press any key to exit")
         sys.exit(0)
     else:
         png = cv2.imdecode(np.frombuffer(rawImage, np.uint8) , cv2.IMREAD_UNCHANGED)
@@ -55,7 +55,7 @@ while True:
         Image3D = cv2.reprojectImageTo3D(gray, projectionMatrix)
         savePointCloud(Image3D, outputFile)
         print("saved " + outputFile)
-        airsim.wait_key("Press any key to exit")
+        colosseum.wait_key("Press any key to exit")
         sys.exit(0)
 
     key = cv2.waitKey(1) & 0xFF;

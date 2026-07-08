@@ -27,7 +27,7 @@ az vm deallocate --resource-group MyResourceGroup --name MyVMName
 - Run the `Remote - SSH: Connect to host...` command again, and now select the newly added connection.
 - Once connected, click on the `Clone Repository` button in Visual Studio Code, and either clone this repository in the remote VM and open *just the `azure` folder*, or create a brand new repository, clone it and copy the contents of the `azure` folder from this repository in it. It is important to open that directory so Visual Studio Code can use the specific `.vscode` directory for the scenario and not the general Colosseum `.vscode` directory. It contains the recommended extensions to install, the task to start Colosseum remotely and the launch configuration for the Python application.
 - Install all the recommended extensions
-- Press `F1` and select the `Tasks: Run Task` option. Then, select the `Start Colosseum` task from Visual Studio Code to execute the `start-airsim.ps1` script from Visual Studio Code.
+- Press `F1` and select the `Tasks: Run Task` option. Then, select the `Start Colosseum` task from Visual Studio Code to execute the `start-colosseum.ps1` script from Visual Studio Code.
 - Open the `multirotor.py` file inside the `app` directory
 - Start debugging with Python
 - When finished, remember to stop an deallocate the Azure VM to avoid extra charges
@@ -72,12 +72,12 @@ docker build -t <your-registry-url>/<your-image-name> -f ./docker/Dockerfile .`
 To use a different Colosseum binary, first check the official documentation on [How to Build Colosseum on Windows](build_windows.md) and [How to Build Colosseum on Linux](build_linux.md) if you also want to run it with Docker
 
 Once you have a zip file with the new Colosseum environment (or prefer to use one from the [Official Releases](https://github.com/CodexLabsLLC/Colosseum/releases)), you need to modify some of the scripts in the `azure` directory of the repository to point to the new environment:
-- In [`azure/azure-env-creation/configure-vm.ps1`](https://github.com/CodexLabsLLC/Colosseum/blob/main/azure/azure-env-creation/configure-vm.ps1), modify all the parameters starting with `$airSimBinary` with the new values
-- In [`azure/start-airsim.ps1`](https://github.com/CodexLabsLLC/Colosseum/blob/main/azure/start-airsim.ps1), modify `$airSimExecutable` and `$airSimProcessName` with the new values
+- In [`azure/azure-env-creation/configure-vm.ps1`](https://github.com/CodexLabsLLC/Colosseum/blob/main/azure/azure-env-creation/configure-vm.ps1), modify all the parameters starting with `$colosseumBinary` with the new values
+- In [`azure/start-colosseum.ps1`](https://github.com/CodexLabsLLC/Colosseum/blob/main/azure/start-colosseum.ps1), modify `$colosseumExecutable` and `$colosseumProcessName` with the new values
 
 If you are using the docker image, you also need a linux binary zip file and modify the following Docker-related files:
-- In [`azure/docker/Dockerfile`](https://github.com/CodexLabsLLC/Colosseum/blob/main/azure/docker/Dockerfile), modify the `AIRSIM_BINARY_ZIP_URL` and `AIRSIM_BINARY_ZIP_FILENAME` ENV declarations with the new values
-- In [`azure/docker/docker-entrypoint.sh`](https://github.com/CodexLabsLLC/Colosseum/blob/main/azure/docker/docker-entrypoint.sh), modify `AIRSIM_EXECUTABLE` with the new value 
+- In [`azure/docker/Dockerfile`](https://github.com/CodexLabsLLC/Colosseum/blob/main/azure/docker/Dockerfile), modify the `COLOSSEUM_BINARY_ZIP_URL` and `COLOSSEUM_BINARY_ZIP_FILENAME` ENV declarations with the new values
+- In [`azure/docker/docker-entrypoint.sh`](https://github.com/CodexLabsLLC/Colosseum/blob/main/azure/docker/docker-entrypoint.sh), modify `COLOSSEUM_EXECUTABLE` with the new value 
 
 ## Maintaining this development environment
 

@@ -23,41 +23,41 @@ RUN python3.6 -m pip install --upgrade pip
 
 RUN python3.6 -m pip install setuptools wheel
 
-RUN adduser --force-badname --disabled-password --gecos '' --shell /bin/bash airsim_user && \ 
+RUN adduser --force-badname --disabled-password --gecos '' --shell /bin/bash colosseum_user && \ 
 	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \ 
-	adduser airsim_user sudo && \ 
-	adduser airsim_user audio && \ 
-	adduser airsim_user video
+	adduser colosseum_user sudo && \ 
+	adduser colosseum_user audio && \ 
+	adduser colosseum_user video
 
-USER airsim_user
-WORKDIR /home/airsim_user
+USER colosseum_user
+WORKDIR /home/colosseum_user
 
-# Change the following values to use a different AirSim binary
-# Also change the AIRSIM_EXECUTABLE variable in docker-entrypoint.sh
-ENV AIRSIM_BINARY_ZIP_URL=https://github.com/microsoft/AirSim/releases/download/v1.3.1-linux/Blocks.zip 
-ENV AIRSIM_BINARY_ZIP_FILENAME=Blocks.zip
+# Change the following values to use a different Colosseum binary
+# Also change the COLOSSEUM_EXECUTABLE variable in docker-entrypoint.sh
+ENV COLOSSEUM_BINARY_ZIP_URL=https://github.com/CodexLabsLLC/Colosseum/releases/download/v1.3.1-linux/Blocks.zip 
+ENV COLOSSEUM_BINARY_ZIP_FILENAME=Blocks.zip
 
 ENV SDL_VIDEODRIVER_VALUE=offscreen
 ENV SDL_HINT_CUDA_DEVICE=0
 
-# Download and unzip the AirSim binary
-RUN wget -c $AIRSIM_BINARY_ZIP_URL
-RUN unzip $AIRSIM_BINARY_ZIP_FILENAME
-RUN rm $AIRSIM_BINARY_ZIP_FILENAME
+# Download and unzip the Colosseum binary
+RUN wget -c $COLOSSEUM_BINARY_ZIP_URL
+RUN unzip $COLOSSEUM_BINARY_ZIP_FILENAME
+RUN rm $COLOSSEUM_BINARY_ZIP_FILENAME
 
 # Add the Python app to the image
-ADD ./app /home/airsim_user/app
+ADD ./app /home/colosseum_user/app
 
-WORKDIR /home/airsim_user
-RUN mkdir -p /home/airsim_user/Documents/AirSim
-ADD ./app/settings.json /home/airsim_user/Documents/AirSim
-ADD ./docker/docker-entrypoint.sh /home/airsim_user/docker-entrypoint.sh
+WORKDIR /home/colosseum_user
+RUN mkdir -p /home/colosseum_user/Documents/Colosseum
+ADD ./app/settings.json /home/colosseum_user/Documents/Colosseum
+ADD ./docker/docker-entrypoint.sh /home/colosseum_user/docker-entrypoint.sh
 
-RUN sudo chown -R airsim_user /home/airsim_user
+RUN sudo chown -R colosseum_user /home/colosseum_user
 
-WORKDIR /home/airsim_user/app
+WORKDIR /home/colosseum_user/app
 
 # Install Python requirements
 RUN python3.6 -m pip install -r requirements.txt
 
-ENTRYPOINT /home/airsim_user/docker-entrypoint.sh
+ENTRYPOINT /home/colosseum_user/docker-entrypoint.sh

@@ -498,7 +498,7 @@ PX4 connection. See [Setting up PX4 Software-in-Loop](px4_sitl.md) for an exampl
 
 ### Using ArduPilot
 
-[ArduPilot](https://ardupilot.org/) Copter & Rover vehicles are supported in latest Colosseum main branch & releases `v1.3.0` and later. For settings and how to use, please see [ArduPilot SITL with Colosseum](https://ardupilot.org/dev/docs/sitl-with-airsim.html)
+[ArduPilot](https://ardupilot.org/) Copter & Rover vehicles are supported in latest Colosseum main branch & releases `v1.3.0` and later. For settings and how to use, please see [ArduPilot SITL with Colosseum](https://ardupilot.org/dev/docs/sitl-with-colosseum.html)
 
 ## Other Settings
 
@@ -520,7 +520,7 @@ So the LocalHostIp allows you to configure how you are reaching those machines. 
 this default is only used when everything you are talking to is contained on a single PC.
 
 ### ApiServerPort
-This setting determines the server port that used by airsim clients, default port is 41451.
+This setting determines the server port that used by colosseum clients, default port is 41451.
 By specifying different ports, the user can run multiple environments in parallel to accelerate data collection process.
 
 ### SpeedUnitFactor

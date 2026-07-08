@@ -128,7 +128,7 @@ public:
 
         // This timeout is important as it allows the MavLinkConnection readPackets
         // thread to iterate and notice the connection is now closed. This allows
-        // AirSim to shutdown properly when drone is not connected.
+        // Colosseum to shutdown properly when drone is not connected.
         struct timeval tv;
         tv.tv_sec = 1;
         tv.tv_usec = 0;

@@ -1,6 +1,6 @@
 <!-- Thank you for submitting a pull request! -->
 <!-- ⚠️⚠️ Do Not Delete This! pull_request_template ⚠️⚠️ -->
-<!-- Please read our contribution guidelines: https://microsoft.github.io/AirSim/CONTRIBUTING/ -->
+<!-- Please read our contribution guidelines: https://codexlabsllc.github.io/Colosseum/CONTRIBUTING/ -->
 
 Fixes: #    <!-- add this line for each issue your PR solves. -->
 <!-- Fixes: # -->

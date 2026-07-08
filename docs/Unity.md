@@ -1,11 +1,11 @@
 # Colosseum on Unity
 
-* Colosseum on Unity allows you to run your simulators in the [Unity Engine](https://unity3d.com/). This project comes with some sample Unity projects and a wrapper around the AirLib library to run as a [native plugin](https://docs.unity3d.com/Manual/NativePlugins.html) in Unity. 
+* Colosseum on Unity allows you to run your simulators in the [Unity Engine](https://unity3d.com/). This project comes with some sample Unity projects and a wrapper around the ColosseumLib library to run as a [native plugin](https://docs.unity3d.com/Manual/NativePlugins.html) in Unity. 
 * Included are two basic Unity Projects, one for a Car simulator and another for a Drone simulator. They are meant to be lightweight, and can be used to verify your setup is correct. 
-* Check out the [Unity blogpost](https://blogs.unity3d.com/2018/11/14/airsim-on-unity-experiment-with-autonomous-vehicle-simulation/) for overview on the release.  
+* Check out the [Unity blogpost](https://blogs.unity3d.com/2018/11/14/colosseum-on-unity-experiment-with-autonomous-vehicle-simulation/) for overview on the release.  
 
 ### Warning: Experimental Release
-This project is still in early development, expect some rough edges. We are working to fully support the full AirLib API and feature set, but some things may be missing. [Click here](unity_api_support.md) for the list of currently supported APIs.
+This project is still in early development, expect some rough edges. We are working to fully support the full ColosseumLib API and feature set, but some things may be missing. [Click here](unity_api_support.md) for the list of currently supported APIs.
 
 ## Windows
 ### Building from source
@@ -14,7 +14,7 @@ This project is still in early development, expect some rough edges. We are work
 * Install **Unity 2019.3.12** using the Unity Hub from [here](https://unity3d.com/get-unity/update?_ga=2.150316848.720992218.1588269226-65412882.1588269226). [Detailed instructions here](https://docs.unity3d.com/Manual/GettingStartedInstallingHub.html). 
 * Note: If you are using Unity for the first time, check out [the Getting started guide](https://docs.unity3d.com/Manual/GettingStarted.html). The [Unity User Manual](https://docs.unity3d.com/Manual/UnityManual.html) has additional tips, resources, and FAQs.
 
-#### Build Airsim
+#### Build Colosseum
 * Install Visual Studio 2019. 
 **Make sure** to select **Desktop Development with C++** and **Windows 10 SDK 10.0.18362** (should be selected by default) while installing VS 2019. 
 
@@ -40,7 +40,7 @@ sudo apt-get install libboost-all-dev
 * [Install **Unity 2019.3.12** using the Unity Hub](https://docs.unity3d.com/Manual/GettingStartedInstallingHub.html). 
 * Note: If you are using Unity for the first time, check out [the Getting started guide](https://docs.unity3d.com/Manual/GettingStarted.html). The [Unity User Manual](https://docs.unity3d.com/Manual/UnityManual.html) has additional tips, resources, and FAQs.
 
-#### Build Airsim
+#### Build Colosseum
 ```
 git clone https://github.com/CodexLabsLLC/Colosseum.git;
 cd Colosseum;
@@ -48,7 +48,7 @@ cd Colosseum;
 ./build.sh
 ```
 
-#### Generate AirsimWrapper Shared Library
+#### Generate ColosseumWrapper Shared Library
 ```
 cd Colosseum/Unity
 ./build.sh
@@ -78,7 +78,7 @@ Unity Editor supports compiling projects to Linux systems.
 After following the steps to build Colosseum and Unity on Windows, do the following:
 
 #### Linux Pre-Requisites
-Before being able to run Unity Binaries with the Airsim plugin, be sure have airsim and airsim unity built on your linux machine by following the Linux build steps above.
+Before being able to run Unity Binaries with the Colosseum plugin, be sure have colosseum and colosseum unity built on your linux machine by following the Linux build steps above.
 
 ### Package UnityDemo Binary On Windows
 
@@ -100,12 +100,12 @@ Once this component is successfully installed, you are ready to build Unity Proj
 * Click ```Build```
 * Transport the built project as well as the generated folder ```"{project_name}_Data"``` to your linux machine
 
-#### Copy The AirsimWrapper Library to the Project Plugins folder
+#### Copy The ColosseumWrapper Library to the Project Plugins folder
 * On your linux machine, navigate to your Colosseum repository, and run the following commands in a terminal window:
 	```
-	cp Unity/linux-build/libAirsimWrapper.so path/to/your/project/{project_name}_Data/Plugins/{os_version}
+	cp Unity/linux-build/libColosseumWrapper.so path/to/your/project/{project_name}_Data/Plugins/{os_version}
 	```
-This will generate the necessary shared library to allow Airsim to communicate with Unity and copy it to the plugins folder of your project binary.
+This will generate the necessary shared library to allow Colosseum to communicate with Unity and copy it to the plugins folder of your project binary.
 
 #### Run the Project Binary
 * Open a terminal and navigate to your project directory
@@ -117,7 +117,7 @@ chmod +x "{project_name}.{configuration}"
 ```
 ./{project_name}.{configuration}
 ```
-### Using Airsim API
+### Using Colosseum API
 * For quickstart with the Python APIs for the car or the drone, simply run the [`hello_car.py`](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/car/hello_car.py) or the [`hello_drone.py`](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/multirotor/hello_drone.py) script accordingly. 
 * Details of the Colosseum C++ and Python APIs are [here](apis.md). 
 

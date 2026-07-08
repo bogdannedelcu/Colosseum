@@ -1,13 +1,13 @@
 import os
 import setup_path 
-import airsim
+import colosseum
 import time
 import numpy as np
 import sys
 
 script_dir = os.path.dirname(__file__)
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 
@@ -51,7 +51,7 @@ while iteration < 10:
     print("arming the drone...")
     client.armDisarm(True)
 
-    while client.getMultirotorState().landed_state == airsim.LandedState.Landed:
+    while client.getMultirotorState().landed_state == colosseum.LandedState.Landed:
         print("taking off...")
         client.takeoffAsync().join()
         time.sleep(1)

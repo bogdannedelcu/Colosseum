@@ -1,5 +1,5 @@
 import numpy as np
-import airsim
+import colosseum
 import time
 import cv2
 import matplotlib.pyplot as plt
@@ -9,24 +9,24 @@ import pandas as pd
 import pickle
 from event_simulator import *
 
-parser = argparse.ArgumentParser(description="Simulate event data from AirSim")
+parser = argparse.ArgumentParser(description="Simulate event data from Colosseum")
 parser.add_argument("--debug", action="store_true")
 parser.add_argument("--save", action="store_true")
 parser.add_argument("--height", type=int, default=144)
 parser.add_argument("--width", type=int, default=256)
 
 
-class AirSimEventGen:
+class ColosseumEventGen:
     def __init__(self, W, H, save=False, debug=False):
         self.ev_sim = EventSimulator(W, H)
         self.H = H
         self.W = W
 
-        self.image_request = airsim.ImageRequest(
-            "0", airsim.ImageType.Scene, False, False
+        self.image_request = colosseum.ImageRequest(
+            "0", colosseum.ImageType.Scene, False, False
         )
 
-        self.client = airsim.VehicleClient()
+        self.client = colosseum.VehicleClient()
         self.client.confirmConnection()
         self.init = True
         self.start_ts = None
@@ -65,7 +65,7 @@ class AirSimEventGen:
 if __name__ == "__main__":
     args = parser.parse_args()
 
-    event_generator = AirSimEventGen(args.width, args.height, save=args.save, debug=args.debug)
+    event_generator = ColosseumEventGen(args.width, args.height, save=args.save, debug=args.debug)
     i = 0
     start_time = 0
     t_start = time.time()
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, event_generator._stop_event_gen)
 
     while True:
-        image_request = airsim.ImageRequest("0", airsim.ImageType.Scene, False, False)
+        image_request = colosseum.ImageRequest("0", colosseum.ImageType.Scene, False, False)
 
         response = event_generator.client.simGetImages([event_generator.image_request])
         while response[0].height == 0 or response[0].width == 0:

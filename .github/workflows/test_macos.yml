@@ -20,5 +20,5 @@ jobs:
       - name: Setup
         run: ./setup.sh
 
-      - name: Build AirLib
+      - name: Build ColosseumLib
         run: ./build.sh

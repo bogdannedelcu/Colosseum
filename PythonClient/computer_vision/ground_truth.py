@@ -1,14 +1,14 @@
 # In settings.json first activate computer vision mode: 
-# https://github.com/Microsoft/AirSim/blob/main/docs/image_apis.md#computer-vision-mode
+# https://github.com/CodexLabsLLC/Colosseum/blob/main/docs/image_apis.md#computer-vision-mode
 
 import setup_path 
-import airsim
+import colosseum
 
 import pprint
 import time
 import cv2 #conda install opencv
 
-client = airsim.VehicleClient()
+client = colosseum.VehicleClient()
 client.confirmConnection()
 
 print("Time,Speed,Gear,PX,PY,PZ,OW,OX,OY,OZ")

@@ -16,7 +16,7 @@ fi
 # Install Unreal Engine
 ./install_unreal.sh $1
 
-#install airsim
+#install colosseum
 ./setup.sh
 ./build.sh
 

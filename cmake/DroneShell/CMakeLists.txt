@@ -10,15 +10,15 @@ IncludeEigen()
 SetupConsoleBuild()
 
 include_directories(
-  ${AIRSIM_ROOT}/DroneShell
+  ${COLOSSEUM_ROOT}/DroneShell
   ${RPC_LIB_INCLUDES}
-  ${AIRSIM_ROOT}/DroneShell/include;
-  ${AIRSIM_ROOT}/AirLib/include
-  ${AIRSIM_ROOT}/MavLinkCom/include
+  ${COLOSSEUM_ROOT}/DroneShell/include;
+  ${COLOSSEUM_ROOT}/ColosseumLib/include
+  ${COLOSSEUM_ROOT}/MavLinkCom/include
 )
 
 AddExecutableSource()
 			
 CommonTargetLink()
-target_link_libraries(${PROJECT_NAME} AirLib)
+target_link_libraries(${PROJECT_NAME} ColosseumLib)
 target_link_libraries(${PROJECT_NAME} ${RPC_LIB})

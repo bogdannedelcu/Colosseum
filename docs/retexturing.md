@@ -43,10 +43,10 @@ If tex_id is out-of-bounds for some object's texture set, it will be taken modul
 Demo (Python):
 
 ```Python
-import airsim
+import colosseum
 import time
 
-c = airsim.client.MultirotorClient()
+c = colosseum.client.MultirotorClient()
 print(c.simSwapTextures("furniture", 0))
 time.sleep(2)
 print(c.simSwapTextures("chair", 1))

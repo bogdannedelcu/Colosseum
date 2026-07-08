@@ -19,9 +19,7 @@
 #include "safety/SafetyEval.hpp"
 #include "common/common_utils/Timer.hpp"
 
-namespace msr
-{
-namespace airlib
+namespace colosseum
 {
 
     using namespace common_utils;
@@ -1299,19 +1297,19 @@ See RecordPose for information about log file format")
 
                 const char* typeName = "";
                 switch (imageType) {
-                case msr::airlib::ImageCaptureBase::ImageType::Scene:
+                case colosseum::ImageCaptureBase::ImageType::Scene:
                     typeName = "scene";
                     break;
-                case msr::airlib::ImageCaptureBase::ImageType::DepthVis:
+                case colosseum::ImageCaptureBase::ImageType::DepthVis:
                     typeName = "depth";
                     break;
-                case msr::airlib::ImageCaptureBase::ImageType::Segmentation:
+                case colosseum::ImageCaptureBase::ImageType::Segmentation:
                     typeName = "seg";
                     break;
-                case msr::airlib::ImageCaptureBase::ImageType::SurfaceNormals:
+                case colosseum::ImageCaptureBase::ImageType::SurfaceNormals:
                     typeName = "normals";
                     break;
-                case msr::airlib::ImageCaptureBase::ImageType::DisparityNormalized:
+                case colosseum::ImageCaptureBase::ImageType::DisparityNormalized:
                     typeName = "disparity";
                     break;
                 default:
@@ -1388,7 +1386,6 @@ See RecordPose for information about log file format")
     //{
     //}
 }
-} //namespace
 
 std::string server_address("127.0.0.1");
 
@@ -1422,7 +1419,7 @@ void printUsage()
 int main(int argc, const char* argv[])
 {
 
-    using namespace msr::airlib;
+    using namespace colosseum;
 
     if (!parseCommandLine(argc, argv)) {
         printUsage();

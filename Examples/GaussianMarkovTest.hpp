@@ -3,9 +3,7 @@
 #include "common/GaussianMarkov.hpp"
 #include "common/SteppableClock.hpp"
 
-namespace msr
-{
-namespace airlib
+namespace colosseum
 {
 
     class GaussianMarkovTest
@@ -32,5 +30,4 @@ namespace airlib
         GaussianMarkov pressure_factor_;
         std::shared_ptr<SteppableClock> clock_;
     };
-}
 }

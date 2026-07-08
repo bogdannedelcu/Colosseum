@@ -29,7 +29,7 @@ If no sensors are specified in the `settings.json`, then the following sensors a
 ### ComputerVision
 * None
 
-Behind the scenes, `createDefaultSensorSettings` method in [ColosseumSettings.hpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/AirLib/include/common/ColosseumSettings.hpp) sets up the above sensors with their default parameters, depending on the sim mode specified in the `settings.json` file.
+Behind the scenes, `createDefaultSensorSettings` method in [ColosseumSettings.hpp](https://github.com/CodexLabsLLC/Colosseum/blob/main/ColosseumLib/include/common/ColosseumSettings.hpp) sets up the above sensors with their default parameters, depending on the sim mode specified in the `settings.json` file.
 
 ## Configuring the default sensor list
 
@@ -177,7 +177,7 @@ Jump straight to [`hello_drone.py`](https://github.com/CodexLabsLLC/Colosseum/bl
 
 ### Barometer
 ```cpp
-msr::airlib::BarometerBase::Output getBarometerData(const std::string& barometer_name, const std::string& vehicle_name);
+colosseum::BarometerBase::Output getBarometerData(const std::string& barometer_name, const std::string& vehicle_name);
 ```
 
 ```python
@@ -186,7 +186,7 @@ barometer_data = client.getBarometerData(barometer_name = "", vehicle_name = "")
 
 ### IMU
 ```cpp
-msr::airlib::ImuBase::Output getImuData(const std::string& imu_name = "", const std::string& vehicle_name = "");
+colosseum::ImuBase::Output getImuData(const std::string& imu_name = "", const std::string& vehicle_name = "");
 ```
 
 ```python
@@ -195,7 +195,7 @@ imu_data = client.getImuData(imu_name = "", vehicle_name = "")
 
 ### GPS
 ```cpp
-msr::airlib::GpsBase::Output getGpsData(const std::string& gps_name = "", const std::string& vehicle_name = "");
+colosseum::GpsBase::Output getGpsData(const std::string& gps_name = "", const std::string& vehicle_name = "");
 ```
 ```python
 gps_data = client.getGpsData(gps_name = "", vehicle_name = "")
@@ -203,7 +203,7 @@ gps_data = client.getGpsData(gps_name = "", vehicle_name = "")
 
 ### Magnetometer
 ```cpp
-msr::airlib::MagnetometerBase::Output getMagnetometerData(const std::string& magnetometer_name = "", const std::string& vehicle_name = "");
+colosseum::MagnetometerBase::Output getMagnetometerData(const std::string& magnetometer_name = "", const std::string& vehicle_name = "");
 ```
 ```python
 magnetometer_data = client.getMagnetometerData(magnetometer_name = "", vehicle_name = "")
@@ -211,7 +211,7 @@ magnetometer_data = client.getMagnetometerData(magnetometer_name = "", vehicle_n
 
 ### Distance sensor
 ```cpp
-msr::airlib::DistanceSensorData getDistanceSensorData(const std::string& distance_sensor_name = "", const std::string& vehicle_name = "");
+colosseum::DistanceSensorData getDistanceSensorData(const std::string& distance_sensor_name = "", const std::string& vehicle_name = "");
 ```
 ```python
 distance_sensor_data = client.getDistanceSensorData(distance_sensor_name = "", vehicle_name = "")

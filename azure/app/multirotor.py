@@ -1,4 +1,4 @@
-import airsim
+import colosseum
 import pprint
 
 def print_state(client):
@@ -22,8 +22,8 @@ def print_state(client):
     s = pprint.pformat(gps_data)
     print("gps_data: %s" % s)
 
-# connect to the AirSim simulator
-client = airsim.MultirotorClient()
+# connect to the Colosseum simulator
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)

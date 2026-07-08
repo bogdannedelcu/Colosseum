@@ -13,9 +13,9 @@ Make sure you have installed gazebo dependencies:
 sudo apt-get install libgazebo9-dev
 ```
 
-### AirLib
+### ColosseumLib
 
-This project is built with GCC 8, so AirLib needs to be built with GCC 8 too. 
+This project is built with GCC 8, so ColosseumLib needs to be built with GCC 8 too. 
 Run from your Colosseum root folder:  
 ```
 ./clean.sh
@@ -25,7 +25,7 @@ Run from your Colosseum root folder:
 
 ## Colosseum simulator
 
-The Colosseum UE plugin needs to be built with clang, so you can't use the one compiled in the previous step. You can use [our binaries](https://github.com/CodexLabsLLC/Colosseum/releases) or you can clone Colosseum again in another folder and buid it without the above option, then you can [run Blocks](build_linux.md#how-to-use-airsim) or your own environment.
+The Colosseum UE plugin needs to be built with clang, so you can't use the one compiled in the previous step. You can use [our binaries](https://github.com/CodexLabsLLC/Colosseum/releases) or you can clone Colosseum again in another folder and buid it without the above option, then you can [run Blocks](build_linux.md#how-to-use-colosseum) or your own environment.
 
 
 ### Colosseum settings

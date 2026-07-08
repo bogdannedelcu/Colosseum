@@ -7,9 +7,7 @@
 #include <thread>
 #include <ostream>
 
-namespace msr
-{
-namespace airlib
+namespace colosseum
 {
     class StandALoneSensors
     {
@@ -17,8 +15,8 @@ namespace airlib
         static void generateImuStaticData(std::ostream& output_stream, float period, float total_duration)
         {
             auto kinematics = Kinematics::State::zero();
-            msr::airlib::Environment::State initial_environment(kinematics.pose.position, GeoPoint());
-            msr::airlib::Environment environment(initial_environment);
+            colosseum::Environment::State initial_environment(kinematics.pose.position, GeoPoint());
+            colosseum::Environment environment(initial_environment);
             environment.reset();
 
             ImuSimple imu;
@@ -48,8 +46,8 @@ namespace airlib
         static void generateBarometerStaticData(std::ostream& output_stream, float period, float total_duration, GeoPoint loc)
         {
             auto kinematics = Kinematics::State::zero();
-            msr::airlib::Environment::State initial_environment(kinematics.pose.position, loc);
-            msr::airlib::Environment environment(initial_environment);
+            colosseum::Environment::State initial_environment(kinematics.pose.position, loc);
+            colosseum::Environment environment(initial_environment);
             environment.reset();
 
             BarometerSimple baro;
@@ -78,8 +76,8 @@ namespace airlib
         static void generateBarometerDynamicData(std::ostream& output_stream, float period, float total_duration, GeoPoint loc)
         {
             auto kinematics = Kinematics::State::zero();
-            msr::airlib::Environment::State initial_environment(kinematics.pose.position, loc);
-            msr::airlib::Environment environment(initial_environment);
+            colosseum::Environment::State initial_environment(kinematics.pose.position, loc);
+            colosseum::Environment environment(initial_environment);
             environment.reset();
 
             BarometerSimple baro;
@@ -132,8 +130,8 @@ namespace airlib
 
                 auto kinematics = Kinematics::State::zero();
                 kinematics.pose.orientation = VectorMath::toQuaternion(0, 0, yaw);
-                msr::airlib::Environment::State initial_environment(kinematics.pose.position, loc);
-                msr::airlib::Environment environment(initial_environment);
+                colosseum::Environment::State initial_environment(kinematics.pose.position, loc);
+                colosseum::Environment environment(initial_environment);
                 environment.reset();
 
                 MagnetometerSimple mag;
@@ -178,8 +176,8 @@ namespace airlib
 
                         auto kinematics = Kinematics::State::zero();
                         kinematics.pose.orientation = VectorMath::toQuaternion(pitch, roll, yaw);
-                        msr::airlib::Environment::State initial_environment(kinematics.pose.position, loc);
-                        msr::airlib::Environment environment(initial_environment);
+                        colosseum::Environment::State initial_environment(kinematics.pose.position, loc);
+                        colosseum::Environment environment(initial_environment);
                         environment.reset();
 
                         MagnetometerSimple mag;
@@ -214,8 +212,8 @@ namespace airlib
 
             auto kinematics = Kinematics::State::zero();
             kinematics.pose.orientation = VectorMath::toQuaternion(0, 0, 0);
-            msr::airlib::Environment::State initial_environment(kinematics.pose.position, GeoPoint());
-            msr::airlib::Environment environment(initial_environment);
+            colosseum::Environment::State initial_environment(kinematics.pose.position, GeoPoint());
+            colosseum::Environment environment(initial_environment);
             environment.reset();
 
             MagnetometerSimple mag;
@@ -235,5 +233,4 @@ namespace airlib
             }
         }
     };
-}
 }

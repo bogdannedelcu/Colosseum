@@ -272,17 +272,17 @@ ModelManifest.xml
 /MavLinkCom/CTestTestfile.cmake
 /MavLinkTest/CTestTestfile.cmake
 /CTestTestfile.cmake
-/AirLib/CMakeFiles
-/AirLib/Makefile
-/AirLib/CTestTestfile.cmake
-/AirLib/cmake_install.cmake
+/ColosseumLib/CMakeFiles
+/ColosseumLib/Makefile
+/ColosseumLib/CTestTestfile.cmake
+/ColosseumLib/cmake_install.cmake
 /MavLinkCom/lib/libMavLinkCom.a
-/Unreal/Plugins/AirSim/Source/AirLib/
-/Unreal/Environments/BlocksV2/Plugins/AirSim/
+/Unreal/Plugins/Colosseum/Source/ColosseumLib/
+/Unreal/Environments/BlocksV2/Plugins/Colosseum/
 /enc_temp_folder
 /cmake/MavLinkCom/MavLinkTest/MavLinkTest
 /cmake/MavLinkCom/lib/libMavLinkCom.a
-/cmake/AirLib/lib/libAirLib.a
+/cmake/ColosseumLib/lib/libColosseumLib.a
 /cmake/MavLinkCom/MavLinkTest/Makefile
 /cmake/MavLinkCom/Makefile
 /cmake/Makefile
@@ -290,14 +290,14 @@ ModelManifest.xml
 /cmake/HelloSpawnedDrones/Makefile
 /cmake/DroneShell/Makefile
 /cmake/DroneServer/Makefile
-/cmake/AirLib/Makefile
-/cmake/AirLibUnity/Makefile
-/cmake/AirLibUnity/AirLibUnity
+/cmake/ColosseumLib/Makefile
+/cmake/ColosseumLibUnity/Makefile
+/cmake/ColosseumLibUnity/ColosseumLibUnity
 /cmake/HelloDrone/HelloDrone
 /cmake/HelloSpawnedDrones/HelloSpawnedDrones
 /cmake/DroneShell/DroneShell
 /cmake/DroneServer/DroneServer
-cmake/AirLibUnitTests/Makefile
+cmake/ColosseumLibUnitTests/Makefile
 external/
 deps/
 cmake_build/
@@ -318,25 +318,25 @@ cmake_build/
 /cmake/rpclib/Makefile
 /cmake/rpclib
 /cmake/output/lib/libMavLinkCom.a
-/cmake/output/lib/libAirSim-rpclib.a
+/cmake/output/lib/libColosseum-rpclib.a
 /cmake/output/lib/librpc.a
-/cmake/output/lib/libAirLib.a
+/cmake/output/lib/libColosseumLib.a
 /cmake/output/lib
-/AirLib/include/controllers/html
-/AirLib/include/controllers/latex
+/ColosseumLib/include/controllers/html
+/ColosseumLib/include/controllers/latex
 /Eigen3
-/AirLib/lib/libAirLib.a
+/ColosseumLib/lib/libColosseumLib.a
 /cmake-3.7.2-win64-x64
 /cmake-3.7.2-win64-x64.zip
 /3.3.2.zip
 /PythonClient/**/cloud.txt
 /PythonClient/**/cloud.asc
-/Unreal/Plugins/AirSim/Content/VehicleAdv/SUV/
+/Unreal/Plugins/Colosseum/Content/VehicleAdv/SUV/
 /suv_download_tmp
 car_assets.zip
 __pycache__/
 /PythonClient/**/metrics/
-/PythonClient/**/airsim.egg-info/
+/PythonClient/**/colosseum.egg-info/
 /PythonClient/**/dist/
 
 ### Xcode ###
@@ -402,3 +402,5 @@ PythonClient/docs/_build
 
 # clangd generated folder, for e.g. from VSCode clangd extension
 .cache/
+
+claude/

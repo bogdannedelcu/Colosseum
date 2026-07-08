@@ -1,5 +1,5 @@
 import setup_path
-import airsim
+import colosseum
 import sys
 import time
 
@@ -11,14 +11,14 @@ z = 5
 if len(sys.argv) > 1:
     z = float(sys.argv[1])
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 
 client.armDisarm(True)
 
 landed = client.getMultirotorState().landed_state
-if landed == airsim.LandedState.Landed:
+if landed == colosseum.LandedState.Landed:
     print("taking off...")
     client.takeoffAsync().join()
 else:
@@ -28,7 +28,7 @@ else:
 print("make sure we are hovering at {} meters...".format(z))
 
 if z > 5:
-    # AirSim uses NED coordinates so negative axis is up.
+    # Colosseum uses NED coordinates so negative axis is up.
     # z of -50 is 50 meters above the original launch point.
     client.moveToZAsync(-z, 5).join()
     client.hoverAsync().join()

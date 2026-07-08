@@ -18,7 +18,7 @@ IF NOT EXIST "%ToolPath%" (
 	goto :failed
 )
 
-if "%OutPath%"=="" set "OutPath=D:\AirSimBuilds"
+if "%OutPath%"=="" set "OutPath=D:\ColosseumBuilds"
 IF NOT EXIST "%ToolPath%" (
 	echo "Package output path %OutPath% was not found"
 	goto :failed

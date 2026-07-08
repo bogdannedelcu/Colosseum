@@ -48,8 +48,8 @@ Avoid using any sort of Hungarian notation on names and "_ptr" on pointers.
 Use a namespace qualified #ifdef to protect against multiple inclusion:
 
 ```
-#ifndef msr_airsim_MyHeader_hpp
-#define msr_airsim_MyHeader_hpp
+#ifndef msr_colosseum_MyHeader_hpp
+#define msr_colosseum_MyHeader_hpp
 
 //--your code
 

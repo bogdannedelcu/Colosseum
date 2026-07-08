@@ -126,7 +126,7 @@ Below is summarized list of important changes. This does not include minor/less 
 * [Add Recording APIs](https://github.com/CodexLabsLLC/Colosseum/pull/2834)
 * [Update Dockerfiles and documentation to Ubuntu 18.04](https://github.com/CodexLabsLLC/Colosseum/pull/2865)
 * [Azure development environment and documentation](https://github.com/CodexLabsLLC/Colosseum/pull/2816)
-* [ROS: Add airsim_node to install list](https://github.com/CodexLabsLLC/Colosseum/pull/2706)
+* [ROS: Add colosseum_node to install list](https://github.com/CodexLabsLLC/Colosseum/pull/2706)
 
 ### May 2020
 
@@ -148,7 +148,7 @@ Below is summarized list of important changes. This does not include minor/less 
 * [ROS package compilation fixes and updates](https://github.com/CodexLabsLLC/Colosseum/pull/2571)
 * Latest release `v1.3.1` for [Windows](https://github.com/CodexLabsLLC/Colosseum/releases/tag/v1.3.1-windows) and [Linux](https://github.com/CodexLabsLLC/Colosseum/releases/tag/v1.3.1-linux)
 * APIs added and fixed - [`simSetCameraFov`](https://github.com/CodexLabsLLC/Colosseum/pull/2534), [`rotateToYaw`](https://github.com/CodexLabsLLC/Colosseum/pull/2516)
-* [airsim](https://pypi.org/project/airsim/) Python package update to `1.2.8`
+* [colosseum](https://pypi.org/project/colosseum/) Python package update to `1.2.8`
 * [NoDisplay ViewMode render state fix](https://github.com/CodexLabsLLC/Colosseum/pull/2518)
 
 ### March 2020
@@ -156,10 +156,10 @@ Below is summarized list of important changes. This does not include minor/less 
 * Latest release `v1.3.0` for [Windows](https://github.com/CodexLabsLLC/Colosseum/releases/tag/v1.3.0-Windows) and [Linux](https://github.com/CodexLabsLLC/Colosseum/releases/tag/v1.3.0-linux)
 * Upgraded to Unreal Engine 4.24, Visual Studio 2019, Clang 8, C++ 17 standard
 * Mac OSX Catalina support
-* Updated [airsim](https://pypi.org/project/airsim/) Python package, with lots of new APIs
+* Updated [colosseum](https://pypi.org/project/colosseum/) Python package, with lots of new APIs
 * [Removed legacy API wrappers](https://github.com/CodexLabsLLC/Colosseum/pull/2494)
 * [Support for latest PX4 stable release](px4_setup.md)
-* Support for [ArduPilot](https://ardupilot.org/ardupilot/) - [Copter, Rover vehicles](https://ardupilot.org/dev/docs/sitl-with-airsim.html)
+* Support for [ArduPilot](https://ardupilot.org/ardupilot/) - [Copter, Rover vehicles](https://ardupilot.org/dev/docs/sitl-with-colosseum.html)
 * [Updated Unity support](Unity.md)
 * [Removed simChar* APIs](https://github.com/CodexLabsLLC/Colosseum/pull/2493)
 * [Plotting APIs for Debugging](https://github.com/CodexLabsLLC/Colosseum/pull/2304)
@@ -175,14 +175,14 @@ Below is summarized list of important changes. This does not include minor/less 
 * [Recording thread deadlock fix](https://github.com/CodexLabsLLC/Colosseum/pull/1695)
 * [Prevent environment crash when Sun is not present](https://github.com/CodexLabsLLC/Colosseum/pull/2147)
 * [Africa Tracking feautre, add `simListSceneObjects()` API, fix camera projection matrix](https://github.com/CodexLabsLLC/Colosseum/pull/1959)
-* ROS wrapper for multirotors is available. See [airsim_ros_pkgs](airsim_ros_pkgs.md) for the ROS API, and [airsim_tutorial_pkgs](airsim_tutorial_pkgs.md) for tutorials.
+* ROS wrapper for multirotors is available. See [colosseum_ros_pkgs](colosseum_ros_pkgs.md) for the ROS API, and [colosseum_tutorial_pkgs](colosseum_tutorial_pkgs.md) for tutorials.
 * [Added sensor APIs for Barometer, IMU, GPS, Magnetometer, Distance Sensor](sensors.md)
 * Added support for [docker in ubuntu](docker_ubuntu.md)
 
 ### November, 2018
 * Added Weather Effects and [APIs](apis.md#weather-apis)
 * Added [Time of Day API](apis.md#time-of-day-api)
-* An experimental integration of [Colosseum on Unity](https://github.com/CodexLabsLLC/Colosseum/tree/main/Unity) is now available. Learn more in [Unity blog post](https://blogs.unity3d.com/2018/11/14/airsim-on-unity-experiment-with-autonomous-vehicle-simulation). 
+* An experimental integration of [Colosseum on Unity](https://github.com/CodexLabsLLC/Colosseum/tree/main/Unity) is now available. Learn more in [Unity blog post](https://blogs.unity3d.com/2018/11/14/colosseum-on-unity-experiment-with-autonomous-vehicle-simulation). 
 * [New environments](https://github.com/CodexLabsLLC/Colosseum/releases/tag/v1.2.1): Forest, Plains (windmill farm), TalkingHeads (human head simulation), TrapCam (animal detection via camera)
 * Highly efficient [NoDisplay view mode](settings.md#viewmode) to turn off main screen rendering so you can capture images at high rate
 * [Enable/disable sensors](https://github.com/CodexLabsLLC/Colosseum/pull/1479) via settings
@@ -193,7 +193,7 @@ Below is summarized list of important changes. This does not include minor/less 
 * [Custom speed units](https://github.com/CodexLabsLLC/Colosseum/pull/1181)
 * [ROS publisher](https://github.com/CodexLabsLLC/Colosseum/pull/1135)
 * [simSetObjectPose API](https://github.com/CodexLabsLLC/Colosseum/pull/1161)
-* [Character Control APIs](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/airsim/client.py#L137) (works on TalkingHeads binaries in release)
+* [Character Control APIs](https://github.com/CodexLabsLLC/Colosseum/blob/main/PythonClient/colosseum/client.py#L137) (works on TalkingHeads binaries in release)
 * [Arducopter Solo Support](https://github.com/CodexLabsLLC/Colosseum/pull/1387)
 * [Linux install without sudo access](https://github.com/CodexLabsLLC/Colosseum/pull/1434)
 * [Kinect like ROS publisher](https://github.com/CodexLabsLLC/Colosseum/pull/1298)

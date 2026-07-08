@@ -1,9 +1,9 @@
 
 # In settings.json first activate computer vision mode: 
-# https://github.com/Microsoft/AirSim/blob/main/docs/image_apis.md#computer-vision-mode
+# https://github.com/CodexLabsLLC/Colosseum/blob/main/docs/image_apis.md#computer-vision-mode
 
 import setup_path 
-import airsim
+import colosseum
 
 import numpy as np
 import time
@@ -157,17 +157,17 @@ def generate_depth_viz(img,thres=0):
     return img 
 
 def moveUAV(client,pos,yaw):
-    client.simSetVehiclePose(airsim.Pose(airsim.Vector3r(pos[0], pos[1], pos[2]), airsim.to_quaternion(0, 0, yaw)), True) 
+    client.simSetVehiclePose(colosseum.Pose(colosseum.Vector3r(pos[0], pos[1], pos[2]), colosseum.to_quaternion(0, 0, yaw)), True) 
     
 
 pp = pprint.PrettyPrinter(indent=4)
 
-client = airsim.VehicleClient()
+client = colosseum.VehicleClient()
 client.confirmConnection()
 
-tmp_dir = os.path.join(tempfile.gettempdir(), "airsim_drone")
+tmp_dir = os.path.join(tempfile.gettempdir(), "colosseum_drone")
 #print ("Saving images to %s" % tmp_dir)
-#airsim.wait_key('Press any key to start')
+#colosseum.wait_key('Press any key to start')
 
 #Define start position, goal and size of UAV
 pos = [0,5,-1] #start position x,y,z
@@ -182,7 +182,7 @@ limit_yaw = 5
 step = 0.1
 
 responses = client.simGetImages([
-    airsim.ImageRequest("1", airsim.ImageType.DepthPlanar, True)])
+    colosseum.ImageRequest("1", colosseum.ImageType.DepthPlanar, True)])
 response = responses[0]
 
 #initial position
@@ -197,7 +197,7 @@ for z in range(10000): # do few times
 
     # get response
     responses = client.simGetImages([
-        airsim.ImageRequest("1", airsim.ImageType.DepthPlanar, True)])
+        colosseum.ImageRequest("1", colosseum.ImageType.DepthPlanar, True)])
     response = responses[0]
 
     # get numpy array
@@ -211,7 +211,7 @@ for z in range(10000): # do few times
 
     if (target_dist < 1):
         print('Target reached.')
-        airsim.wait_key('Press any key to continue')
+        colosseum.wait_key('Press any key to continue')
         break
 
     # write to png 
@@ -222,7 +222,7 @@ for z in range(10000): # do few times
     #time.sleep(5)
 
 # currently reset() doesn't work in CV mode. Below is the workaround
-client.simSetVehiclePose(airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0, 0, 0)), True)
+client.simSetVehiclePose(colosseum.Pose(colosseum.Vector3r(0, 0, 0), colosseum.to_quaternion(0, 0, 0)), True)
 
 
 

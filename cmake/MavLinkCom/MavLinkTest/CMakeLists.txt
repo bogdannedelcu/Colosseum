@@ -8,13 +8,13 @@ CommonSetup()
 SetupConsoleBuild()
 
 include_directories(
-  ${AIRSIM_ROOT}/MavLinkCom/MavLinkTest
-  ${AIRSIM_ROOT}/MavLinkCom/include
-  ${AIRSIM_ROOT}/MavLinkCom/common_utils
+  ${COLOSSEUM_ROOT}/MavLinkCom/MavLinkTest
+  ${COLOSSEUM_ROOT}/MavLinkCom/include
+  ${COLOSSEUM_ROOT}/MavLinkCom/common_utils
 )
 
     set(PROJECT_CPP ${PROJECT_NAME}_sources)
-    file(GLOB_RECURSE PROJECT_CPP "${AIRSIM_ROOT}/MavLinkCom/${PROJECT_NAME}/*.cpp")
+    file(GLOB_RECURSE PROJECT_CPP "${COLOSSEUM_ROOT}/MavLinkCom/${PROJECT_NAME}/*.cpp")
     add_executable(${PROJECT_NAME} ${PROJECT_CPP})
 			
 target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT} MavLinkCom ${CXX_EXP_LIB})

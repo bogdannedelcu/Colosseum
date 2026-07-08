@@ -1,5 +1,5 @@
 import setup_path 
-import airsim
+import colosseum
 
 #from keras.models import load_model
 import sys
@@ -12,11 +12,11 @@ import numpy as np
 #print('Loading model...')
 #model = load_model(sys.argv[1])
 
-# connect to the AirSim simulator 
-client = airsim.CarClient()
+# connect to the Colosseum simulator 
+client = colosseum.CarClient()
 client.confirmConnection()
 client.enableApiControl(True)
-car_controls = airsim.CarControls()
+car_controls = colosseum.CarControls()
 
 car_controls.steering = 0
 car_controls.throttle = 0
@@ -26,7 +26,7 @@ image_buf = np.zeros((1, 144, 256, 3))
 state_buf = np.zeros((1,4))
 
 def get_image():
-    image = client.simGetImages([airsim.ImageRequest("0", airsim.ImageType.Scene, False, False)])[0]
+    image = client.simGetImages([colosseum.ImageRequest("0", colosseum.ImageType.Scene, False, False)])[0]
     image1d = np.fromstring(image.image_data_uint8, dtype=np.uint8)
     image_rgb = image1d.reshape(image.height, image.width, 3)
     return image_rgb

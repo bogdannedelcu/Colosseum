@@ -11,9 +11,9 @@ set -x
 rm -rf Binaries
 rm -rf Intermediate
 rm -rf Saved
-rm -rf Plugins/AirSim/Binaries
-rm -rf Plugins/AirSim/Intermediate
-rm -rf Plugins/AirSim/Saved
+rm -rf Plugins/Colosseum/Binaries
+rm -rf Plugins/Colosseum/Intermediate
+rm -rf Plugins/Colosseum/Saved
 rm -f CMakeLists.txt
 rm -f Makefile
 

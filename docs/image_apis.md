@@ -9,12 +9,12 @@ Here's a sample code to get a single image from camera named "0". The returned v
 ### Python
 
 ```python
-import airsim #pip install airsim
+import colosseum #pip install colosseum
 
 # for car use CarClient() 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 
-png_image = client.simGetImage("0", airsim.ImageType.Scene)
+png_image = client.simGetImage("0", colosseum.ImageType.Scene)
 # do something with image
 ```
 
@@ -25,7 +25,7 @@ png_image = client.simGetImage("0", airsim.ImageType.Scene)
 
 int getOneImage() 
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
     
     // for car use CarRpcLibClient
     MultirotorRpcLibClient client;
@@ -42,18 +42,18 @@ The `simGetImages` API which is slightly more complex to use than `simGetImage` 
 ### Python
 
 ```python
-import airsim #pip install airsim
+import colosseum #pip install colosseum
 
 # for car use CarClient() 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 
 responses = client.simGetImages([
     # png format
-    airsim.ImageRequest(0, airsim.ImageType.Scene), 
+    colosseum.ImageRequest(0, colosseum.ImageType.Scene), 
     # uncompressed RGB array bytes
-    airsim.ImageRequest(1, airsim.ImageType.Scene, False, False),
+    colosseum.ImageRequest(1, colosseum.ImageType.Scene, False, False),
     # floating point uncompressed image
-    airsim.ImageRequest(1, airsim.ImageType.DepthPlanar, True)])
+    colosseum.ImageRequest(1, colosseum.ImageType.DepthPlanar, True)])
  
  # do something with response which contains image data, pose, timestamp etc
 ```
@@ -63,7 +63,7 @@ responses = client.simGetImages([
 If you plan to use numpy for image manipulation, you should get uncompressed RGB image and then convert to numpy like this:
 
 ```python
-responses = client.simGetImages([airsim.ImageRequest("0", airsim.ImageType.Scene, False, False)])
+responses = client.simGetImages([colosseum.ImageRequest("0", colosseum.ImageType.Scene, False, False)])
 response = responses[0]
 
 # get numpy array
@@ -76,17 +76,17 @@ img_rgb = img1d.reshape(response.height, response.width, 3)
 img_rgb = np.flipud(img_rgb)
 
 # write to png 
-airsim.write_png(os.path.normpath(filename + '.png'), img_rgb) 
+colosseum.write_png(os.path.normpath(filename + '.png'), img_rgb) 
 ```
 
 #### Quick Tips
-- The API `simGetImage` returns `binary string literal` which means you can simply dump it in binary file to create a .png file. However if you want to process it in any other way than you can handy function `airsim.string_to_uint8_array`. This converts binary string literal to NumPy uint8 array.
+- The API `simGetImage` returns `binary string literal` which means you can simply dump it in binary file to create a .png file. However if you want to process it in any other way than you can handy function `colosseum.string_to_uint8_array`. This converts binary string literal to NumPy uint8 array.
 
 - The API `simGetImages` can accept request for multiple image types from any cameras in single call. You can specify if image is png compressed, RGB uncompressed or float array. For png compressed images, you get `binary string literal`. For float array you get Python list of float64. You can convert this float array to NumPy 2D array using
     ```
-    airsim.list_to_2d_float_array(response.image_data_float, response.width, response.height)
+    colosseum.list_to_2d_float_array(response.image_data_float, response.width, response.height)
     ```
-    You can also save float array to .pfm file (Portable Float Map format) using `airsim.write_pfm()` function.
+    You can also save float array to .pfm file (Portable Float Map format) using `colosseum.write_pfm()` function.
 
 - If you are looking to query position and orientation information in sync with a call to one of the image APIs, you can use `client.simPause(True)` and `client.simPause(False)` to pause the simulation while calling the image API and querying the desired physics state, ensuring that the physics state remains the same immediately after the image API call.
 
@@ -95,7 +95,7 @@ airsim.write_png(os.path.normpath(filename + '.png'), img_rgb)
 ```cpp
 int getStereoAndDepthImages() 
 {
-    using namespace msr::airlib;
+    using namespace colosseum;
     
     typedef VehicleCameraBase::ImageRequest ImageRequest;
     typedef VehicleCameraBase::ImageResponse ImageResponse;
@@ -169,9 +169,9 @@ To move around the environment using APIs you can use `simSetVehiclePose` API. T
 ## Camera APIs
 The `simGetCameraInfo` returns the pose (in world frame, NED coordinates, SI units) and FOV (in degrees) for the specified camera. Please see [example usage](https://github.com/CodexLabsLLC/Colosseum/tree/main/PythonClient//computer_vision/cv_mode.py).
 
-The `simSetCameraPose` sets the pose for the specified camera while taking an input pose as a combination of relative position and a quaternion in NED frame. The handy `airsim.to_quaternion()` function allows to convert pitch, roll, yaw to quaternion. For example, to set camera-0 to 15-degree pitch while maintaining the same position, you can use:
+The `simSetCameraPose` sets the pose for the specified camera while taking an input pose as a combination of relative position and a quaternion in NED frame. The handy `colosseum.to_quaternion()` function allows to convert pitch, roll, yaw to quaternion. For example, to set camera-0 to 15-degree pitch while maintaining the same position, you can use:
 ```
-camera_pose = airsim.Pose(airsim.Vector3r(0, 0, 0), airsim.to_quaternion(0.261799, 0, 0))  #PRY in radians
+camera_pose = colosseum.Pose(colosseum.Vector3r(0, 0, 0), colosseum.to_quaternion(0.261799, 0, 0))  #PRY in radians
 client.simSetCameraPose(0, camera_pose);
 ```
 

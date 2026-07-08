@@ -1,18 +1,18 @@
 import setuptools
-from airsim import __version__
+from colosseum import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="airsim",
+    name="colosseum",
     version=__version__,
-    author="Shital Shah",
-    author_email="shitals@microsoft.com",
-    description="Open source simulator based on Unreal Engine for autonomous vehicles from Microsoft AI & Research",
+    author="Codex Labs, LLC",
+    author_email="support@codex-labs-llc.com",
+    description="Open source simulator based on Unreal Engine for autonomous vehicles, maintained by Codex Labs",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/microsoft/airsim",
+    url="https://github.com/CodexLabsLLC/Colosseum",
     packages=setuptools.find_packages(),
 	license='MIT',
     classifiers=(

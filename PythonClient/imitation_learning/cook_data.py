@@ -12,7 +12,7 @@ import Cooking
 # chunk size for training batches
 chunk_size = 32
 
-# No test set needed, since testing in our case is running the model on an unseen map in AirSim
+# No test set needed, since testing in our case is running the model on an unseen map in Colosseum
 train_eval_test_split = [0.8, 0.2, 0.0]
 
 # Point this to the directory containing the raw data

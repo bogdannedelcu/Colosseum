@@ -1,5 +1,5 @@
 import setup_path
-import airsim
+import colosseum
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 client.armDisarm(False)

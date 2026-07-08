@@ -2,7 +2,7 @@
 #
 
 import setup_path 
-import airsim
+import colosseum
 
 import sys
 import math
@@ -16,8 +16,8 @@ class LidarTest:
 
     def __init__(self):
 
-        # connect to the AirSim simulator
-        self.client = airsim.MultirotorClient()
+        # connect to the Colosseum simulator
+        self.client = colosseum.MultirotorClient()
         self.client.confirmConnection()
         self.client.enableApiControl(True)
 
@@ -30,18 +30,18 @@ class LidarTest:
         s = pprint.pformat(state)
         #print("state: %s" % s)
 
-        airsim.wait_key('Press any key to takeoff')
+        colosseum.wait_key('Press any key to takeoff')
         self.client.takeoffAsync().join()
 
         state = self.client.getMultirotorState()
         #print("state: %s" % pprint.pformat(state))
 
-        airsim.wait_key('Press any key to move vehicle to (-10, 10, -10) at 5 m/s')
+        colosseum.wait_key('Press any key to move vehicle to (-10, 10, -10) at 5 m/s')
         self.client.moveToPositionAsync(-10, 10, -10, 5).join()
 
         self.client.hoverAsync().join()
 
-        airsim.wait_key('Press any key to get Lidar readings')
+        colosseum.wait_key('Press any key to get Lidar readings')
         
         for i in range(1,5):
             lidarData = self.client.getLidarData();
@@ -68,7 +68,7 @@ class LidarTest:
 
     def stop(self):
 
-        airsim.wait_key('Press any key to reset to original state')
+        colosseum.wait_key('Press any key to reset to original state')
 
         self.client.armDisarm(False)
         self.client.reset()

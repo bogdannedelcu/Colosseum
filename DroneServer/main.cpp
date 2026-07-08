@@ -7,7 +7,7 @@
 #include "vehicles/multirotor/firmwares/mavlink/MavLinkMultirotorApi.hpp"
 #include "common/Settings.hpp"
 
-using namespace msr::airlib;
+using namespace colosseum;
 
 /*
     This is a sample code demonstrating how to deploy rpc server on-board
@@ -20,7 +20,7 @@ int main(int argc, const char* argv[])
     if (argc != 2) {
         std::cout << "Usage: " << argv[0] << " is_simulation" << std::endl;
         std::cout << "\t where is_simulation = 0 or 1" << std::endl;
-        std::cout << "Start the DroneServer using the 'PX4' settings in ~/Documents/AirSim/settings.json." << std::endl;
+        std::cout << "Start the DroneServer using the 'PX4' settings in ~/Documents/Colosseum/settings.json." << std::endl;
         return 1;
     }
 
@@ -30,7 +30,7 @@ int main(int argc, const char* argv[])
     else
         std::cout << "WARNING: This is not simulation!" << std::endl;
 
-    AirSimSettings::MavLinkConnectionInfo connection_info;
+    ColosseumSettings::MavLinkConnectionInfo connection_info;
 
     // read settings and override defaults
     auto settings_full_filepath = Settings::getUserDirectoryFullPath("settings.json");
@@ -91,7 +91,7 @@ int main(int argc, const char* argv[])
 
     ApiProvider api_provider(nullptr);
     api_provider.insert_or_assign("", &api, nullptr);
-    msr::airlib::MultirotorRpcLibServer server(&api_provider, connection_info.local_host_ip);
+    colosseum::MultirotorRpcLibServer server(&api_provider, connection_info.local_host_ip);
 
     //start server in async mode
     server.start(false, 4);

@@ -28,7 +28,7 @@ for /F "tokens=1,2 delims=." %%a in ("%cmake_version%") do (
 set cmake_ver_minmaj="%cmake_ver_major:~-4%.%cmake_ver_minor:~-4%"
 if %cmake_ver_minmaj% LSS %cmake_minversion_minmaj% (
   echo(
-  echo Newer AirSim requires cmake verion %cmake_minversion_minmaj% but you have %cmake_ver_minmaj% which is older.  >&2
+  echo Newer Colosseum requires cmake verion %cmake_minversion_minmaj% but you have %cmake_ver_minmaj% which is older.  >&2
   goto :download_install
 )
 

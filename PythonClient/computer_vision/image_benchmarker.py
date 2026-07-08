@@ -1,5 +1,5 @@
 import setup_path
-import airsim
+import colosseum
 from argparse import ArgumentParser
 import time
 import threading
@@ -10,12 +10,12 @@ import os
 
 
 cameraTypeMap = {
-    "depth": airsim.ImageType.DepthVis,
-    "segmentation": airsim.ImageType.Segmentation,
-    "seg": airsim.ImageType.Segmentation,
-    "scene": airsim.ImageType.Scene,
-    "disparity": airsim.ImageType.DisparityNormalized,
-    "normals": airsim.ImageType.SurfaceNormals
+    "depth": colosseum.ImageType.DepthVis,
+    "segmentation": colosseum.ImageType.Segmentation,
+    "seg": colosseum.ImageType.Segmentation,
+    "scene": colosseum.ImageType.Scene,
+    "disparity": colosseum.ImageType.DisparityNormalized,
+    "normals": colosseum.ImageType.SurfaceNormals
 }
 
 CAM_NAME = "front_center"
@@ -23,7 +23,7 @@ DEBUG = False
 
 def saveImage(response, filename):
     if response.pixels_as_float:
-        # airsim.write_pfm(os.path.normpath(filename + '.pfm'), airsim.get_pfm_array(response))
+        # colosseum.write_pfm(os.path.normpath(filename + '.pfm'), colosseum.get_pfm_array(response))
         depth = np.array(response.image_data_float, dtype=np.float64)
         depth = depth.reshape((response.height, response.width, -1))
         depth = np.array(depth * 255, dtype=np.uint8)
@@ -31,7 +31,7 @@ def saveImage(response, filename):
         cv2.imwrite(os.path.normpath(filename + '.png'), depth)
 
     elif response.compress: #png format
-        airsim.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)
+        colosseum.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)
 
     else: #uncompressed array
         img1d = np.fromstring(response.image_data_uint8, dtype=np.uint8) # get numpy array
@@ -44,8 +44,8 @@ class ImageBenchmarker():
             viz_image_cv2 = False,
             save_images = False,
             img_type = "scene"):
-        self.airsim_client = airsim.VehicleClient()
-        self.airsim_client.confirmConnection()
+        self.colosseum_client = colosseum.VehicleClient()
+        self.colosseum_client.confirmConnection()
         self.image_benchmark_num_images = 0
         self.image_benchmark_total_time = 0.0
         self.avg_fps = 0.0
@@ -62,7 +62,7 @@ class ImageBenchmarker():
         self.is_image_thread_active = False
 
         if self.save_images:
-            self.tmp_dir = os.path.join(tempfile.gettempdir(), "airsim_img_bm")
+            self.tmp_dir = os.path.join(tempfile.gettempdir(), "colosseum_img_bm")
             print(f"Saving images to {self.tmp_dir}")
             try:
                 os.makedirs(self.tmp_dir)
@@ -97,7 +97,7 @@ class ImageBenchmarker():
 
     def image_callback_benchmark_simGetImage(self):
         self.image_benchmark_num_images += 1
-        image = self.airsim_client.simGetImage(CAM_NAME, self.img_type)
+        image = self.colosseum_client.simGetImage(CAM_NAME, self.img_type)
         np_arr = np.frombuffer(image, dtype=np.uint8)
         # Change the below dimensions appropriately for the camera settings
         img_rgb = np_arr.reshape(240, 512, 4)
@@ -110,8 +110,8 @@ class ImageBenchmarker():
 
     def image_callback_benchmark_simGetImages(self):
         self.image_benchmark_num_images += 1
-        request = [airsim.ImageRequest(CAM_NAME, self.img_type, False, False)]
-        responses = self.airsim_client.simGetImages(request)
+        request = [colosseum.ImageRequest(CAM_NAME, self.img_type, False, False)]
+        responses = self.colosseum_client.simGetImages(request)
         response = responses[0]
 
         self.update_benchmark_results()

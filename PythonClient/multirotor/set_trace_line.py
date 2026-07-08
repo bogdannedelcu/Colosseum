@@ -12,11 +12,11 @@
 # }
 
 import setup_path
-import airsim
+import colosseum
 import time
 
-# connect to the AirSim simulator
-client = airsim.MultirotorClient()
+# connect to the Colosseum simulator
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)

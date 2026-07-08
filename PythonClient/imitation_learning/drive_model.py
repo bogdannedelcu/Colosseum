@@ -6,7 +6,7 @@ import sys
 import time
 import numpy as np
 
-import airsim
+import colosseum
 
 import keras.backend as K
 from keras.preprocessing import image
@@ -18,11 +18,11 @@ MODEL_PATH = './models/example_model.h5'
 
 model = load_model(MODEL_PATH)
 
-# Connect to AirSim 
-client = airsim.CarClient()
+# Connect to Colosseum 
+client = colosseum.CarClient()
 client.confirmConnection()
 client.enableApiControl(True)
-car_controls = airsim.CarControls()
+car_controls = colosseum.CarControls()
 
 # Start driving
 car_controls.steering = 0
@@ -35,9 +35,9 @@ image_buf = np.zeros((1, 66, 200, 3))
 
 def get_image():
     """
-    Get image from AirSim client
+    Get image from Colosseum client
     """
-    image_response = client.simGetImages([airsim.ImageRequest("0", airsim.ImageType.Scene, False, False)])[0]
+    image_response = client.simGetImages([colosseum.ImageRequest("0", colosseum.ImageType.Scene, False, False)])[0]
     image1d = np.fromstring(image_response.image_data_uint8, dtype=np.uint8)
     image_rgb = image1d.reshape(image_response.height, image_response.width, 3)
     return image_rgb[78:144,27:227,0:2].astype(float)

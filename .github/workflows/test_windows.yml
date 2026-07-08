@@ -17,6 +17,6 @@ jobs:
       - name: Enable Developer Command Prompt
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Build AirLib
+      - name: Build ColosseumLib
         shell: cmd
         run: build.cmd

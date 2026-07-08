@@ -4,10 +4,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Start AirSim",
+            "label": "Start Colosseum",
             "type": "shell",
             "options": {"shell": {"executable": "powershell.exe"}},
-            "command": ".\\start-airsim.ps1"
+            "command": ".\\start-colosseum.ps1"
             
         }
     ]

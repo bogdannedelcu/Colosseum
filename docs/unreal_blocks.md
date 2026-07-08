@@ -26,7 +26,7 @@ For Windows, you can just change the code in Visual Studio, press F5 and re-run.
 [![Blocks Demo Video](images/blocks_video.png)](https://www.youtube.com/watch?v=-r_QGaxMT4A)
 
 ### Changing Code and Rebuilding
-For Linux, make code changes in AirLib or Unreal/Plugins folder and then run `./build.sh` to rebuild. This step also copies the build output to Blocks sample project. You can then follow above steps again to re-run.
+For Linux, make code changes in ColosseumLib or Unreal/Plugins folder and then run `./build.sh` to rebuild. This step also copies the build output to Blocks sample project. You can then follow above steps again to re-run.
 
 ## Chosing Your Vehicle: Car or Multirotor
 By default Colosseum spawns multirotor. You can easily change this to car and use all of Colosseum goodies. Please see [using car](using_car.md) guide.

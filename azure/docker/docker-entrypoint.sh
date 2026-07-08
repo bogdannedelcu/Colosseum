@@ -1,11 +1,11 @@
 #!/bin/bash
-AIRSIM_EXECUTABLE=/home/airsim_user/BlocksV2/BlocksV2.sh
+COLOSSEUM_EXECUTABLE=/home/colosseum_user/BlocksV2/BlocksV2.sh
 
-echo Starting AirSim binary...
-$AIRSIM_EXECUTABLE &
+echo Starting Colosseum binary...
+$COLOSSEUM_EXECUTABLE &
 
 echo Waiting 10 seconds before starting app...
 sleep 10
 
 echo Starting Python app
-python3.6 /home/airsim_user/app/multirotor.py
+python3.6 /home/colosseum_user/app/multirotor.py

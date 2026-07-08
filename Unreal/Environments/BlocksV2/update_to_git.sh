@@ -8,8 +8,8 @@ pushd "$SCRIPT_DIR" >/dev/null
 set -e
 set -x
 
-rsync -a  --exclude 'temp' --delete Plugins/AirSim ../../Plugins/
-rsync -a  --exclude 'temp' --delete Plugins/AirSim/Source/AirLib ../../../
+rsync -a  --exclude 'temp' --delete Plugins/Colosseum ../../Plugins/
+rsync -a  --exclude 'temp' --delete Plugins/Colosseum/Source/ColosseumLib ../../../
 
 popd >/dev/null
 set +x

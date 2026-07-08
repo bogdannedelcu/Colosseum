@@ -1,5 +1,5 @@
 import setup_path
-import airsim
+import colosseum
 
 import numpy as np
 import os
@@ -7,8 +7,8 @@ import tempfile
 import pprint
 import cv2
 
-# connect to the AirSim simulator
-client = airsim.MultirotorClient()
+# connect to the Colosseum simulator
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 
@@ -32,7 +32,7 @@ gps_data = client.getGpsData()
 s = pprint.pformat(gps_data)
 print("gps_data: %s" % s)
 
-airsim.wait_key('Press any key to takeoff')
+colosseum.wait_key('Press any key to takeoff')
 print("Taking off...")
 client.armDisarm(True)
 client.takeoffAsync().join()
@@ -40,7 +40,7 @@ client.takeoffAsync().join()
 state = client.getMultirotorState()
 print("state: %s" % pprint.pformat(state))
 
-airsim.wait_key('Press any key to move vehicle to (-10, 10, -10) at 5 m/s')
+colosseum.wait_key('Press any key to move vehicle to (-10, 10, -10) at 5 m/s')
 client.moveToPositionAsync(-10, 10, -10, 5).join()
 
 client.hoverAsync().join()
@@ -48,16 +48,16 @@ client.hoverAsync().join()
 state = client.getMultirotorState()
 print("state: %s" % pprint.pformat(state))
 
-airsim.wait_key('Press any key to take images')
+colosseum.wait_key('Press any key to take images')
 # get camera images from the car
 responses = client.simGetImages([
-    airsim.ImageRequest("0", airsim.ImageType.DepthVis),  #depth visualization image
-    airsim.ImageRequest("1", airsim.ImageType.DepthPerspective, True), #depth in perspective projection
-    airsim.ImageRequest("1", airsim.ImageType.Scene), #scene vision image in png format
-    airsim.ImageRequest("1", airsim.ImageType.Scene, False, False)])  #scene vision image in uncompressed RGBA array
+    colosseum.ImageRequest("0", colosseum.ImageType.DepthVis),  #depth visualization image
+    colosseum.ImageRequest("1", colosseum.ImageType.DepthPerspective, True), #depth in perspective projection
+    colosseum.ImageRequest("1", colosseum.ImageType.Scene), #scene vision image in png format
+    colosseum.ImageRequest("1", colosseum.ImageType.Scene, False, False)])  #scene vision image in uncompressed RGBA array
 print('Retrieved images: %d' % len(responses))
 
-tmp_dir = os.path.join(tempfile.gettempdir(), "airsim_drone")
+tmp_dir = os.path.join(tempfile.gettempdir(), "colosseum_drone")
 print ("Saving images to %s" % tmp_dir)
 try:
     os.makedirs(tmp_dir)
@@ -71,17 +71,17 @@ for idx, response in enumerate(responses):
 
     if response.pixels_as_float:
         print("Type %d, size %d" % (response.image_type, len(response.image_data_float)))
-        airsim.write_pfm(os.path.normpath(filename + '.pfm'), airsim.get_pfm_array(response))
+        colosseum.write_pfm(os.path.normpath(filename + '.pfm'), colosseum.get_pfm_array(response))
     elif response.compress: #png format
         print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
-        airsim.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)
+        colosseum.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)
     else: #uncompressed array
         print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
         img1d = np.fromstring(response.image_data_uint8, dtype=np.uint8) # get numpy array
         img_rgb = img1d.reshape(response.height, response.width, 3) # reshape array to 4 channel image array H X W X 3
         cv2.imwrite(os.path.normpath(filename + '.png'), img_rgb) # write to png
 
-airsim.wait_key('Press any key to reset to original state')
+colosseum.wait_key('Press any key to reset to original state')
 
 client.reset()
 client.armDisarm(False)

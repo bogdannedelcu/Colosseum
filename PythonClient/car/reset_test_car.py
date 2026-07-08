@@ -1,14 +1,14 @@
 import setup_path 
-import airsim
+import colosseum
 
 import time
 
-# connect to the AirSim simulator 
-client = airsim.CarClient()
+# connect to the Colosseum simulator 
+client = colosseum.CarClient()
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)
-car_controls = airsim.CarControls()
+car_controls = colosseum.CarControls()
 
 # go forward
 car_controls.throttle = 1

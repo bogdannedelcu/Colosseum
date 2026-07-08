@@ -8,10 +8,10 @@ Fastest way to get started is to open Colosseum.sln in Visual Studio 2019. You w
 
 #### Include and Lib Folders
 
-* Include folders: `$(ProjectDir)..\AirLib\deps\rpclib\include;include;$(ProjectDir)..\AirLib\deps\eigen3;$(ProjectDir)..\AirLib\include`
+* Include folders: `$(ProjectDir)..\ColosseumLib\deps\rpclib\include;include;$(ProjectDir)..\ColosseumLib\deps\eigen3;$(ProjectDir)..\ColosseumLib\include`
 * Dependencies: `rpc.lib`
-* Lib folders: `$(ProjectDir)\..\AirLib\deps\MavLinkCom\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\AirLib\deps\rpclib\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\AirLib\lib\$(Platform)\$(Configuration)`
-* References: Reference AirLib and MavLinkCom to the project references. (Right click your project then go to `References`, `Add reference...`, and then select AirLib and MavLinkCom)
+* Lib folders: `$(ProjectDir)\..\ColosseumLib\deps\MavLinkCom\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\ColosseumLib\deps\rpclib\lib\$(Platform)\$(Configuration);$(ProjectDir)\..\ColosseumLib\lib\$(Platform)\$(Configuration)`
+* References: Reference ColosseumLib and MavLinkCom to the project references. (Right click your project then go to `References`, `Add reference...`, and then select ColosseumLib and MavLinkCom)
 
 ## Hello Car
 
@@ -26,7 +26,7 @@ Here's how to use Colosseum APIs using C++ to control simulated car (see also [P
 
 int main()
 {
-    msr::airlib::CarRpcLibClient client;
+    colosseum::CarRpcLibClient client;
     client.enableApiControl(true); //this disables manual control
     CarControllerBase::CarControls controls;
 
@@ -64,7 +64,7 @@ Here's how to use Colosseum APIs using C++ to control simulated quadrotor (see a
 
 int main()
 {
-    msr::airlib::MultirotorRpcLibClient client;
+    colosseum::MultirotorRpcLibClient client;
 
     std::cout << "Press Enter to enable API control\n"; std::cin.get();
     client.enableApiControl(true);

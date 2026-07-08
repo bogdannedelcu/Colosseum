@@ -18,9 +18,7 @@ STRICT_MODE_ON
 
 #include "../../SGM/src/sgmstereo/sgmstereo.h"
 #include "../../SGM/src/stereoPipeline/StateStereo.h"
-namespace msr
-{
-namespace airlib
+namespace colosseum
 {
 
     class DepthNav
@@ -158,10 +156,10 @@ namespace airlib
                     throw std::length_error("No images received!");
                 /*
             if (response.at(0).height != params_.depth_height || response.at(0).width != params_.depth_height)
-                throw DepthNavException("Image Dimension mismatch. Please check left camera in the AirSim config file.");
+                throw DepthNavException("Image Dimension mismatch. Please check left camera in the Colosseum config file.");
 
             if (response.at(1).height != params_.depth_height || response.at(1).width != params_.depth_height)
-                throw DepthNavException("Image Dimension mismatch. Please check right camera in the AirSim config file.");
+                throw DepthNavException("Image Dimension mismatch. Please check right camera in the Colosseum config file.");
             */
                 const std::vector<uint8_t>& left_image = response.at(0).image_data_uint8;
                 const std::vector<uint8_t>& right_image = response.at(1).image_data_uint8;
@@ -170,7 +168,7 @@ namespace airlib
                 float f = params_.depth_width / (2 * tan(params_.fov / 2));
                 float B = 0.25;
 
-                p_state->ProcessFrameAirSim(counter, dtime, left_image, right_image);
+                p_state->ProcessFrameColosseum(counter, dtime, left_image, right_image);
 
                 for (unsigned int idx = 0; idx < (params_.depth_height * params_.depth_width); idx++) {
                     float d = p_state->dispMap[idx];
@@ -405,5 +403,4 @@ namespace airlib
             return std::abs(angle) <= params_.fov;
         }
     };
-}
 }

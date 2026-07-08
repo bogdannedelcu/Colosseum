@@ -1,7 +1,7 @@
-# use open cv to show new images from AirSim 
+# use open cv to show new images from Colosseum 
 
 import setup_path 
-import airsim
+import colosseum
 
 # requires Python 3.5.3 :: Anaconda 4.4.0
 # pip install opencv-python
@@ -11,13 +11,13 @@ import math
 import sys
 import numpy as np
 
-client = airsim.MultirotorClient()
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)
 client.takeoffAsync().join()
 
-# you must first press "1" in the AirSim view to turn on the depth capture
+# you must first press "1" in the Colosseum view to turn on the depth capture
 
 # get depth image
 yaw = 0
@@ -29,11 +29,11 @@ help = False
 
 while True:
     # this will return png width= 256, height= 144
-    result = client.simGetImage("0", airsim.ImageType.DepthVis)
+    result = client.simGetImage("0", colosseum.ImageType.DepthVis)
     if (result == "\0"):
         if (not help):
             help = True
-            print("Please press '1' in the AirSim view to enable the Depth camera view")
+            print("Please press '1' in the Colosseum view to enable the Depth camera view")
     else:    
         rawImage = np.fromstring(result, np.int8)
         png = cv2.imdecode(rawImage, cv2.IMREAD_UNCHANGED)
@@ -56,9 +56,9 @@ while True:
 
         if (current < 20):
             client.hoverAsync().join()
-            airsim.wait_key("whoops - we are about to crash, so stopping!")
+            colosseum.wait_key("whoops - we are about to crash, so stopping!")
     
-        pitch, roll, yaw  = airsim.to_eularian_angles(client.simGetVehiclePose().orientation)
+        pitch, roll, yaw  = colosseum.to_eularian_angles(client.simGetVehiclePose().orientation)
 
         if (distance > current + 30):
         
@@ -87,7 +87,7 @@ while True:
             vy = math.sin(yaw);
 
         print ("distance=", current)
-        client.moveByVelocityZAsync(vx, vy,-6, 1, airsim.DrivetrainType.ForwardOnly, airsim.YawMode(False, 0)).join()
+        client.moveByVelocityZAsync(vx, vy,-6, 1, colosseum.DrivetrainType.ForwardOnly, colosseum.YawMode(False, 0)).join()
 
         x = int(driving * 50)
         cv2.rectangle(png, (x,0), (x+50,50), (0,255,0), 2)

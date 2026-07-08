@@ -1,19 +1,19 @@
 import setup_path
-import airsim
+import colosseum
 import cv2
 import numpy as np
 import os
 import time
 import tempfile
 
-# connect to the AirSim simulator
-client = airsim.CarClient()
+# connect to the Colosseum simulator
+client = colosseum.CarClient()
 client.confirmConnection()
 client.enableApiControl(True)
 print("API Control enabled: %s" % client.isApiControlEnabled())
-car_controls = airsim.CarControls()
+car_controls = colosseum.CarControls()
 
-tmp_dir = os.path.join(tempfile.gettempdir(), "airsim_car")
+tmp_dir = os.path.join(tempfile.gettempdir(), "colosseum_car")
 print ("Saving images to %s" % tmp_dir)
 try:
     os.makedirs(tmp_dir)
@@ -60,10 +60,10 @@ for idx in range(3):
 
     # get camera images from the car
     responses = client.simGetImages([
-        airsim.ImageRequest("0", airsim.ImageType.DepthVis),  #depth visualization image
-        airsim.ImageRequest("1", airsim.ImageType.DepthPerspective, True), #depth in perspective projection
-        airsim.ImageRequest("1", airsim.ImageType.Scene), #scene vision image in png format
-        airsim.ImageRequest("1", airsim.ImageType.Scene, False, False)])  #scene vision image in uncompressed RGB array
+        colosseum.ImageRequest("0", colosseum.ImageType.DepthVis),  #depth visualization image
+        colosseum.ImageRequest("1", colosseum.ImageType.DepthPerspective, True), #depth in perspective projection
+        colosseum.ImageRequest("1", colosseum.ImageType.Scene), #scene vision image in png format
+        colosseum.ImageRequest("1", colosseum.ImageType.Scene, False, False)])  #scene vision image in uncompressed RGB array
     print('Retrieved images: %d' % len(responses))
 
     for response_idx, response in enumerate(responses):
@@ -71,10 +71,10 @@ for idx in range(3):
 
         if response.pixels_as_float:
             print("Type %d, size %d" % (response.image_type, len(response.image_data_float)))
-            airsim.write_pfm(os.path.normpath(filename + '.pfm'), airsim.get_pfm_array(response))
+            colosseum.write_pfm(os.path.normpath(filename + '.pfm'), colosseum.get_pfm_array(response))
         elif response.compress: #png format
             print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
-            airsim.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)
+            colosseum.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)
         else: #uncompressed array
             print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
             img1d = np.fromstring(response.image_data_uint8, dtype=np.uint8) # get numpy array

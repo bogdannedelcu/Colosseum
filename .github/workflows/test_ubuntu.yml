@@ -16,7 +16,7 @@ jobs:
       - name: Setup
         run: ./setup.sh
 
-      - name: Build AirLib
+      - name: Build ColosseumLib
         run: ./build.sh
 
       - name: Build ROS Wrapper
@@ -35,7 +35,7 @@ jobs:
           cd ros2
           colcon build --cmake-args -DCMAKE_C_COMPILER=gcc-12 --cmake-args -DCMAKE_CXX_COMPILER=g++-12
 
-      # Removing support for GazeboDrone. Gazebo is dead. Long live AirSim/Colosseum.
+      # Removing support for GazeboDrone. Gazebo is dead. Long live Colosseum/Colosseum.
       # - name: Build GazeboDrone
       #   run: |
       #     sudo apt-get install -qq libgazebo9-dev gcc-12 g++-12

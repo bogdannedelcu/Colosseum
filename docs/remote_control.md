@@ -40,7 +40,7 @@ A Playstation 3 controller is confirmed to work as an Colosseum controller. On W
 
 ### DJI Controller
 
-Nils Tijtgat wrote an excellent blog on how to get the [DJI controller working with Colosseum](https://timebutt.github.io/static/using-a-phantom-dji-controller-in-airsim/).
+Nils Tijtgat wrote an excellent blog on how to get the [DJI controller working with Colosseum](https://timebutt.github.io/static/using-a-phantom-dji-controller-in-colosseum/).
 
 ## FAQ
 

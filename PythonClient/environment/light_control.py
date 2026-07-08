@@ -1,13 +1,13 @@
-import airsim
+import colosseum
 import time
 
-client = airsim.VehicleClient()
+client = colosseum.VehicleClient()
 client.confirmConnection()
 
 # Access an existing light in the world
 lights = client.simListSceneObjects("PointLight.*")
 pose = client.simGetObjectPose(lights[0])
-scale = airsim.Vector3r(1, 1, 1)
+scale = colosseum.Vector3r(1, 1, 1)
 
 # Destroy the light
 client.simDestroyObject(lights[0])

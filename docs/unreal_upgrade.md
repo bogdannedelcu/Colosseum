@@ -1,6 +1,6 @@
 # Upgrading to Unreal Engine 5.3
 
-These instructions apply if you are already using Colosseum on Unreal Engine 4.27. If you have never installed Colosseum, please see [How to get it](https://github.com/CodexLabsLLC/airsim#how-to-get-it).
+These instructions apply if you are already using Colosseum on Unreal Engine 4.27. If you have never installed Colosseum, please see [How to get it](https://github.com/CodexLabsLLC/colosseum#how-to-get-it).
 
 **Caution:** The below steps will delete any of your unsaved work in Colosseum or Unreal folder.
 

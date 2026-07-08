@@ -1,13 +1,13 @@
 import setup_path
-import airsim
+import colosseum
 
 import time
 
 # Run this script with clock speed in settings.json
 # "ClockSpeed": 1 then change it to 0.5
 
-# connect to the AirSim simulator
-client = airsim.MultirotorClient()
+# connect to the Colosseum simulator
+client = colosseum.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
 client.armDisarm(True)
