@@ -7,8 +7,15 @@
 #include "Kismet/GameplayStatics.h"
 #include "Misc/OutputDeviceNull.h"
 #include "Engine/World.h"
+#include "GameMapsSettings.h"
+#include "Engine/GameViewportClient.h"
+#include "Engine/GameInstance.h"
+#include "GameFramework/PlayerController.h"
+#include "PIPCamera.h"
 
 #include <memory>
+#include <thread>
+#include <chrono>
 #include "ColosseumBlueprintLib.h"
 #include "common/ColosseumSettings.hpp"
 #include "common/ScalableClock.hpp"
@@ -547,7 +554,25 @@ void ASimModeBase::startApiServer()
 #ifdef COLOSSEUM_NO_RPC
         api_server_.reset();
 #else
-        api_server_ = createApiServer();
+        // The RPC server binds the port in its constructor (createApiServer). A just-closed
+        // previous instance can still hold that port for a moment, which used to throw
+        // "bind: Address already in use" straight to the fatal "Error at startup" dialog.
+        // Retry a few times so a quick relaunch waits the old socket out instead of failing.
+        {
+            const int max_attempts = 12;
+            for (int attempt = 0;; ++attempt) {
+                try {
+                    api_server_ = createApiServer();
+                    break;
+                }
+                catch (const std::exception& ex) {
+                    if (attempt + 1 >= max_attempts)
+                        throw; // give up -> outer handler
+                    UColosseumBlueprintLib::LogMessageString("RPC port busy, retrying bind...", ex.what(), LogDebugLevel::Informational);
+                    std::this_thread::sleep_for(std::chrono::milliseconds(700));
+                }
+            }
+        }
 #endif
 
         try {
@@ -745,11 +770,68 @@ void ASimModeBase::setupVehiclesAndCamera()
         //TODO: better handle no FPV vehicles scenario
         getVehicleSimApi()->possess();
         CameraDirector->initializeForBeginPlay(getInitialViewMode(), getVehicleSimApi()->getPawn(), getVehicleSimApi()->getCamera("fpv"), getVehicleSimApi()->getCamera("back_center"), nullptr);
+        //opt-in via settings.json ("SplitScreen": true); default off leaves the normal single view unchanged
+        if (getSettings().split_screen)
+            setupSplitScreenSecondView();
     }
     else
         CameraDirector->initializeForBeginPlay(getInitialViewMode(), nullptr, nullptr, nullptr, nullptr);
 
     checkVehicleReady();
+}
+
+// Native 2-player split-screen (full-quality / Lumen on BOTH halves — unlike SceneCapture/simGetImages):
+// left  = player0 view target = the drone's DOWN camera     (bottom_center)
+// right = player1 view target = the drone's FORWARD camera  (front_center)
+// Both APIPCamera are ACineCameraActor with a real UCineCameraComponent, so each half is a normal
+// scene render for that view target. Control/HUD stay on player0; player1 is view-only
+// (ColosseumGameMode sets DefaultPawnClass=nullptr, so no stray pawn spawns for it).
+void ASimModeBase::setupSplitScreenSecondView()
+{
+    UWorld* world = GetWorld();
+    if (world == nullptr)
+        return;
+
+    APIPCamera* fwd = getVehicleSimApi()->getCamera("front_center");
+    APIPCamera* down = getVehicleSimApi()->getCamera("bottom_center");
+    if (fwd == nullptr || down == nullptr) {
+        UColosseumBlueprintLib::LogMessageString("SplitScreen: front_center/bottom_center camera missing — skipping",
+                                           "", LogDebugLevel::Failure);
+        return;
+    }
+
+    // enable vertical (side-by-side left|right) 2-player split
+    if (UGameMapsSettings* maps = GetMutableDefault<UGameMapsSettings>()) {
+        maps->bUseSplitscreen = true;
+        maps->TwoPlayerSplitscreenLayout = ETwoPlayerSplitScreenType::Vertical;
+    }
+    if (UGameViewportClient* vp = world->GetGameViewport())
+        vp->SetForceDisableSplitscreen(false);
+
+    // player0 (LEFT half) -> DOWN camera (keep its possession/HUD/input as-is)
+    APlayerController* pc0 = world->GetFirstPlayerController();
+    if (pc0 != nullptr) {
+        pc0->bAutoManageActiveCameraTarget = false;
+        pc0->SetViewTarget(down);
+    }
+
+    // create the 2nd local player -> activates TwoPlayer_Vertical; view-only, forward camera.
+    // Guard against a double call (only one extra player); reuse it if it already exists.
+    UGameInstance* gi = world->GetGameInstance();
+    APlayerController* pc1 = nullptr;
+    if (gi != nullptr && gi->GetNumLocalPlayers() >= 2) {
+        pc1 = UGameplayStatics::GetPlayerController(world, 1);   // already created earlier
+    }
+    else {
+        pc1 = UGameplayStatics::CreatePlayer(world, -1, /*bSpawnPlayerController=*/true); // -1 = next free id
+    }
+    if (pc1 != nullptr) {
+        pc1->bAutoManageActiveCameraTarget = false;
+        pc1->SetViewTarget(fwd);   // RIGHT half -> FORWARD camera
+    }
+    else {
+        UColosseumBlueprintLib::LogMessageString("SplitScreen: could not create/get 2nd local player", "", LogDebugLevel::Failure);
+    }
 }
 
 void ASimModeBase::registerPhysicsBody(colosseum::VehicleSimApiBase* physicsBody)

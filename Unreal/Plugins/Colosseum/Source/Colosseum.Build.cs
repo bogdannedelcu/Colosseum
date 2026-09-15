@@ -81,7 +81,7 @@ public class Colosseum : ModuleRules
         bEnableExceptions = true;
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "ImageWrapper", "RenderCore", "RHI", "PhysicsCore", "AssetRegistry", "ChaosVehicles", "Landscape", "CinematicCamera" });
-        PrivateDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore", "RenderCore" });
+        PrivateDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore", "RenderCore", "EngineSettings" });
 
         //suppress VC++ proprietary warnings
         PublicDefinitions.Add("_SCL_SECURE_NO_WARNINGS=1");
