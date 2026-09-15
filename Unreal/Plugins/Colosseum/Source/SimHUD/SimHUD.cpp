@@ -2,6 +2,9 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Misc/FileHelper.h"
+#include "Engine/LocalPlayer.h"
+#include "Engine/GameInstance.h"
+#include "GameFramework/PlayerController.h"
 
 #include "Vehicles/Multirotor/SimModeWorldMultiRotor.h"
 #include "Vehicles/Car/SimModeCar.h"
@@ -19,6 +22,23 @@ ASimHUD::ASimHUD()
 void ASimHUD::BeginPlay()
 {
     Super::BeginPlay();
+
+    // Split-screen: the secondary local player gets its OWN ASimHUD. It must NOT create a second
+    // SimMode or start a second RPC server on the same port — that produced the
+    // "Error at startup: bind: Address already in use" dialog (and a 2nd SimMode fighting over the
+    // drone). Detect a secondary HUD by its owning local player NOT being the FIRST local player.
+    // (Do NOT gate on ASimModeBase::getSimMode(): SIMMODE is set in the ctor, so the CDO makes it
+    // non-null before any real sim exists — that would wrongly skip the primary HUD too.)
+    {
+        APlayerController* owner_pc = GetOwningPlayerController();
+        UWorld* world = GetWorld();
+        if (owner_pc != nullptr && world != nullptr && world->GetGameInstance() != nullptr) {
+            ULocalPlayer* lp = owner_pc->GetLocalPlayer();
+            ULocalPlayer* first_lp = world->GetGameInstance()->GetFirstGamePlayer();
+            if (lp != nullptr && first_lp != nullptr && lp != first_lp)
+                return; // secondary split-screen HUD -> do nothing
+        }
+    }
 
     try {
         UColosseumBlueprintLib::OnBeginPlay();
@@ -152,7 +172,7 @@ void ASimHUD::createMainWidget()
     //create main widget
     if (widget_class_ != nullptr) {
         APlayerController* player_controller = this->GetWorld()->GetFirstPlayerController();
-        auto* pawn = player_controller->GetPawn();
+        APawn* pawn = player_controller->GetPawn();
         if (pawn) {
             std::string pawn_name = std::string(TCHAR_TO_ANSI(*pawn->GetName()));
             Utils::log(pawn_name);

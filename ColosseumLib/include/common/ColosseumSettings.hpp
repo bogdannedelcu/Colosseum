@@ -408,6 +408,7 @@ namespace colosseum
         bool engine_sound = false;
         bool log_messages_visible = true;
         bool show_los_debug_lines_ = false;
+        bool split_screen = false; //native 2-viewport split-screen of the FPV drone (opt-in)
         HomeGeoPoint origin_geopoint{ GeoPoint(47.641468, -122.140165, 122) }; //The geo-coordinate assigned to Unreal coordinate 0,0,0
         std::map<std::string, PawnPath> pawn_paths; //path for pawn blueprint
         std::map<std::string, std::unique_ptr<VehicleSetting>> vehicles;
@@ -1176,6 +1177,7 @@ namespace colosseum
             speed_unit_label = settings_json.getString("SpeedUnitLabel", "m\\s");
             log_messages_visible = settings_json.getBool("LogMessagesVisible", true);
             show_los_debug_lines_ = settings_json.getBool("ShowLosDebugLines", false);
+            split_screen = settings_json.getBool("SplitScreen", false);
 
             { //load origin geopoint
                 Settings origin_geopoint_json;

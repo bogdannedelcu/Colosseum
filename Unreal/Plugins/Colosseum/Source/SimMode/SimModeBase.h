@@ -149,6 +149,8 @@ protected: //optional overrides
     //called when SimMode should handle clock speed setting
     virtual void setupClockSpeed();
     void initializeCameraDirector(const FTransform& camera_transform, float follow_distance);
+    // Native 2-player split-screen: player0 = forward cam, player1 = down cam (both full-quality/Lumen).
+    void setupSplitScreenSecondView();
     void checkVehicleReady(); //checks if vehicle is available to use
     virtual void updateDebugReport(colosseum::StateReporterWrapper& debug_reporter);
     virtual void initializeExternalCameras();
