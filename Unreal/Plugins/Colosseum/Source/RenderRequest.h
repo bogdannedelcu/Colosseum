@@ -8,7 +8,10 @@
 #include <memory>
 #include "common/Common.hpp"
 
-class RenderRequest : public FRenderCommand
+// UE 5.5+ removed FRenderCommand as a usable base; this class is never scheduled as a
+// TGraphTask (ExecuteTask is invoked directly from an ENQUEUE_RENDER_COMMAND lambda), so it
+// needs no base class. The old DoTask/GetStatId task-graph overrides were dead code — removed.
+class RenderRequest
 {
 public:
     struct RenderParams
@@ -54,16 +57,6 @@ private:
 public:
     RenderRequest(UGameViewportClient* game_viewport, std::function<void()>&& query_camera_pose_cb);
     ~RenderRequest();
-
-    void DoTask(ENamedThreads::Type CurrentThread, const FGraphEventRef& MyCompletionGraphEvent)
-    {
-        ExecuteTask();
-    }
-
-    FORCEINLINE TStatId GetStatId() const
-    {
-        RETURN_QUICK_DECLARE_CYCLE_STAT(RenderRequest, STATGROUP_RenderThreadCommands);
-    }
 
     // read pixels from render target using render thread, then compress the result into PNG
     // argument on the thread that calls this method.
